@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Basic page setup -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Professional Portfolio | Your Name</title>
+  <meta
+    name="description"
+    content="A responsive personal portfolio website with projects, resume, QR code, and chatbot."
+  />
+
+  <!-- QR code library used to generate a scannable QR image on the page -->
+  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+
+  <style>
+    /* =========================
+       GLOBAL STYLES / VARIABLES
+       ========================= */
+    :root {
+      --bg-dark: #0f172a;
+      --bg-darker: #020617;
+      --panel: #111827;
+      --panel-soft: #1f2937;
+      --text: #e5e7eb;
+      --muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-dark: #0ea5e9;
+      --success: #22c55e;
+      --white: #ffffff;
+      --border: rgba(148, 163, 184, 0.18);
+      --shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+      --radius: 18px;
+      --max-width: 1150px;
+    }
+
+    /* Reset default spacing and improve layout consistency */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background: linear-gradient(180deg, var(--bg-darker) 0%, var(--bg-dark) 45%, #111827 100%);
+      line-height: 1.6;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      opacity: 0.9;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .container {
+      width: min(92%, var(--max-width));
+      margin: 0 auto;
+    }
+
+    /* =========================
+       HEADER / NAVIGATION
+       ========================= */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      background: rgba(2, 6, 23, 0.88);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 0;
+    }
+
+    .brand {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: var(--white);
+      letter-spacing: 0.4px;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .nav-links a {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    /* =========================
+       HERO SECTION
+       ========================= */
+    .hero {
+      padding: 5rem 0 4rem;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.3fr 0.7fr;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 0.45rem 0.9rem;
+      margin-bottom: 1rem;
+      border-radius: 999px;
+      background: rgba(56, 189, 248, 0.15);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      color: var(--accent);
+      font-size: 0.9rem;
+    }
+
+    h1, h2, h3, h4 {
+      color: var(--white);
+      line-height: 1.2;
+    }
+
+    h1 {
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      margin-bottom: 1rem;
+    }
+
+    .lead {
+      color: var(--muted);
+      font-size: 1.08rem;
+      max-width: 720px;
+      margin-bottom: 1.4rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+    }
+
+    /* Reusable button styles */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.85rem 1.2rem;
+      border-radius: 12px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #082f49;
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    /* Card / panel styling for sections */
+    .panel {
+      background: rgba(17, 24, 39, 0.85);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.4rem;
+    }
+
+    .hero-card ul {
+      list-style: none;
+      display: grid;
+      gap: 0.8rem;
+    }
+
+    .hero-card li {
+      padding-bottom: 0.8rem;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+      color: var(--muted);
+    }
+
+    .hero-card li:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    /* =========================
+       SECTION STYLES
+       ========================= */
+    section {
+      padding: 2.6rem 0;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-subtitle {
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+    }
+
+    .about-grid,
+    .resume-grid,
+    .contact-grid,
+    .extras-grid,
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+
+    .skills-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+      margin-top: 1rem;
+    }
+
+    .chip {
+      padding: 0.55rem 0.85rem;
+      border-radius: 999px;
+      background: rgba(34, 197, 94, 0.12);
+      border: 1px solid rgba(34, 197, 94, 0.25);
+      color: #bbf7d0;
+      font-size: 0.95rem;
+    }
+
+    /* =========================
+       PROJECTS SECTION
+       ========================= */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .project-card {
+      min-height: 285px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .project-card p {
+      color: var(--muted);
+      margin: 0.9rem 0 1rem;
+    }
+
+    .project-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin-top: auto;
+    }
+
+    /* =========================
+       RESUME SECTION
+       ========================= */
+    .resume-preview {
+      background: #f8fafc;
+      color: #0f172a;
+      border-radius: 14px;
+      padding: 1.25rem;
+      min-height: 370px;
+    }
+
+    .resume-preview h3,
+    .resume-preview h4 {
+      color: #0f172a;
+    }
+
+    .resume-preview p,
+    .resume-preview li {
+      color: #334155;
+    }
+
+    .resume-preview ul {
+      margin-left: 1.2rem;
+      margin-top: 0.5rem;
+    }
+
+    .resume-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    /* =========================
+       QR CODE / EXTRA SECTION
+       ========================= */
+    .qr-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      text-align: center;
+    }
+
+    #qrcode {
+      background: #ffffff;
+      padding: 1rem;
+      border-radius: 14px;
+      display: inline-block;
+    }
+
+    /* =========================
+       BLOG / BONUS SECTION
+       ========================= */
+    .blog-card p {
+      color: var(--muted);
+      margin-top: 0.7rem;
+    }
+
+    /* =========================
+       CONTACT SECTION
+       ========================= */
+    form {
+      display: grid;
+      gap: 1rem;
+    }
+
+    label {
+      font-weight: 700;
+      color: var(--white);
+      font-size: 0.95rem;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 0.9rem 1rem;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: #0b1220;
+      color: var(--text);
+      font-size: 1rem;
+    }
+
+    textarea {
+      min-height: 150px;
+      resize: vertical;
+    }
+
+    .contact-note {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    /* =========================
+       CHATBOT WIDGET
+       ========================= */
+    .chatbot-toggle {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 62px;
+      height: 62px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #082f49;
+      border: none;
+      font-size: 1.4rem;
+      font-weight: bold;
+      box-shadow: var(--shadow);
+      cursor: pointer;
+      z-index: 1000;
+    }
+
+    .chatbot {
+      position: fixed;
+      bottom: 95px;
+      right: 20px;
+      width: 350px;
+      max-width: calc(100% - 32px);
+      background: #0b1220;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      display: none;
+      z-index: 1000;
+    }
+
+    .chatbot.open {
+      display: block;
+    }
+
+    .chatbot-header {
+      padding: 1rem;
+      background: #111827;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .chatbot-header h3 {
+      font-size: 1rem;
+    }
+
+    .chatbot-body {
+      height: 320px;
+      overflow-y: auto;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .message {
+      padding: 0.8rem 0.95rem;
+      border-radius: 14px;
+      max-width: 88%;
+      font-size: 0.95rem;
+    }
+
+    .bot {
+      align-self: flex-start;
+      background: #1e293b;
+      color: var(--text);
+    }
+
+    .user {
+      align-self: flex-end;
+      background: var(--accent);
+      color: #082f49;
+      font-weight: 600;
+    }
+
+    .chatbot-input {
+      display: flex;
+      gap: 0.5rem;
+      padding: 1rem;
+      border-top: 1px solid var(--border);
+      background: #111827;
+    }
+
+    .chatbot-input input {
+      flex: 1;
+      background: #020617;
+    }
+
+    /* =========================
+       FOOTER
+       ========================= */
+    footer {
+      padding: 2rem 0 3rem;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    /* =========================
+       RESPONSIVE DESIGN
+       ========================= */
+    @media (max-width: 960px) {
+      .hero-grid,
+      .about-grid,
+      .resume-grid,
+      .contact-grid,
+      .extras-grid,
+      .blog-grid,
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .nav {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .hero {
+        padding-top: 3.5rem;
+      }
+
+      .section-title {
+        font-size: 1.7rem;
+      }
+
+      .chatbot {
+        right: 12px;
+        bottom: 88px;
+      }
+
+      .chatbot-toggle {
+        right: 12px;
+        bottom: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- =========================
+       HEADER / NAVIGATION
+       ========================= -->
+  <header>
+    <div class="container nav">
+      <div class="brand">Your Name | Portfolio</div>
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#resume">Resume</a></li>
+        <li><a href="#blog">Blog</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main>
+    <!-- =========================
+         HOME SECTION
+         ========================= -->
+    <section class="hero" id="home">
+      <div class="container hero-grid">
+        <div>
+          <span class="badge">Professional Portfolio Website</span>
+          <h1>Hello, I’m Your Name</h1>
+          <p class="lead">
+            I am a technology professional and lifelong learner with experience in web development,
+            cybersecurity, networking, and technical problem-solving. This portfolio highlights my
+            skills, projects, resume, and interactive features including a chatbot and QR code.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#projects">View My Projects</a>
+            <a class="btn btn-secondary" href="#resume">View Resume</a>
+          </div>
+        </div>
+
+        <aside class="panel hero-card">
+          <h3>Quick Highlights</h3>
+          <ul>
+            <li><strong>Focus Areas:</strong> Web Development, IT, Cybersecurity, Networking</li>
+            <li><strong>Tools:</strong> HTML, CSS, JavaScript, GitHub, VS Code</li>
+            <li><strong>Goals:</strong> Build modern, user-friendly, professional digital experiences</li>
+            <li><strong>Bonus Features:</strong> Chatbot, QR code, responsive design, blog section</li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <!-- =========================
+         ABOUT SECTION
+         ========================= -->
+    <section id="about">
+      <div class="container">
+        <h2 class="section-title">About Me</h2>
+        <p class="section-subtitle">
+          A detailed overview of my education, technical background, and professional strengths.
+        </p>
+
+        <div class="about-grid">
+          <div class="panel">
+            <h3>Background</h3>
+            <p>
+              I am a dedicated student and technology professional with interests in software,
+              cybersecurity, systems administration, and web design. My educational journey has
+              strengthened my ability to solve technical problems, communicate clearly, and create
+              digital solutions that are practical and visually appealing.
+            </p>
+            <br />
+            <p>
+              I enjoy building projects that combine creativity with technical skill, especially
+              when those projects improve usability, security, and professional presentation.
+            </p>
+          </div>
+
+          <div class="panel">
+            <h3>Skills & Education</h3>
+            <p>
+              My experience includes front-end development, technical documentation, GitHub project
+              management, troubleshooting, and portfolio design.
+            </p>
+            <div class="skills-list">
+              <span class="chip">HTML5</span>
+              <span class="chip">CSS3</span>
+              <span class="chip">JavaScript</span>
+              <span class="chip">Responsive Design</span>
+              <span class="chip">Git & GitHub</span>
+              <span class="chip">Cybersecurity</span>
+              <span class="chip">Networking</span>
+              <span class="chip">Technical Writing</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================
+         PROJECTS SECTION
+         ========================= -->
+    <section id="projects">
+      <div class="container">
+        <h2 class="section-title">Projects</h2>
+        <p class="section-subtitle">
+          Selected projects that demonstrate my technical skills, creativity, and problem-solving ability.
+        </p>
+
+        <div class="projects-grid">
+          <article class="panel project-card">
+            <div>
+              <h3>Personal Portfolio Website</h3>
+              <p>
+                A fully responsive portfolio built with HTML, CSS, and JavaScript. It includes a chatbot,
+                downloadable resume, QR code, and structured project gallery.
+              </p>
+            </div>
+            <div class="project-links">
+              <a href="https://github.com/yourusername/portfolio" target="_blank">GitHub Repo</a>
+              <a href="https://your-live-site-url.com" target="_blank">Live Demo</a>
+            </div>
+          </article>
+
+          <article class="panel project-card">
+            <div>
+              <h3>Cybersecurity Lab Project</h3>
+              <p>
+                A technical lab project focused on security concepts such as network analysis,
+                vulnerability awareness, and ethical testing methods.
+              </p>
+            </div>
+            <div class="project-links">
+              <a href="https://github.com/yourusername/cybersecurity-lab" target="_blank">GitHub Repo</a>
+              <a href="#contact">Request Details</a>
+            </div>
+          </article>
+
+          <article class="panel project-card">
+            <div>
+              <h3>JavaScript Interactive Tool</h3>
+              <p>
+                A front-end JavaScript project created to improve user interaction and demonstrate
+                problem-solving through dynamic web features.
+              </p>
+            </div>
+            <div class="project-links">
+              <a href="https://github.com/yourusername/js-tool" target="_blank">GitHub Repo</a>
+              <a href="https://your-second-live-demo.com" target="_blank">Live Demo</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================
+         RESUME SECTION
+         ========================= -->
+    <section id="resume">
+      <div class="container">
+        <h2 class="section-title">Resume</h2>
+        <p class="section-subtitle">
+          View a web-friendly version of my resume below and download the PDF version.
+        </p>
+
+        <div class="resume-grid">
+          <div class="resume-preview">
+            <h3>Your Name</h3>
+            <p>Email: your.email@example.com | Phone: (555) 555-5555 | Location: City, State</p>
+            <br />
+
+            <h4>Professional Summary</h4>
+            <p>
+              Motivated technology professional with strengths in web development, IT support,
+              cybersecurity concepts, and technical communication. Experienced in designing responsive
+              websites, organizing projects with GitHub, and creating user-focused digital solutions.
+            </p>
+            <br />
+
+            <h4>Technical Skills</h4>
+            <ul>
+              <li>HTML, CSS, JavaScript</li>
+              <li>GitHub and version control</li>
+              <li>Responsive web design</li>
+              <li>Networking and cybersecurity fundamentals</li>
+              <li>Technical troubleshooting and documentation</li>
+            </ul>
+            <br />
+
+            <h4>Education</h4>
+            <p>Bachelor’s Degree / Program Name — School Name</p>
+            <p>Relevant coursework: Web Development, Networking, Cybersecurity, Systems Administration</p>
+          </div>
+
+          <div class="panel">
+            <h3>Resume Actions</h3>
+            <p>
+              Add your real resume PDF file to the same project folder and update the links below.
+              Example file name: <strong>resume.pdf</strong>
+            </p>
+            <div class="resume-actions">
+              <a class="btn btn-primary" href="resume.pdf" target="_blank">View Resume PDF</a>
+              <a class="btn btn-secondary" href="resume.pdf" download>Download Resume</a>
+            </div>
+            <br />
+            <p>
+              For best results, keep the downloadable resume in PDF format so it is easy to print,
+              submit, and share with employers.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================
+         QR CODE / GITHUB SECTION
+         ========================= -->
+    <section id="extras">
+      <div class="container">
+        <h2 class="section-title">Portfolio Access & GitHub</h2>
+        <p class="section-subtitle">
+          Scan the QR code to open the live portfolio website quickly on a mobile device.
+        </p>
+
+        <div class="extras-grid">
+          <div class="panel qr-box">
+            <h3>Scan My Portfolio QR Code</h3>
+            <!-- This empty div is where the QR code is inserted by JavaScript -->
+            <div id="qrcode"></div>
+            <p class="contact-note">Replace the sample URL in the JavaScript with your real live portfolio link.</p>
+          </div>
+
+          <div class="panel">
+            <h3>GitHub Repository</h3>
+            <p>
+              This portfolio project should be uploaded to GitHub with a clear README file explaining
+              the sections of the site, the chatbot logic, and how the QR code was added.
+            </p>
+            <br />
+            <p>
+              Repository link:
+              <a href="https://github.com/yourusername/portfolio" target="_blank">
+                github.com/yourusername/portfolio
+              </a>
+            </p>
+            <br />
+            <p>
+              Include links to your additional projects in the Projects section so visitors can easily
+              explore your work.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================
+         BLOG SECTION (BONUS)
+         ========================= -->
+    <section id="blog">
+      <div class="container">
+        <h2 class="section-title">Blog / Insights</h2>
+        <p class="section-subtitle">
+          This optional section adds an extra interactive element and can help earn bonus points.
+        </p>
+
+        <div class="blog-grid">
+          <article class="panel blog-card">
+            <h3>What I’m Learning in Web Development</h3>
+            <p>
+              I continue to develop stronger front-end skills by building projects that combine clean
+              structure, responsive layouts, and interactive features.
+            </p>
+          </article>
+
+          <article class="panel blog-card">
+            <h3>Why Technical Communication Matters</h3>
+            <p>
+              Clear communication is just as important as technical ability because it helps users,
+              teammates, and employers understand the value of a project.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================
+         CONTACT SECTION
+         ========================= -->
+    <section id="contact">
+      <div class="container">
+        <h2 class="section-title">Contact Me</h2>
+        <p class="section-subtitle">
+          Use the form below so visitors can reach out for networking, collaboration, or job opportunities.
+        </p>
+
+        <div class="contact-grid">
+          <div class="panel">
+            <h3>Send a Message</h3>
+            <!-- The form is front-end only in this example. To make it live, connect it to Formspree, Netlify Forms, or a backend. -->
+            <form id="contactForm">
+              <div>
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" placeholder="Enter your name" required />
+              </div>
+
+              <div>
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required />
+              </div>
+
+              <div>
+                <label for="message">Message</label>
+                <textarea id="message" name="message" placeholder="Write your message here" required></textarea>
+              </div>
+
+              <button class="btn btn-primary" type="submit">Submit Message</button>
+            </form>
+          </div>
+
+          <div class="panel">
+            <h3>Contact Details</h3>
+            <p>Email: your.email@example.com</p>
+            <p>LinkedIn: <a href="https://linkedin.com/in/yourprofile" target="_blank">linkedin.com/in/yourprofile</a></p>
+            <p>GitHub: <a href="https://github.com/yourusername" target="_blank">github.com/yourusername</a></p>
+            <br />
+            <p class="contact-note">
+              Tip: You can also add a professional photo, LinkedIn badge, or calendar booking link here.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- =========================
+       CHATBOT BUTTON + WINDOW
+       ========================= -->
+  <button class="chatbot-toggle" id="chatToggle" aria-label="Open chatbot">💬</button>
+
+  <div class="chatbot" id="chatbot">
+    <div class="chatbot-header">
+      <h3>Portfolio Assistant</h3>
+      <p class="contact-note">Ask about skills, projects, education, or resume details.</p>
+    </div>
+
+    <div class="chatbot-body" id="chatBody">
+      <div class="message bot">
+        Hi! I’m the portfolio assistant. Ask me about skills, projects, education, GitHub, or resume details.
+      </div>
+    </div>
+
+    <div class="chatbot-input">
+      <input type="text" id="chatInput" placeholder="Type your question..." />
+      <button class="btn btn-primary" id="sendBtn">Send</button>
+    </div>
+  </div>
+
+  <!-- =========================
+       FOOTER
+       ========================= -->
+  <footer>
+    <div class="container">
+      <p>© 2026 Your Name. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    /* =====================================
+       QR CODE GENERATION
+       ===================================== */
+
+    // Replace this sample URL with your deployed portfolio URL from GitHub Pages, Netlify, or Vercel.
+    const portfolioURL = "https://your-live-site-url.com";
+
+    // Generate the QR code inside the #qrcode container.
+    QRCode.toCanvas(portfolioURL, { width: 180 }, function (error, canvas) {
+      if (error) {
+        console.error("QR code generation failed:", error);
+        return;
+      }
+
+      document.getElementById("qrcode").appendChild(canvas);
+    });
+
+    /* =====================================
+       CONTACT FORM DEMO HANDLER
+       ===================================== */
+
+    // This keeps the demo form from refreshing the page.
+    // You can replace this later with a real form service.
+    const contactForm = document.getElementById("contactForm");
+
+    contactForm.addEventListener("submit", function (event) {
+      event.preventDefault();
+      alert("Thank you! This demo form was submitted successfully. Connect it to a real form service to receive messages.");
+      contactForm.reset();
+    });
+
+    /* =====================================
+       CHATBOT TOGGLE LOGIC
+       ===================================== */
+
+    const chatToggle = document.getElementById("chatToggle");
+    const chatbot = document.getElementById("chatbot");
+    const chatBody = document.getElementById("chatBody");
+    const chatInput = document.getElementById("chatInput");
+    const sendBtn = document.getElementById("sendBtn");
+
+    // Open or close the chatbot window when the floating button is clicked.
+    chatToggle.addEventListener("click", function () {
+      chatbot.classList.toggle("open");
+    });
+
+    /* =====================================
+       SIMPLE RULE-BASED CHATBOT
+       ===================================== */
+
+    // This chatbot uses keyword matching to respond to common portfolio questions.
+    // For bonus points, you could later replace this with Dialogflow or another NLP tool.
+    function getBotReply(userMessage) {
+      const message = userMessage.toLowerCase();
+
+      if (message.includes("skill") || message.includes("skills")) {
+        return "My core skills include HTML, CSS, JavaScript, responsive design, GitHub, cybersecurity concepts, networking, and technical documentation.";
+      }
+
+      if (message.includes("project") || message.includes("projects")) {
+        return "Featured projects include this portfolio website, a cybersecurity lab project, and an interactive JavaScript tool. You can explore them in the Projects section and through the GitHub links.";
+      }
+
+      if (message.includes("resume")) {
+        return "You can view the resume directly on the page or download the PDF version from the Resume section.";
+      }
+
+      if (message.includes("education") || message.includes("school") || message.includes("degree")) {
+        return "My educational background includes coursework and hands-on learning in web development, networking, cybersecurity, and systems administration.";
+      }
+
+      if (message.includes("github")) {
+        return "My GitHub repository is linked in the Projects and GitHub sections, where you can review source code and project documentation.";
+      }
+
+      if (message.includes("contact") || message.includes("email")) {
+        return "You can use the Contact form on this site or reach me through the listed email, LinkedIn, and GitHub links.";
+      }
+
+      if (message.includes("hello") || message.includes("hi")) {
+        return "Hello! Feel free to ask about my skills, projects, resume, education, or GitHub portfolio.";
+      }
+
+      return "I’m not sure about that yet, but I can help with questions about skills, projects, resume details, education, GitHub, or contact information.";
+    }
+
+    /* =====================================
+       CHAT MESSAGE RENDERING
+       ===================================== */
+
+    // Helper function to add a message bubble to the chatbot.
+    function addMessage(text, sender) {
+      const messageDiv = document.createElement("div");
+      messageDiv.classList.add("message", sender);
+      messageDiv.textContent = text;
+      chatBody.appendChild(messageDiv);
+
+      // Automatically scroll to the most recent message.
+      chatBody.scrollTop = chatBody.scrollHeight;
+    }
+
+    // Send user message and receive chatbot response.
+    function handleChat() {
+      const userText = chatInput.value.trim();
+
+      if (userText === "") {
+        return;
+      }
+
+      addMessage(userText, "user");
+      const reply = getBotReply(userText);
+
+      // Small timeout creates a more natural chatbot feel.
+      setTimeout(function () {
+        addMessage(reply, "bot");
+      }, 400);
+
+      chatInput.value = "";
+    }
+
+    // Click handler for Send button.
+    sendBtn.addEventListener("click", handleChat);
+
+    // Allow the Enter key to submit chatbot messages.
+    chatInput.addEventListener("keydown", function (event) {
+      if (event.key === "Enter") {
+        handleChat();
+      }
+    });
+  </script>
+</body>
+</html>
