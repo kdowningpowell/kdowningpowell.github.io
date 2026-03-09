@@ -675,8 +675,18 @@
         grid-template-columns: 1fr;
       }
 
-      .hero-grid > div { order: 1; }
-      .hero-grid > aside { order: 2; }
+      .hero-grid {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .hero-grid > div {
+        order: 1;
+      }
+
+      .hero-grid > aside {
+        order: 2;
+      }
     }
 
     @media (max-width: 640px) {
@@ -727,7 +737,7 @@
       <div class="container hero-grid">
         <div>
           <span class="badge">Professional Portfolio Website</span>
-          <h1>Hello, I’m Katie Downing Powell</h1>
+          <h1>Katie Downing Powell</h1>
           <p class="lead">
             I am a Computer Technology student and DevSecOps professional who enjoys solving technical problems and building practical solutions that help teams work more efficiently. My professional experience supporting cloud-based enterprise applications and Agile development teams has strengthened my skills in troubleshooting, configuration management, and secure system support. I’m naturally curious about how systems work, and I enjoy learning new technologies and turning that knowledge into useful tools, projects, and improvements. This portfolio reflects both my professional experience and my passion for technology, featuring projects I’ve built, my resume, and interactive elements like a chatbot and a playable programming project.
           </p>
@@ -751,7 +761,7 @@
             </a>
           </div>
 
-          <h3>Quick Highlights</h3>
+          <h3>🏆 Quick Highlights</h3>
           <ul>
             <li><strong>Focus Areas:</strong> DevSecOps, Cloud Systems, Scrum Leadership, Configuration Management</li>
             <li><strong>Tools:</strong> HTML, CSS, JavaScript, Python, Java, GitHub, Atlassian Suite</li>
