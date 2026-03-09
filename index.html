@@ -46,14 +46,56 @@
       font-family: Arial, Helvetica, sans-serif;
       color: var(--text);
       background:
-        radial-gradient(circle at top left, rgba(56, 189, 248, 0.16) 0%, transparent 28%),
-        radial-gradient(circle at top right, rgba(34, 197, 94, 0.12) 0%, transparent 24%),
-        radial-gradient(circle at bottom left, rgba(168, 85, 247, 0.10) 0%, transparent 22%),
-        linear-gradient(135deg, #020617 0%, #0f172a 38%, #111827 72%, #1e293b 100%);
+        radial-gradient(circle at 15% 20%, rgba(56,189,248,0.25), transparent 35%),
+        radial-gradient(circle at 85% 15%, rgba(168,85,247,0.22), transparent 35%),
+        radial-gradient(circle at 10% 85%, rgba(34,197,94,0.20), transparent 35%),
+        radial-gradient(circle at 90% 80%, rgba(59,130,246,0.20), transparent 40%),
+        linear-gradient(140deg, #020617 0%, #0f172a 40%, #111827 75%, #1e293b 100%);
       background-attachment: fixed;
       line-height: 1.6;
       position: relative;
       overflow-x: hidden;
+    }
+
+    /* Animated glow background */
+    body::before {
+      content: "";
+      position: fixed;
+      width: 500px;
+      height: 500px;
+      top: -120px;
+      left: -120px;
+      background: radial-gradient(circle, rgba(56,189,248,0.35), transparent 70%);
+      filter: blur(90px);
+      animation: floatGlow1 18s ease-in-out infinite;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      width: 520px;
+      height: 520px;
+      bottom: -160px;
+      right: -120px;
+      background: radial-gradient(circle, rgba(168,85,247,0.35), transparent 70%);
+      filter: blur(90px);
+      animation: floatGlow2 22s ease-in-out infinite;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    @keyframes floatGlow1 {
+      0% { transform: translate(0, 0); }
+      50% { transform: translate(60px, 40px); }
+      100% { transform: translate(0, 0); }
+    }
+
+    @keyframes floatGlow2 {
+      0% { transform: translate(0, 0); }
+      50% { transform: translate(-70px, -50px); }
+      100% { transform: translate(0, 0); }
     }
 
     a {
@@ -63,6 +105,15 @@
 
     a:hover {
       opacity: 0.9;
+    }
+
+    #stars {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
     }
 
     img {
@@ -708,6 +759,8 @@
   </style>
 </head>
 <body>
+  <!-- Constellation particle background canvas -->
+  <canvas id="stars"></canvas>
   <!-- =========================
        HEADER / NAVIGATION
        ========================= -->
@@ -971,422 +1024,4 @@
           <div class="panel qr-box">
             <h3>Scan My Portfolio QR Code</h3>
             <!-- This empty div is where the QR code is inserted by JavaScript -->
-            <div id="qrcode"></div>
-            
-          </div>
-
-          <div class="panel">
-            <h3>GitHub Repository</h3>
-            <p>
-              You can explore the source code for this portfolio and other projects on my GitHub profile.
-            </p>
-            <p>
-              <a href="https://github.com/kdowningpowell" target="_blank">github.com/kdowningpowell</a>
-            </p>
-            <br />
-            <p>Scan the QR code to open my GitHub profile.</p>
-            <div id="github-qrcode"></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- =========================
-         BLOG SECTION (BONUS)
-         ========================= -->
-    <section id="blog">
-      <div class="container">
-        <h2 class="section-title">Blog / Insights</h2>
-        <p class="section-subtitle">
-          
-        </p>
-
-        <div class="blog-grid">
-          <article class="panel blog-card">
-            <h3>What I’m Learning in Web Development</h3>
-            <p>
-              I continue to develop stronger front-end skills by building projects that combine clean
-              structure, responsive layouts, and interactive features.
-            </p>
-          </article>
-
-          <article class="panel blog-card">
-            <h3>Why Technical Communication Matters</h3>
-            <p>
-              Clear communication is just as important as technical ability because it helps users,
-              teammates, and employers understand the value of a project.
-            </p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- =========================
-         CONTACT SECTION
-         ========================= -->
-    <section id="contact">
-      <div class="container">
-        <h2 class="section-title">Contact Me</h2>
-        <p class="section-subtitle">
-          Use the form below so visitors can reach out for networking, collaboration, or job opportunities.
-        </p>
-
-        <div class="contact-grid">
-          <div class="panel">
-            <h3>Send a Message</h3>
-            <!-- The form is front-end only in this example. To make it live, connect it to Formspree, Netlify Forms, or a backend. -->
-            <form id="contactForm">
-              <div>
-                <label for="name">Name</label>
-                <input type="text" id="name" name="name" placeholder="Enter your name" required />
-              </div>
-
-              <div>
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="Enter your email" required />
-              </div>
-
-              <div>
-                <label for="message">Message</label>
-                <textarea id="message" name="message" placeholder="Write your message here" required></textarea>
-              </div>
-
-              <button class="btn btn-primary" type="submit">Submit Message</button>
-            </form>
-          </div>
-
-          <div class="panel">
-            <h3>Contact Details</h3>
-            <p>Email: <a href="mailto:downing_katie@yahoo.com">downing_katie@yahoo.com</a></p>
-            <p>LinkedIn: <a href="https://www.linkedin.com/in/katie-d-01609054" target="_blank">linkedin.com/in/katie-d-01609054</a></p>
-            <p>GitHub: <a href="https://github.com/kdowningpowell" target="_blank">github.com/kdowningpowell</a></p>
-            <br />
-            <p class="contact-note">
-              
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <!-- =========================
-       CHATBOT BUTTON + WINDOW
-       ========================= -->
-  <button class="chatbot-toggle" id="chatToggle" aria-label="Open chatbot">💬</button>
-
-  <div class="chatbot" id="chatbot">
-    <div class="chatbot-header">
-      <h3>Portfolio Assistant</h3>
-      <p class="contact-note">Ask about skills, projects, education, or resume details.</p>
-    </div>
-
-    <div class="chatbot-body" id="chatBody">
-      <div class="message bot">
-        Hi! I’m the portfolio assistant. Ask me about skills, projects, education, GitHub, or resume details.
-      </div>
-    </div>
-
-    <div class="chatbot-input">
-      <input type="text" id="chatInput" placeholder="Type your question..." />
-      <button class="btn btn-primary" id="sendBtn">Send</button>
-    </div>
-  </div>
-
-  <!-- =========================
-       FOOTER
-       ========================= -->
-  <footer>
-    <div class="container">
-      <p>© 2026 Katie Downing Powell. All rights reserved.</p>
-    </div>
-  </footer>
-
-  <!-- =========================
-       LO-FI BACKGROUND MUSIC
-       ========================= -->
-  <!-- Simple ambient music player. The audio is muted until the user presses play to comply with browser autoplay policies. -->
-  <div style="position:fixed;bottom:20px;left:20px;z-index:999;">
-    <button class="btn btn-secondary" id="musicToggle">🎧 Play Lo-Fi</button>
-    <audio id="lofiAudio" loop>
-      <!-- Replace the src with any lofi track you legally host or a royalty-free file -->
-      <source src="lofi.mp3" type="audio/mpeg">
-    </audio>
-  </div>
-
-  <!-- =========================
-       LO-FI BACKGROUND MUSIC
-       ========================= -->
-  <!-- Simple ambient music player. The audio is muted until the user presses play to comply with browser autoplay policies. -->
-  <div style="position:fixed;bottom:20px;left:20px;z-index:999;">
-    <button class="btn btn-secondary" id="musicToggle">🎧 Play Lo-Fi</button>
-    <audio id="lofiAudio" loop>
-      <!-- Replace the src with any lofi track you legally host or a royalty-free file -->
-      <source src="lofi.mp3" type="audio/mpeg">
-    </audio>
-  </div>
-
-  <!-- =========================
-       LO-FI BACKGROUND MUSIC
-       ========================= -->
-  <!-- Simple ambient music player. The audio is muted until the user presses play to comply with browser autoplay policies. -->
-  <div style="position:fixed;bottom:20px;left:20px;z-index:999;">
-    <button class="btn btn-secondary" id="musicToggle">🎧 Play Lo-Fi</button>
-    <audio id="lofiAudio" loop>
-      <!-- Replace the src with any lofi track you legally host or a royalty-free file -->
-      <source src="lofi.mp3" type="audio/mpeg">
-    </audio>
-  </div>
-
-  <!-- =========================
-       LO-FI BACKGROUND MUSIC
-       ========================= -->
-  <!-- Simple ambient music player. The audio is muted until the user presses play to comply with browser autoplay policies. -->
-  <div style="position:fixed;bottom:20px;left:20px;z-index:999;">
-    <button class="btn btn-secondary" id="musicToggle">🎧 Play Lo-Fi</button>
-    <audio id="lofiAudio" loop>
-      <!-- Replace the src with any lofi track you legally host or a royalty-free file -->
-      <source src="lofi.mp3" type="audio/mpeg">
-    </audio>
-  </div>
-
-  <script>
-    /* =====================================
-       QR CODE GENERATION
-       ===================================== */
-
-    const portfolioURL = "https://kdowningpowell.github.io";
-
-    QRCode.toCanvas(portfolioURL, { width: 180 }, function (error, canvas) {
-      if (error) {
-        console.error("QR code generation failed:", error);
-        return;
-      }
-      document.getElementById("qrcode").appendChild(canvas);
-    });
-
-    /* =====================================
-       GITHUB QR CODE
-       ===================================== */
-
-    const githubURL = "https://github.com/kdowningpowell";
-
-    QRCode.toCanvas(githubURL, { width: 180 }, function (error, canvas) {
-      if (error) {
-        console.error("GitHub QR code generation failed:", error);
-        return;
-      }
-      document.getElementById("github-qrcode").appendChild(canvas);
-    });
-
-    /* =====================================
-       PLAYABLE BATTLESHIP GAME
-       ===================================== */
-
-    const battleshipBoard = document.getElementById("battleshipBoard");
-    const gameStatus = document.getElementById("gameStatus");
-    const resetBattleshipBtn = document.getElementById("resetBattleshipBtn");
-
-    const BOARD_SIZE = 8;
-    const SHIPS = [5, 4, 3, 3, 2];
-    let shipGrid = [];
-    let guessedCells = [];
-    let remainingHits = 0;
-    let gameFinished = false;
-
-    function makeEmptyBoard() {
-      return Array.from({ length: BOARD_SIZE }, () => Array(BOARD_SIZE).fill(0));
-    }
-
-    function placeShipsRandomly() {
-      shipGrid = makeEmptyBoard();
-      guessedCells = makeEmptyBoard();
-      remainingHits = SHIPS.reduce((sum, len) => sum + len, 0);
-      gameFinished = false;
-
-      SHIPS.forEach(function (length) {
-        let placed = false;
-
-        while (!placed) {
-          const horizontal = Math.random() < 0.5;
-          const row = Math.floor(Math.random() * BOARD_SIZE);
-          const col = Math.floor(Math.random() * BOARD_SIZE);
-
-          if (canPlaceShip(length, row, col, horizontal)) {
-            for (let i = 0; i < length; i++) {
-              const targetRow = horizontal ? row : row + i;
-              const targetCol = horizontal ? col + i : col;
-              shipGrid[targetRow][targetCol] = 1;
-            }
-            placed = true;
-          }
-        }
-      });
-    }
-
-    function canPlaceShip(length, row, col, horizontal) {
-      if (horizontal && col + length > BOARD_SIZE) return false;
-      if (!horizontal && row + length > BOARD_SIZE) return false;
-
-      for (let i = 0; i < length; i++) {
-        const targetRow = horizontal ? row : row + i;
-        const targetCol = horizontal ? col + i : col;
-        if (shipGrid[targetRow][targetCol] === 1) {
-          return false;
-        }
-      }
-      return true;
-    }
-
-    function renderBattleshipBoard() {
-      battleshipBoard.innerHTML = "";
-
-      for (let row = 0; row < BOARD_SIZE; row++) {
-        for (let col = 0; col < BOARD_SIZE; col++) {
-          const cell = document.createElement("button");
-          cell.type = "button";
-          cell.className = "battleship-cell";
-          cell.dataset.row = row;
-          cell.dataset.col = col;
-          cell.setAttribute("aria-label", `Row ${row + 1}, Column ${col + 1}`);
-
-          if (guessedCells[row][col] === 1) {
-            cell.classList.add("hit");
-            cell.textContent = "X";
-            cell.disabled = true;
-          } else if (guessedCells[row][col] === 2) {
-            cell.classList.add("miss");
-            cell.textContent = "•";
-            cell.disabled = true;
-          } else if (gameFinished) {
-            cell.disabled = true;
-          }
-
-          cell.addEventListener("click", function () {
-            handleGuess(row, col);
-          });
-
-          battleshipBoard.appendChild(cell);
-        }
-      }
-    }
-
-    function handleGuess(row, col) {
-      if (gameFinished || guessedCells[row][col] !== 0) {
-        return;
-      }
-
-      if (shipGrid[row][col] === 1) {
-        guessedCells[row][col] = 1;
-        remainingHits--;
-        gameStatus.textContent = `Hit! ${remainingHits} ship spaces remaining.`;
-      } else {
-        guessedCells[row][col] = 2;
-        gameStatus.textContent = "Miss! Keep searching the grid.";
-      }
-
-      if (remainingHits === 0) {
-        gameFinished = true;
-        gameStatus.textContent = "Congratulations! You sank the full fleet in Battleship.";
-      }
-
-      renderBattleshipBoard();
-    }
-
-    function startBattleshipGame() {
-      placeShipsRandomly();
-      gameStatus.textContent = "Game loaded. Start by clicking any square on the board.";
-      renderBattleshipBoard();
-    }
-
-    resetBattleshipBtn.addEventListener("click", startBattleshipGame);
-    startBattleshipGame();
-
-    /* =====================================
-       CONTACT FORM DEMO HANDLER
-       ===================================== */
-
-    // This keeps the demo form from refreshing the page.
-    // You can replace this later with a real form service.
-    const contactForm = document.getElementById("contactForm");
-
-    contactForm.addEventListener("submit", function (event) {
-      event.preventDefault();
-      alert("Thank you! This demo form was submitted successfully. Connect it to a real form service to receive messages.");
-      contactForm.reset();
-    });
-
-    /* =====================================
-       LOFI MUSIC PLAYER
-       ===================================== */
-
-    const musicBtn = document.getElementById("musicToggle");
-    const lofiAudio = document.getElementById("lofiAudio");
-
-    let musicPlaying = false;
-
-    musicBtn.addEventListener("click", function () {
-      if (!musicPlaying) {
-        lofiAudio.play();
-        musicBtn.textContent = "⏸ Pause Music";
-        musicPlaying = true;
-      } else {
-        lofiAudio.pause();
-        musicBtn.textContent = "🎧 Play Lo-Fi";
-        musicPlaying = false;
-      }
-    });
-
-    /* =====================================
-       LOFI MUSIC PLAYER
-       ===================================== */
-
-    const musicBtn = document.getElementById("musicToggle");
-    const lofiAudio = document.getElementById("lofiAudio");
-
-    let musicPlaying = false;
-
-    musicBtn.addEventListener("click", function () {
-      if (!musicPlaying) {
-        lofiAudio.play();
-        musicBtn.textContent = "⏸ Pause Music";
-        musicPlaying = true;
-      } else {
-        lofiAudio.pause();
-        musicBtn.textContent = "🎧 Play Lo-Fi";
-        musicPlaying = false;
-      }
-    });
-
-    /* =====================================
-       LOFI MUSIC PLAYER
-       ===================================== */
-
-    const musicBtn = document.getElementById("musicToggle");
-    const lofiAudio = document.getElementById("lofiAudio");
-
-    let musicPlaying = false;
-
-    musicBtn.addEventListener("click", function () {
-      if (!musicPlaying) {
-        lofiAudio.play();
-        musicBtn.textContent = "⏸ Pause Music";
-        musicPlaying = true;
-      } else {
-        lofiAudio.pause();
-        musicBtn.textContent = "🎧 Play Lo-Fi";
-        musicPlaying = false;
-      }
-    });
-
-    /* =====================================
-       LOFI MUSIC PLAYER
-       ===================================== */
-
-    const musicBtn = document.getElementById("musicToggle");
-    const lofiAudio = document.getElementById("lofiAudio");
-
-    let musicPlaying = false;
-
-    musicBtn.addEventListener("click", function () {
-      if (!musicPlay
+            <
