@@ -7,10 +7,10 @@
   <title>Katie Downing Powell | Professional Portfolio</title>
   <meta
     name="description"
-    content="A responsive personal portfolio website with projects, resume, QR code, and chatbot."
+    content="A responsive personal portfolio website with projects, resume, QR codes, chatbot, and interactive features."
   />
 
-  <!-- QR code library used to generate a scannable QR image on the page -->
+  <!-- QR code library -->
   <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
 
   <style>
@@ -20,12 +20,10 @@
     :root {
       --bg-dark: #0f172a;
       --bg-darker: #020617;
-      --panel: #111827;
-      --panel-soft: #1f2937;
+      --panel: rgba(17, 24, 39, 0.72);
       --text: #e5e7eb;
       --muted: #94a3b8;
       --accent: #38bdf8;
-      --accent-dark: #0ea5e9;
       --success: #22c55e;
       --white: #ffffff;
       --border: rgba(148, 163, 184, 0.18);
@@ -34,7 +32,6 @@
       --max-width: 1150px;
     }
 
-    /* Reset default spacing and improve layout consistency */
     * {
       margin: 0;
       padding: 0;
@@ -46,10 +43,10 @@
       font-family: Arial, Helvetica, sans-serif;
       color: var(--text);
       background:
-        radial-gradient(circle at 15% 20%, rgba(56,189,248,0.25), transparent 35%),
-        radial-gradient(circle at 85% 15%, rgba(168,85,247,0.22), transparent 35%),
-        radial-gradient(circle at 10% 85%, rgba(34,197,94,0.20), transparent 35%),
-        radial-gradient(circle at 90% 80%, rgba(59,130,246,0.20), transparent 40%),
+        radial-gradient(circle at 15% 20%, rgba(56, 189, 248, 0.25), transparent 35%),
+        radial-gradient(circle at 85% 15%, rgba(168, 85, 247, 0.22), transparent 35%),
+        radial-gradient(circle at 10% 85%, rgba(34, 197, 94, 0.20), transparent 35%),
+        radial-gradient(circle at 90% 80%, rgba(59, 130, 246, 0.20), transparent 40%),
         linear-gradient(140deg, #020617 0%, #0f172a 40%, #111827 75%, #1e293b 100%);
       background-attachment: fixed;
       line-height: 1.6;
@@ -57,33 +54,32 @@
       overflow-x: hidden;
     }
 
-    /* Animated glow background */
-    body::before {
+    /* Subtle glow accents */
+    body::before,
+    body::after {
       content: "";
       position: fixed;
+      pointer-events: none;
+      z-index: 0;
+      filter: blur(90px);
+    }
+
+    body::before {
       width: 500px;
       height: 500px;
       top: -120px;
       left: -120px;
-      background: radial-gradient(circle, rgba(56,189,248,0.35), transparent 70%);
-      filter: blur(90px);
+      background: radial-gradient(circle, rgba(56, 189, 248, 0.30), transparent 70%);
       animation: floatGlow1 18s ease-in-out infinite;
-      z-index: 0;
-      pointer-events: none;
     }
 
     body::after {
-      content: "";
-      position: fixed;
       width: 520px;
       height: 520px;
       bottom: -160px;
       right: -120px;
-      background: radial-gradient(circle, rgba(168,85,247,0.35), transparent 70%);
-      filter: blur(90px);
+      background: radial-gradient(circle, rgba(168, 85, 247, 0.28), transparent 70%);
       animation: floatGlow2 22s ease-in-out infinite;
-      z-index: 0;
-      pointer-events: none;
     }
 
     @keyframes floatGlow1 {
@@ -109,8 +105,7 @@
 
     #stars {
       position: fixed;
-      top: 0;
-      left: 0;
+      inset: 0;
       width: 100%;
       height: 100%;
       z-index: -2;
@@ -126,29 +121,6 @@
       margin: 0 auto;
       position: relative;
       z-index: 1;
-    }
-
-    /* Subtle background texture to keep the page polished but more personal */
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      background:
-        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-      background-size: 42px 42px;
-      mask-image: linear-gradient(to bottom, rgba(0,0,0,0.5), transparent 88%);
-      z-index: 0;
-    }
-
-    body::after {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      background: linear-gradient(180deg, rgba(2, 6, 23, 0.18), rgba(2, 6, 23, 0.34));
-      z-index: 0;
     }
 
     /* =========================
@@ -239,7 +211,6 @@
       margin-top: 1rem;
     }
 
-    /* Reusable button styles */
     .btn {
       display: inline-flex;
       align-items: center;
@@ -268,9 +239,8 @@
       border: 1px solid var(--border);
     }
 
-    /* Card / panel styling for sections */
     .panel {
-      background: rgba(17, 24, 39, 0.72);
+      background: var(--panel);
       border: 1px solid rgba(148, 163, 184, 0.16);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
@@ -278,27 +248,18 @@
       backdrop-filter: blur(12px);
     }
 
-    /* Profile image styling for the main hero section */
     .profile-image {
-      width: 260px;            /* Increased size so the headshot has more room */
+      width: 260px;
       height: 260px;
-      object-fit: cover;       /* Fills the circle while maintaining proportions */
-      object-position: center top; /* Prevents the top of the hair from being cropped */
-      border-radius: 50%;      /* Creates the circular profile photo */
+      object-fit: cover;
+      object-position: center top;
+      border-radius: 50%;
       border: 4px solid rgba(56, 189, 248, 0.35);
       box-shadow: var(--shadow);
       margin: 0 auto 1rem;
       background: #0b1220;
     }
 
-    .profile-note {
-      text-align: center;
-      color: var(--muted);
-      font-size: 0.92rem;
-      margin-bottom: 1rem;
-    }
-
-    /* Profile social icons */
     .profile-icons {
       display: flex;
       justify-content: center;
@@ -317,8 +278,8 @@
       width: 36px;
       height: 36px;
       border-radius: 50%;
-      background: rgba(56,189,248,0.15);
-      border: 1px solid rgba(56,189,248,0.35);
+      background: rgba(56, 189, 248, 0.15);
+      border: 1px solid rgba(56, 189, 248, 0.35);
       color: var(--accent);
       font-size: 14px;
       font-weight: bold;
@@ -327,7 +288,7 @@
 
     .icon:hover {
       transform: translateY(-3px);
-      background: rgba(56,189,248,0.25);
+      background: rgba(56, 189, 248, 0.25);
     }
 
     .hero-card ul {
@@ -348,7 +309,7 @@
     }
 
     /* =========================
-       SECTION STYLES
+       GENERAL SECTION STYLES
        ========================= */
     section {
       padding: 2.6rem 0;
@@ -391,7 +352,7 @@
     }
 
     /* =========================
-       PROJECTS SECTION
+       PROJECTS
        ========================= */
     .projects-grid {
       display: grid;
@@ -419,7 +380,7 @@
     }
 
     /* =========================
-       BATTLESHIP GAME SECTION
+       BATTLESHIP GAME
        ========================= */
     .game-section {
       margin-top: 1.5rem;
@@ -430,11 +391,6 @@
       grid-template-columns: 1fr 1fr;
       gap: 1.5rem;
       align-items: start;
-    }
-
-    .game-instructions ul {
-      margin-left: 1.2rem;
-      color: var(--muted);
     }
 
     .game-status {
@@ -522,7 +478,7 @@
     }
 
     /* =========================
-       RESUME SECTION
+       RESUME
        ========================= */
     .resume-preview {
       background: #f8fafc;
@@ -555,7 +511,7 @@
     }
 
     /* =========================
-       QR CODE / EXTRA SECTION
+       QR / GITHUB
        ========================= */
     .qr-box {
       display: flex;
@@ -566,15 +522,18 @@
       text-align: center;
     }
 
-    #qrcode {
+    #qrcode,
+    #github-qrcode {
       background: #ffffff;
       padding: 1rem;
       border-radius: 14px;
       display: inline-block;
+      min-height: 212px;
+      min-width: 212px;
     }
 
     /* =========================
-       BLOG / BONUS SECTION
+       BLOG
        ========================= */
     .blog-card p {
       color: var(--muted);
@@ -582,7 +541,7 @@
     }
 
     /* =========================
-       CONTACT SECTION
+       CONTACT
        ========================= */
     form {
       display: grid;
@@ -617,7 +576,7 @@
     }
 
     /* =========================
-       CHATBOT WIDGET
+       CHATBOT
        ========================= */
     .chatbot-toggle {
       position: fixed;
@@ -708,6 +667,16 @@
     }
 
     /* =========================
+       MUSIC PLAYER
+       ========================= */
+    .music-player {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      z-index: 999;
+    }
+
+    /* =========================
        FOOTER
        ========================= */
     footer {
@@ -717,7 +686,7 @@
     }
 
     /* =========================
-       RESPONSIVE DESIGN
+       RESPONSIVE
        ========================= */
     @media (max-width: 960px) {
       .hero-grid,
@@ -755,12 +724,18 @@
         right: 12px;
         bottom: 12px;
       }
+
+      .music-player {
+        left: 12px;
+        bottom: 12px;
+      }
     }
   </style>
 </head>
 <body>
-  <!-- Constellation particle background canvas -->
+  <!-- Constellation particle background -->
   <canvas id="stars"></canvas>
+
   <!-- =========================
        HEADER / NAVIGATION
        ========================= -->
@@ -780,7 +755,7 @@
 
   <main>
     <!-- =========================
-         HOME SECTION
+         HOME
          ========================= -->
     <section class="hero" id="home">
       <div class="container hero-grid">
@@ -790,7 +765,7 @@
           <p class="lead">
             I am a Computer Technology student and DevSecOps professional with experience in cloud applications,
             configuration management, Scrum leadership, systems administration, and technical problem-solving.
-            This portfolio highlights my skills, projects, resume, and interactive features including a chatbot and QR code.
+            This portfolio highlights my skills, projects, resume, and interactive features including a chatbot and QR codes.
           </p>
           <div class="hero-actions">
             <a class="btn btn-primary" href="#projects">View My Projects</a>
@@ -799,7 +774,6 @@
         </div>
 
         <aside class="panel hero-card">
-          <!-- Replace profile.jpg with your actual headshot file name -->
           <img src="profile.jpg" alt="Professional headshot of Katie Downing Powell" class="profile-image" />
           <div class="profile-icons">
             <a href="https://www.linkedin.com/in/katie-d-01609054" target="_blank" title="LinkedIn">
@@ -812,7 +786,7 @@
               <span class="icon">✉</span>
             </a>
           </div>
-          
+
           <h3>Quick Highlights</h3>
           <ul>
             <li><strong>Focus Areas:</strong> DevSecOps, Cloud Systems, Scrum Leadership, Configuration Management</li>
@@ -825,7 +799,7 @@
     </section>
 
     <!-- =========================
-         ABOUT SECTION
+         ABOUT
          ========================= -->
     <section id="about">
       <div class="container">
@@ -838,24 +812,30 @@
           <div class="panel">
             <h3>Background</h3>
             <p>
-              I am a dedicated technology professional and student with experience in DevSecOps, cloud-based applications, systems administration, configuration management, and Agile team leadership. My educational journey and professional background have strengthened my ability to solve technical problems, communicate clearly, and create digital solutions that are practical and user-focused.
+              I am a dedicated technology professional and student with experience in DevSecOps, cloud-based applications,
+              systems administration, configuration management, and Agile team leadership. My educational journey and
+              professional background have strengthened my ability to solve technical problems, communicate clearly, and
+              create digital solutions that are practical and user-focused.
             </p>
             <br />
             <p>
-              I enjoy building projects that combine creativity with technical skill, especially
-              when those projects improve usability, security, and professional presentation.
+              I enjoy building projects that combine creativity with technical skill, especially when those projects
+              improve usability, security, and professional presentation.
             </p>
           </div>
 
           <div class="panel">
             <h3>Skills & Education</h3>
             <p>
-              My experience includes Scrum leadership, product ownership support, configuration management, systems administration, technical documentation, GitHub project management, troubleshooting, and portfolio design.
+              My experience includes Scrum leadership, product ownership support, configuration management, systems administration,
+              technical documentation, GitHub project management, troubleshooting, and portfolio design.
             </p>
             <div class="skills-list">
               <span class="chip">HTML5</span>
               <span class="chip">CSS3</span>
               <span class="chip">JavaScript</span>
+              <span class="chip">Python</span>
+              <span class="chip">Java</span>
               <span class="chip">AWS Cloud</span>
               <span class="chip">DevSecOps</span>
               <span class="chip">Scrum / Agile</span>
@@ -868,7 +848,7 @@
     </section>
 
     <!-- =========================
-         PROJECTS SECTION
+         PROJECTS
          ========================= -->
     <section id="projects">
       <div class="container">
@@ -882,7 +862,9 @@
             <div>
               <h3>Playable Battleship Game</h3>
               <p>
-                This project began as a fully functional Java Battleship program with player grids, ship placement logic, hit detection, and win-condition checking. The complete Java source code is available on GitHub, and I also created a browser-based version so visitors can play the game directly from this portfolio.
+                This project began as a fully functional Java Battleship program with player grids, ship placement logic,
+                hit detection, and win-condition checking. The complete Java source code is available on GitHub, and I also
+                created a browser-based version so visitors can play the game directly from this portfolio.
               </p>
             </div>
             <div class="project-links">
@@ -896,7 +878,7 @@
               <h3>Personal Portfolio Website</h3>
               <p>
                 A responsive portfolio built with HTML, CSS, and JavaScript that includes a chatbot,
-                downloadable resume, QR codes, and polished contact and branding features.
+                downloadable resume, QR codes, interactive features, and polished branding.
               </p>
             </div>
             <div class="project-links">
@@ -920,6 +902,7 @@
           </article>
         </div>
 
+        <!-- Playable web version of Battleship -->
         <div class="game-section" id="battleship-game">
           <h3 class="section-title" style="font-size: 1.6rem; margin-top: 2rem;">Play Battleship</h3>
           <p class="section-subtitle">
@@ -927,7 +910,7 @@
           </p>
 
           <div class="game-layout">
-            <div class="panel game-instructions">
+            <div class="panel">
               <h3>About This Game</h3>
               <p>
                 This web version is inspired by my original Java Battleship program. It keeps the same core ideas:
@@ -954,7 +937,7 @@
     </section>
 
     <!-- =========================
-         RESUME SECTION
+         RESUME
          ========================= -->
     <section id="resume">
       <div class="container">
@@ -971,7 +954,10 @@
 
             <h4>Professional Summary</h4>
             <p>
-              Motivated technology professional with strengths in DevSecOps, cloud application support, configuration management, Scrum leadership, systems administration, and technical communication. Experienced in supporting multiple cloud-based applications, leading Agile teams, and creating organized, user-focused technical solutions.
+              Motivated technology professional with strengths in DevSecOps, cloud application support,
+              configuration management, Scrum leadership, systems administration, and technical communication.
+              Experienced in supporting multiple cloud-based applications, leading Agile teams, and creating
+              organized, user-focused technical solutions.
             </p>
             <br />
 
@@ -993,35 +979,471 @@
           <div class="panel">
             <h3>Resume Actions</h3>
             <p>
-              Add your real resume PDF file to the same project folder and update the links below.
-              Example file name: <strong>resume.pdf</strong>
+              My resume is available in PDF format for easy viewing, downloading, and printing.
             </p>
             <div class="resume-actions">
               <a class="btn btn-primary" href="resume.pdf" target="_blank">View Resume PDF</a>
               <a class="btn btn-secondary" href="resume.pdf" download>Download Resume</a>
             </div>
-            <br />
-            <p>
-              For best results, keep the downloadable resume in PDF format so it is easy to print,
-              submit, and share with employers.
-            </p>
           </div>
         </div>
       </div>
     </section>
 
     <!-- =========================
-         QR CODE / GITHUB SECTION
+         QR / GITHUB
          ========================= -->
     <section id="extras">
       <div class="container">
         <h2 class="section-title">Portfolio Access & GitHub</h2>
         <p class="section-subtitle">
-          Scan the QR code to open the live portfolio website quickly on a mobile device.
+          Scan the QR codes below to open my portfolio website or GitHub profile on your mobile device.
         </p>
 
         <div class="extras-grid">
           <div class="panel qr-box">
-            <h3>Scan My Portfolio QR Code</h3>
-            <!-- This empty div is where the QR code is inserted by JavaScript -->
-            <
+            <h3>Portfolio QR Code</h3>
+            <div id="qrcode"></div>
+          </div>
+
+          <div class="panel qr-box">
+            <h3>GitHub QR Code</h3>
+            <a href="https://github.com/kdowningpowell" target="_blank">github.com/kdowningpowell</a>
+            <div id="github-qrcode"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================
+         BLOG
+         ========================= -->
+    <section id="blog">
+      <div class="container">
+        <h2 class="section-title">Blog / Insights</h2>
+        <p class="section-subtitle">
+          Reflections on technology, learning, and professional growth.
+        </p>
+
+        <div class="blog-grid">
+          <article class="panel blog-card">
+            <h3>What I’m Learning in Web Development</h3>
+            <p>
+              I continue strengthening my front-end development skills by building projects that combine clean structure,
+              responsive design, and interactive features that improve the user experience.
+            </p>
+          </article>
+
+          <article class="panel blog-card">
+            <h3>Why Technical Communication Matters</h3>
+            <p>
+              Strong technical communication helps turn complex ideas into clear, usable solutions for teams, users,
+              and stakeholders. It is just as important as technical ability.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================
+         CONTACT
+         ========================= -->
+    <section id="contact">
+      <div class="container">
+        <h2 class="section-title">Contact Me</h2>
+        <p class="section-subtitle">
+          Use the form below so visitors can reach out for networking, collaboration, or job opportunities.
+        </p>
+
+        <div class="contact-grid">
+          <div class="panel">
+            <h3>Send a Message</h3>
+            <form id="contactForm">
+              <div>
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" placeholder="Enter your name" required />
+              </div>
+
+              <div>
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required />
+              </div>
+
+              <div>
+                <label for="message">Message</label>
+                <textarea id="message" name="message" placeholder="Write your message here" required></textarea>
+              </div>
+
+              <button class="btn btn-primary" type="submit">Submit Message</button>
+            </form>
+          </div>
+
+          <div class="panel">
+            <h3>Contact Details</h3>
+            <p>Email: <a href="mailto:downing_katie@yahoo.com">downing_katie@yahoo.com</a></p>
+            <p>LinkedIn: <a href="https://www.linkedin.com/in/katie-d-01609054" target="_blank">linkedin.com/in/katie-d-01609054</a></p>
+            <p>GitHub: <a href="https://github.com/kdowningpowell" target="_blank">github.com/kdowningpowell</a></p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- =========================
+       CHATBOT
+       ========================= -->
+  <button class="chatbot-toggle" id="chatToggle" aria-label="Open chatbot">💬</button>
+
+  <div class="chatbot" id="chatbot">
+    <div class="chatbot-header">
+      <h3>Portfolio Assistant</h3>
+      <p class="contact-note">Ask about skills, projects, education, GitHub, or resume details.</p>
+    </div>
+
+    <div class="chatbot-body" id="chatBody">
+      <div class="message bot">
+        Hi! I’m the portfolio assistant. Ask me about skills, projects, education, GitHub, or resume details.
+      </div>
+    </div>
+
+    <div class="chatbot-input">
+      <input type="text" id="chatInput" placeholder="Type your question..." />
+      <button class="btn btn-primary" id="sendBtn">Send</button>
+    </div>
+  </div>
+
+  <!-- =========================
+       LO-FI MUSIC
+       ========================= -->
+  <div class="music-player">
+    <button class="btn btn-secondary" id="musicToggle">🎧 Play Lo-Fi</button>
+    <audio id="lofiAudio" loop>
+      <source src="lofi.mp3" type="audio/mpeg" />
+    </audio>
+  </div>
+
+  <!-- =========================
+       FOOTER
+       ========================= -->
+  <footer>
+    <div class="container">
+      <p>© 2026 Katie Downing Powell. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    /* =====================================
+       CONSTELLATION BACKGROUND
+       ===================================== */
+    const canvas = document.getElementById("stars");
+    const ctx = canvas.getContext("2d");
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    resizeCanvas();
+    window.addEventListener("resize", resizeCanvas);
+
+    const stars = Array.from({ length: 80 }, () => ({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      r: Math.random() * 1.5 + 0.2,
+      dx: (Math.random() - 0.5) * 0.3,
+      dy: (Math.random() - 0.5) * 0.3
+    }));
+
+    function animateStars() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "rgba(148, 163, 184, 0.8)";
+
+      stars.forEach((s) => {
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        ctx.fill();
+
+        s.x += s.dx;
+        s.y += s.dy;
+
+        if (s.x < 0 || s.x > canvas.width) s.dx *= -1;
+        if (s.y < 0 || s.y > canvas.height) s.dy *= -1;
+      });
+
+      for (let i = 0; i < stars.length; i++) {
+        for (let j = i + 1; j < stars.length; j++) {
+          const dx = stars[i].x - stars[j].x;
+          const dy = stars[i].y - stars[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          if (dist < 120) {
+            ctx.strokeStyle = "rgba(56, 189, 248, 0.15)";
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(stars[i].x, stars[i].y);
+            ctx.lineTo(stars[j].x, stars[j].y);
+            ctx.stroke();
+          }
+        }
+      }
+
+      requestAnimationFrame(animateStars);
+    }
+
+    animateStars();
+
+    /* =====================================
+       QR CODES
+       ===================================== */
+    const portfolioURL = "https://kdowningpowell.github.io";
+    const githubURL = "https://github.com/kdowningpowell";
+
+    QRCode.toCanvas(portfolioURL, { width: 180 }, function (error, qrCanvas) {
+      if (error) {
+        console.error("Portfolio QR code generation failed:", error);
+        return;
+      }
+      const qrContainer = document.getElementById("qrcode");
+      if (qrContainer) {
+        qrContainer.innerHTML = "";
+        qrContainer.appendChild(qrCanvas);
+      }
+    });
+
+    QRCode.toCanvas(githubURL, { width: 180 }, function (error, qrCanvas) {
+      if (error) {
+        console.error("GitHub QR code generation failed:", error);
+        return;
+      }
+      const githubQrContainer = document.getElementById("github-qrcode");
+      if (githubQrContainer) {
+        githubQrContainer.innerHTML = "";
+        githubQrContainer.appendChild(qrCanvas);
+      }
+    });
+
+    /* =====================================
+       PLAYABLE BATTLESHIP GAME
+       ===================================== */
+    const battleshipBoard = document.getElementById("battleshipBoard");
+    const gameStatus = document.getElementById("gameStatus");
+    const resetBattleshipBtn = document.getElementById("resetBattleshipBtn");
+
+    const BOARD_SIZE = 8;
+    const SHIPS = [5, 4, 3, 3, 2];
+    let shipGrid = [];
+    let guessedCells = [];
+    let remainingHits = 0;
+    let gameFinished = false;
+
+    function makeEmptyBoard() {
+      return Array.from({ length: BOARD_SIZE }, () => Array(BOARD_SIZE).fill(0));
+    }
+
+    function canPlaceShip(length, row, col, horizontal) {
+      if (horizontal && col + length > BOARD_SIZE) return false;
+      if (!horizontal && row + length > BOARD_SIZE) return false;
+
+      for (let i = 0; i < length; i++) {
+        const targetRow = horizontal ? row : row + i;
+        const targetCol = horizontal ? col + i : col;
+        if (shipGrid[targetRow][targetCol] === 1) return false;
+      }
+      return true;
+    }
+
+    function placeShipsRandomly() {
+      shipGrid = makeEmptyBoard();
+      guessedCells = makeEmptyBoard();
+      remainingHits = SHIPS.reduce((sum, len) => sum + len, 0);
+      gameFinished = false;
+
+      SHIPS.forEach((length) => {
+        let placed = false;
+
+        while (!placed) {
+          const horizontal = Math.random() < 0.5;
+          const row = Math.floor(Math.random() * BOARD_SIZE);
+          const col = Math.floor(Math.random() * BOARD_SIZE);
+
+          if (canPlaceShip(length, row, col, horizontal)) {
+            for (let i = 0; i < length; i++) {
+              const targetRow = horizontal ? row : row + i;
+              const targetCol = horizontal ? col + i : col;
+              shipGrid[targetRow][targetCol] = 1;
+            }
+            placed = true;
+          }
+        }
+      });
+    }
+
+    function renderBattleshipBoard() {
+      battleshipBoard.innerHTML = "";
+
+      for (let row = 0; row < BOARD_SIZE; row++) {
+        for (let col = 0; col < BOARD_SIZE; col++) {
+          const cell = document.createElement("button");
+          cell.type = "button";
+          cell.className = "battleship-cell";
+          cell.setAttribute("aria-label", `Row ${row + 1}, Column ${col + 1}`);
+
+          if (guessedCells[row][col] === 1) {
+            cell.classList.add("hit");
+            cell.textContent = "X";
+            cell.disabled = true;
+          } else if (guessedCells[row][col] === 2) {
+            cell.classList.add("miss");
+            cell.textContent = "•";
+            cell.disabled = true;
+          } else if (gameFinished) {
+            cell.disabled = true;
+          }
+
+          cell.addEventListener("click", function () {
+            handleGuess(row, col);
+          });
+
+          battleshipBoard.appendChild(cell);
+        }
+      }
+    }
+
+    function handleGuess(row, col) {
+      if (gameFinished || guessedCells[row][col] !== 0) return;
+
+      if (shipGrid[row][col] === 1) {
+        guessedCells[row][col] = 1;
+        remainingHits--;
+        gameStatus.textContent = `Hit! ${remainingHits} ship spaces remaining.`;
+      } else {
+        guessedCells[row][col] = 2;
+        gameStatus.textContent = "Miss! Keep searching the grid.";
+      }
+
+      if (remainingHits === 0) {
+        gameFinished = true;
+        gameStatus.textContent = "Congratulations! You sank the full fleet in Battleship.";
+      }
+
+      renderBattleshipBoard();
+    }
+
+    function startBattleshipGame() {
+      placeShipsRandomly();
+      gameStatus.textContent = "Game loaded. Start by clicking any square on the board.";
+      renderBattleshipBoard();
+    }
+
+    resetBattleshipBtn.addEventListener("click", startBattleshipGame);
+    startBattleshipGame();
+
+    /* =====================================
+       CONTACT FORM DEMO
+       ===================================== */
+    const contactForm = document.getElementById("contactForm");
+
+    contactForm.addEventListener("submit", function (event) {
+      event.preventDefault();
+      alert("Thank you! Your message was submitted successfully.");
+      contactForm.reset();
+    });
+
+    /* =====================================
+       LO-FI MUSIC PLAYER
+       ===================================== */
+    const musicBtn = document.getElementById("musicToggle");
+    const lofiAudio = document.getElementById("lofiAudio");
+    let musicPlaying = false;
+
+    musicBtn.addEventListener("click", function () {
+      if (!musicPlaying) {
+        lofiAudio.play();
+        musicBtn.textContent = "⏸ Pause Music";
+        musicPlaying = true;
+      } else {
+        lofiAudio.pause();
+        musicBtn.textContent = "🎧 Play Lo-Fi";
+        musicPlaying = false;
+      }
+    });
+
+    /* =====================================
+       CHATBOT
+       ===================================== */
+    const chatToggle = document.getElementById("chatToggle");
+    const chatbot = document.getElementById("chatbot");
+    const chatBody = document.getElementById("chatBody");
+    const chatInput = document.getElementById("chatInput");
+    const sendBtn = document.getElementById("sendBtn");
+
+    chatToggle.addEventListener("click", function () {
+      chatbot.classList.toggle("open");
+    });
+
+    function getBotReply(userMessage) {
+      const message = userMessage.toLowerCase();
+
+      if (message.includes("skill")) {
+        return "My core skills include HTML, CSS, JavaScript, Python, Java, AWS Cloud, DevSecOps, Scrum/Agile, Atlassian tools, and configuration management.";
+      }
+
+      if (message.includes("project")) {
+        return "Featured projects include my playable Battleship game, this responsive portfolio website, and my DevSecOps and cloud-focused work.";
+      }
+
+      if (message.includes("resume")) {
+        return "You can view or download my resume from the Resume section.";
+      }
+
+      if (message.includes("education") || message.includes("school") || message.includes("degree")) {
+        return "I’m completing a B.S. in Computer Technology at Bowie State University, expected in May 2026.";
+      }
+
+      if (message.includes("github")) {
+        return "My GitHub profile is linked in the site and includes my Battleship Java source code and portfolio repository.";
+      }
+
+      if (message.includes("contact") || message.includes("email")) {
+        return "You can reach me through the contact form or email me directly at downing_katie@yahoo.com.";
+      }
+
+      if (message.includes("hello") || message.includes("hi")) {
+        return "Hello! Feel free to ask about my skills, projects, resume, education, or GitHub profile.";
+      }
+
+      return "I can help with questions about skills, projects, resume details, education, GitHub, or contact information.";
+    }
+
+    function addMessage(text, sender) {
+      const messageDiv = document.createElement("div");
+      messageDiv.classList.add("message", sender);
+      messageDiv.textContent = text;
+      chatBody.appendChild(messageDiv);
+      chatBody.scrollTop = chatBody.scrollHeight;
+    }
+
+    function handleChat() {
+      const userText = chatInput.value.trim();
+      if (!userText) return;
+
+      addMessage(userText, "user");
+      const reply = getBotReply(userText);
+
+      setTimeout(function () {
+        addMessage(reply, "bot");
+      }, 400);
+
+      chatInput.value = "";
+    }
+
+    sendBtn.addEventListener("click", handleChat);
+
+    chatInput.addEventListener("keydown", function (event) {
+      if (event.key === "Enter") {
+        handleChat();
+      }
+    });
+  </script>
+</body>
+</html>
