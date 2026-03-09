@@ -4,7 +4,7 @@
   <!-- Basic page setup -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Katie Downing-Powell | Professional Portfolio</title>
+  <title>Katie Downing Powell | Professional Portfolio</title>
   <meta
     name="description"
     content="A responsive personal portfolio website with projects, resume, QR code, and chatbot."
@@ -45,8 +45,15 @@
     body {
       font-family: Arial, Helvetica, sans-serif;
       color: var(--text);
-      background: linear-gradient(180deg, var(--bg-darker) 0%, var(--bg-dark) 45%, #111827 100%);
+      background:
+        radial-gradient(circle at top left, rgba(56, 189, 248, 0.16) 0%, transparent 28%),
+        radial-gradient(circle at top right, rgba(34, 197, 94, 0.12) 0%, transparent 24%),
+        radial-gradient(circle at bottom left, rgba(168, 85, 247, 0.10) 0%, transparent 22%),
+        linear-gradient(135deg, #020617 0%, #0f172a 38%, #111827 72%, #1e293b 100%);
+      background-attachment: fixed;
       line-height: 1.6;
+      position: relative;
+      overflow-x: hidden;
     }
 
     a {
@@ -66,6 +73,31 @@
     .container {
       width: min(92%, var(--max-width));
       margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Subtle background texture to keep the page polished but more personal */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 42px 42px;
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,0.5), transparent 88%);
+      z-index: 0;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(180deg, rgba(2, 6, 23, 0.18), rgba(2, 6, 23, 0.34));
+      z-index: 0;
     }
 
     /* =========================
@@ -75,9 +107,9 @@
       position: sticky;
       top: 0;
       z-index: 999;
-      background: rgba(2, 6, 23, 0.88);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--border);
+      background: rgba(2, 6, 23, 0.80);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(148, 163, 184, 0.14);
     }
 
     .nav {
@@ -187,11 +219,12 @@
 
     /* Card / panel styling for sections */
     .panel {
-      background: rgba(17, 24, 39, 0.85);
-      border: 1px solid var(--border);
+      background: rgba(17, 24, 39, 0.72);
+      border: 1px solid rgba(148, 163, 184, 0.16);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
       padding: 1.4rem;
+      backdrop-filter: blur(12px);
     }
 
     /* Profile image styling for the main hero section */
@@ -212,6 +245,38 @@
       color: var(--muted);
       font-size: 0.92rem;
       margin-bottom: 1rem;
+    }
+
+    /* Profile social icons */
+    .profile-icons {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 1rem;
+    }
+
+    .profile-icons a {
+      text-decoration: none;
+    }
+
+    .icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(56,189,248,0.15);
+      border: 1px solid rgba(56,189,248,0.35);
+      color: var(--accent);
+      font-size: 14px;
+      font-weight: bold;
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .icon:hover {
+      transform: translateY(-3px);
+      background: rgba(56,189,248,0.25);
     }
 
     .hero-card ul {
@@ -300,6 +365,109 @@
       flex-wrap: wrap;
       gap: 0.8rem;
       margin-top: auto;
+    }
+
+    /* =========================
+       BATTLESHIP GAME SECTION
+       ========================= */
+    .game-section {
+      margin-top: 1.5rem;
+    }
+
+    .game-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      align-items: start;
+    }
+
+    .game-instructions ul {
+      margin-left: 1.2rem;
+      color: var(--muted);
+    }
+
+    .game-status {
+      margin: 1rem 0;
+      padding: 0.9rem 1rem;
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      border-radius: 12px;
+      color: var(--white);
+      min-height: 52px;
+    }
+
+    .battleship-board-wrap {
+      overflow-x: auto;
+    }
+
+    .battleship-board {
+      display: grid;
+      grid-template-columns: repeat(8, 42px);
+      gap: 6px;
+      margin-top: 0.75rem;
+    }
+
+    .battleship-cell {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      background: #0b1220;
+      color: var(--text);
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.15s ease, background 0.2s ease;
+    }
+
+    .battleship-cell:hover:not(:disabled) {
+      transform: translateY(-2px);
+      background: rgba(56, 189, 248, 0.15);
+    }
+
+    .battleship-cell.hit {
+      background: rgba(34, 197, 94, 0.2);
+      border-color: rgba(34, 197, 94, 0.4);
+      color: #bbf7d0;
+    }
+
+    .battleship-cell.miss {
+      background: rgba(148, 163, 184, 0.14);
+      border-color: rgba(148, 163, 184, 0.25);
+      color: #cbd5e1;
+    }
+
+    .board-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 1rem;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .legend-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .legend-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .legend-dot.hit {
+      background: rgba(34, 197, 94, 0.7);
+    }
+
+    .legend-dot.miss {
+      background: rgba(148, 163, 184, 0.7);
+    }
+
+    .legend-dot.unknown {
+      background: rgba(56, 189, 248, 0.5);
     }
 
     /* =========================
@@ -507,7 +675,8 @@
       .contact-grid,
       .extras-grid,
       .blog-grid,
-      .projects-grid {
+      .projects-grid,
+      .game-layout {
         grid-template-columns: 1fr;
       }
     }
@@ -544,7 +713,7 @@
        ========================= -->
   <header>
     <div class="container nav">
-      <div class="brand">Katie Downing-Powell | Portfolio</div>
+      <div class="brand">Katie Downing Powell | Portfolio</div>
       <ul class="nav-links">
         <li><a href="#home">Home</a></li>
         <li><a href="#about">About</a></li>
@@ -564,7 +733,7 @@
       <div class="container hero-grid">
         <div>
           <span class="badge">Professional Portfolio Website</span>
-          <h1>Hello, I’m Katie Downing-Powell</h1>
+          <h1>Hello, I’m Katie Downing Powell</h1>
           <p class="lead">
             I am a Computer Technology student and DevSecOps professional with experience in cloud applications,
             configuration management, Scrum leadership, systems administration, and technical problem-solving.
@@ -578,7 +747,18 @@
 
         <aside class="panel hero-card">
           <!-- Replace profile.jpg with your actual headshot file name -->
-          <img src="profile.jpg" alt="Professional headshot of Katie Downing-Powell" class="profile-image" />
+          <img src="profile.jpg" alt="Professional headshot of Katie Downing Powell" class="profile-image" />
+          <div class="profile-icons">
+            <a href="https://www.linkedin.com/in/katie-d-01609054" target="_blank" title="LinkedIn">
+              <span class="icon">in</span>
+            </a>
+            <a href="https://github.com/kdowningpowell" target="_blank" title="GitHub">
+              <span class="icon">GH</span>
+            </a>
+            <a href="mailto:downing_katie@yahoo.com" title="Email">
+              <span class="icon">✉</span>
+            </a>
+          </div>
           
           <h3>Quick Highlights</h3>
           <ul>
@@ -641,51 +821,81 @@
       <div class="container">
         <h2 class="section-title">Projects</h2>
         <p class="section-subtitle">
-          Selected projects that demonstrate my technical skills, creativity, and problem-solving ability.
+          Selected projects that reflect my technical background, creativity, and problem-solving approach.
         </p>
 
         <div class="projects-grid">
           <article class="panel project-card">
             <div>
+              <h3>Playable Battleship Game</h3>
+              <p>
+                This project began as a fully functional Java Battleship program with player grids, ship placement logic, hit detection, and win-condition checking. The complete Java source code is available on GitHub, and I also created a browser-based version so visitors can play the game directly from this portfolio.
+              </p>
+            </div>
+            <div class="project-links">
+              <a href="#battleship-game">Play Now</a>
+              <a href="https://github.com/kdowningpowell/battleship-java" target="_blank">View Java Source Code</a>
+            </div>
+          </article>
+
+          <article class="panel project-card">
+            <div>
               <h3>Personal Portfolio Website</h3>
               <p>
-                A fully responsive portfolio built with HTML, CSS, and JavaScript. It includes a chatbot,
-                downloadable resume, QR code, and structured project gallery.
+                A responsive portfolio built with HTML, CSS, and JavaScript that includes a chatbot,
+                downloadable resume, QR codes, and polished contact and branding features.
               </p>
             </div>
             <div class="project-links">
-              <a href="https://github.com/yourusername/portfolio" target="_blank">GitHub Repo</a>
-              <a href="https://your-live-site-url.com" target="_blank">Live Demo</a>
+              <a href="https://github.com/kdowningpowell/kdowningpowell.github.io" target="_blank">GitHub Repo</a>
+              <a href="https://kdowningpowell.github.io" target="_blank">Live Demo</a>
             </div>
           </article>
 
           <article class="panel project-card">
             <div>
-              <h3>Cybersecurity Lab Project</h3>
+              <h3>DevSecOps & Cloud Work</h3>
               <p>
-                A technical lab project focused on security concepts such as network analysis,
-                vulnerability awareness, and ethical testing methods.
+                My professional experience includes DevSecOps support, cloud application administration,
+                configuration management, Agile team collaboration, and release support across enterprise systems.
               </p>
             </div>
             <div class="project-links">
-              <a href="https://github.com/yourusername/cybersecurity-lab" target="_blank">GitHub Repo</a>
-              <a href="#contact">Request Details</a>
+              <a href="#about">Learn More</a>
+              <a href="#resume">View Resume</a>
             </div>
           </article>
+        </div>
 
-          <article class="panel project-card">
-            <div>
-              <h3>JavaScript Interactive Tool</h3>
+        <div class="game-section" id="battleship-game">
+          <h3 class="section-title" style="font-size: 1.6rem; margin-top: 2rem;">Play Battleship</h3>
+          <p class="section-subtitle">
+            Click the opponent grid to hunt the fleet. Sink all ships to win, then use Reset Game to play again.
+          </p>
+
+          <div class="game-layout">
+            <div class="panel game-instructions">
+              <h3>About This Game</h3>
               <p>
-                A front-end JavaScript project created to improve user interaction and demonstrate
-                problem-solving through dynamic web features.
+                This web version is inspired by my original Java Battleship program. It keeps the same core ideas:
+                a hidden fleet, hit or miss tracking, and a victory check when all ships are sunk.
               </p>
+              <div class="game-status" id="gameStatus">Game loaded. Start by clicking any square on the board.</div>
+              <div class="hero-actions">
+                <button class="btn btn-primary" id="resetBattleshipBtn" type="button">Reset Game</button>
+              </div>
+              <div class="board-legend">
+                <span class="legend-pill"><span class="legend-dot unknown"></span> Unknown</span>
+                <span class="legend-pill"><span class="legend-dot hit"></span> Hit</span>
+                <span class="legend-pill"><span class="legend-dot miss"></span> Miss</span>
+              </div>
             </div>
-            <div class="project-links">
-              <a href="https://github.com/yourusername/js-tool" target="_blank">GitHub Repo</a>
-              <a href="https://your-second-live-demo.com" target="_blank">Live Demo</a>
+
+            <div class="panel battleship-board-wrap">
+              <h3>Opponent Grid</h3>
+              <div class="battleship-board" id="battleshipBoard"></div>
             </div>
-          </article>
+          </div>
         </div>
       </div>
     </section>
@@ -702,7 +912,7 @@
 
         <div class="resume-grid">
           <div class="resume-preview">
-            <h3>Katie Downing-Powell</h3>
+            <h3>Katie Downing Powell</h3>
             <p>Email: downing_katie@yahoo.com | Phone: (301) 592-7200 | District Heights, MD</p>
             <br />
 
@@ -762,27 +972,20 @@
             <h3>Scan My Portfolio QR Code</h3>
             <!-- This empty div is where the QR code is inserted by JavaScript -->
             <div id="qrcode"></div>
-            <p class="contact-note">Replace the sample URL in the JavaScript with your real live portfolio link.</p>
+            
           </div>
 
           <div class="panel">
             <h3>GitHub Repository</h3>
             <p>
-              This portfolio project should be uploaded to GitHub with a clear README file explaining
-              the sections of the site, the chatbot logic, and how the QR code was added.
+              You can explore the source code for this portfolio and other projects on my GitHub profile.
+            </p>
+            <p>
+              <a href="https://github.com/kdowningpowell" target="_blank">github.com/kdowningpowell</a>
             </p>
             <br />
-            <p>
-              Repository link:
-              <a href="https://github.com/yourusername/portfolio" target="_blank">
-                github.com/yourusername/portfolio
-              </a>
-            </p>
-            <br />
-            <p>
-              Include links to your additional projects in the Projects section so visitors can easily
-              explore your work.
-            </p>
+            <p>Scan the QR code to open my GitHub profile.</p>
+            <div id="github-qrcode"></div>
           </div>
         </div>
       </div>
@@ -795,7 +998,7 @@
       <div class="container">
         <h2 class="section-title">Blog / Insights</h2>
         <p class="section-subtitle">
-          This optional section adds an extra interactive element and can help earn bonus points.
+          
         </p>
 
         <div class="blog-grid">
@@ -854,12 +1057,12 @@
 
           <div class="panel">
             <h3>Contact Details</h3>
-            <p>Email: downing_katie@yahoo.com</p>
+            <p>Email: <a href="mailto:downing_katie@yahoo.com">downing_katie@yahoo.com</a></p>
             <p>LinkedIn: <a href="https://www.linkedin.com/in/katie-d-01609054" target="_blank">linkedin.com/in/katie-d-01609054</a></p>
             <p>GitHub: <a href="https://github.com/kdowningpowell" target="_blank">github.com/kdowningpowell</a></p>
             <br />
             <p class="contact-note">
-              Tip: You can also add a professional photo, LinkedIn badge, or calendar booking link here.
+              
             </p>
           </div>
         </div>
@@ -895,27 +1098,209 @@
        ========================= -->
   <footer>
     <div class="container">
-      <p>© 2026 Katie Downing-Powell. All rights reserved.</p>
+      <p>© 2026 Katie Downing Powell. All rights reserved.</p>
     </div>
   </footer>
+
+  <!-- =========================
+       LO-FI BACKGROUND MUSIC
+       ========================= -->
+  <!-- Simple ambient music player. The audio is muted until the user presses play to comply with browser autoplay policies. -->
+  <div style="position:fixed;bottom:20px;left:20px;z-index:999;">
+    <button class="btn btn-secondary" id="musicToggle">🎧 Play Lo-Fi</button>
+    <audio id="lofiAudio" loop>
+      <!-- Replace the src with any lofi track you legally host or a royalty-free file -->
+      <source src="lofi.mp3" type="audio/mpeg">
+    </audio>
+  </div>
+
+  <!-- =========================
+       LO-FI BACKGROUND MUSIC
+       ========================= -->
+  <!-- Simple ambient music player. The audio is muted until the user presses play to comply with browser autoplay policies. -->
+  <div style="position:fixed;bottom:20px;left:20px;z-index:999;">
+    <button class="btn btn-secondary" id="musicToggle">🎧 Play Lo-Fi</button>
+    <audio id="lofiAudio" loop>
+      <!-- Replace the src with any lofi track you legally host or a royalty-free file -->
+      <source src="lofi.mp3" type="audio/mpeg">
+    </audio>
+  </div>
+
+  <!-- =========================
+       LO-FI BACKGROUND MUSIC
+       ========================= -->
+  <!-- Simple ambient music player. The audio is muted until the user presses play to comply with browser autoplay policies. -->
+  <div style="position:fixed;bottom:20px;left:20px;z-index:999;">
+    <button class="btn btn-secondary" id="musicToggle">🎧 Play Lo-Fi</button>
+    <audio id="lofiAudio" loop>
+      <!-- Replace the src with any lofi track you legally host or a royalty-free file -->
+      <source src="lofi.mp3" type="audio/mpeg">
+    </audio>
+  </div>
+
+  <!-- =========================
+       LO-FI BACKGROUND MUSIC
+       ========================= -->
+  <!-- Simple ambient music player. The audio is muted until the user presses play to comply with browser autoplay policies. -->
+  <div style="position:fixed;bottom:20px;left:20px;z-index:999;">
+    <button class="btn btn-secondary" id="musicToggle">🎧 Play Lo-Fi</button>
+    <audio id="lofiAudio" loop>
+      <!-- Replace the src with any lofi track you legally host or a royalty-free file -->
+      <source src="lofi.mp3" type="audio/mpeg">
+    </audio>
+  </div>
 
   <script>
     /* =====================================
        QR CODE GENERATION
        ===================================== */
 
-    // Replace this sample URL with your deployed portfolio URL from GitHub Pages, Netlify, or Vercel.
     const portfolioURL = "https://kdowningpowell.github.io";
 
-    // Generate the QR code inside the #qrcode container.
     QRCode.toCanvas(portfolioURL, { width: 180 }, function (error, canvas) {
       if (error) {
         console.error("QR code generation failed:", error);
         return;
       }
-
       document.getElementById("qrcode").appendChild(canvas);
     });
+
+    /* =====================================
+       GITHUB QR CODE
+       ===================================== */
+
+    const githubURL = "https://github.com/kdowningpowell";
+
+    QRCode.toCanvas(githubURL, { width: 180 }, function (error, canvas) {
+      if (error) {
+        console.error("GitHub QR code generation failed:", error);
+        return;
+      }
+      document.getElementById("github-qrcode").appendChild(canvas);
+    });
+
+    /* =====================================
+       PLAYABLE BATTLESHIP GAME
+       ===================================== */
+
+    const battleshipBoard = document.getElementById("battleshipBoard");
+    const gameStatus = document.getElementById("gameStatus");
+    const resetBattleshipBtn = document.getElementById("resetBattleshipBtn");
+
+    const BOARD_SIZE = 8;
+    const SHIPS = [5, 4, 3, 3, 2];
+    let shipGrid = [];
+    let guessedCells = [];
+    let remainingHits = 0;
+    let gameFinished = false;
+
+    function makeEmptyBoard() {
+      return Array.from({ length: BOARD_SIZE }, () => Array(BOARD_SIZE).fill(0));
+    }
+
+    function placeShipsRandomly() {
+      shipGrid = makeEmptyBoard();
+      guessedCells = makeEmptyBoard();
+      remainingHits = SHIPS.reduce((sum, len) => sum + len, 0);
+      gameFinished = false;
+
+      SHIPS.forEach(function (length) {
+        let placed = false;
+
+        while (!placed) {
+          const horizontal = Math.random() < 0.5;
+          const row = Math.floor(Math.random() * BOARD_SIZE);
+          const col = Math.floor(Math.random() * BOARD_SIZE);
+
+          if (canPlaceShip(length, row, col, horizontal)) {
+            for (let i = 0; i < length; i++) {
+              const targetRow = horizontal ? row : row + i;
+              const targetCol = horizontal ? col + i : col;
+              shipGrid[targetRow][targetCol] = 1;
+            }
+            placed = true;
+          }
+        }
+      });
+    }
+
+    function canPlaceShip(length, row, col, horizontal) {
+      if (horizontal && col + length > BOARD_SIZE) return false;
+      if (!horizontal && row + length > BOARD_SIZE) return false;
+
+      for (let i = 0; i < length; i++) {
+        const targetRow = horizontal ? row : row + i;
+        const targetCol = horizontal ? col + i : col;
+        if (shipGrid[targetRow][targetCol] === 1) {
+          return false;
+        }
+      }
+      return true;
+    }
+
+    function renderBattleshipBoard() {
+      battleshipBoard.innerHTML = "";
+
+      for (let row = 0; row < BOARD_SIZE; row++) {
+        for (let col = 0; col < BOARD_SIZE; col++) {
+          const cell = document.createElement("button");
+          cell.type = "button";
+          cell.className = "battleship-cell";
+          cell.dataset.row = row;
+          cell.dataset.col = col;
+          cell.setAttribute("aria-label", `Row ${row + 1}, Column ${col + 1}`);
+
+          if (guessedCells[row][col] === 1) {
+            cell.classList.add("hit");
+            cell.textContent = "X";
+            cell.disabled = true;
+          } else if (guessedCells[row][col] === 2) {
+            cell.classList.add("miss");
+            cell.textContent = "•";
+            cell.disabled = true;
+          } else if (gameFinished) {
+            cell.disabled = true;
+          }
+
+          cell.addEventListener("click", function () {
+            handleGuess(row, col);
+          });
+
+          battleshipBoard.appendChild(cell);
+        }
+      }
+    }
+
+    function handleGuess(row, col) {
+      if (gameFinished || guessedCells[row][col] !== 0) {
+        return;
+      }
+
+      if (shipGrid[row][col] === 1) {
+        guessedCells[row][col] = 1;
+        remainingHits--;
+        gameStatus.textContent = `Hit! ${remainingHits} ship spaces remaining.`;
+      } else {
+        guessedCells[row][col] = 2;
+        gameStatus.textContent = "Miss! Keep searching the grid.";
+      }
+
+      if (remainingHits === 0) {
+        gameFinished = true;
+        gameStatus.textContent = "Congratulations! You sank the full fleet in Battleship.";
+      }
+
+      renderBattleshipBoard();
+    }
+
+    function startBattleshipGame() {
+      placeShipsRandomly();
+      gameStatus.textContent = "Game loaded. Start by clicking any square on the board.";
+      renderBattleshipBoard();
+    }
+
+    resetBattleshipBtn.addEventListener("click", startBattleshipGame);
+    startBattleshipGame();
 
     /* =====================================
        CONTACT FORM DEMO HANDLER
@@ -932,103 +1317,76 @@
     });
 
     /* =====================================
-       CHATBOT TOGGLE LOGIC
+       LOFI MUSIC PLAYER
        ===================================== */
 
-    const chatToggle = document.getElementById("chatToggle");
-    const chatbot = document.getElementById("chatbot");
-    const chatBody = document.getElementById("chatBody");
-    const chatInput = document.getElementById("chatInput");
-    const sendBtn = document.getElementById("sendBtn");
+    const musicBtn = document.getElementById("musicToggle");
+    const lofiAudio = document.getElementById("lofiAudio");
 
-    // Open or close the chatbot window when the floating button is clicked.
-    chatToggle.addEventListener("click", function () {
-      chatbot.classList.toggle("open");
+    let musicPlaying = false;
+
+    musicBtn.addEventListener("click", function () {
+      if (!musicPlaying) {
+        lofiAudio.play();
+        musicBtn.textContent = "⏸ Pause Music";
+        musicPlaying = true;
+      } else {
+        lofiAudio.pause();
+        musicBtn.textContent = "🎧 Play Lo-Fi";
+        musicPlaying = false;
+      }
     });
 
     /* =====================================
-       SIMPLE RULE-BASED CHATBOT
+       LOFI MUSIC PLAYER
        ===================================== */
 
-    // This chatbot uses keyword matching to respond to common portfolio questions.
-    // For bonus points, you could later replace this with Dialogflow or another NLP tool.
-    function getBotReply(userMessage) {
-      const message = userMessage.toLowerCase();
+    const musicBtn = document.getElementById("musicToggle");
+    const lofiAudio = document.getElementById("lofiAudio");
 
-      if (message.includes("skill") || message.includes("skills")) {
-        return "My core skills include HTML, CSS, JavaScript, responsive design, GitHub, cybersecurity concepts, networking, and technical documentation.";
-      }
+    let musicPlaying = false;
 
-      if (message.includes("project") || message.includes("projects")) {
-        return "Featured projects include this portfolio website, a cybersecurity lab project, and an interactive JavaScript tool. You can explore them in the Projects section and through the GitHub links.";
-      }
-
-      if (message.includes("resume")) {
-        return "You can view the resume directly on the page or download the PDF version from the Resume section.";
-      }
-
-      if (message.includes("education") || message.includes("school") || message.includes("degree")) {
-        return "My educational background includes coursework and hands-on learning in web development, networking, cybersecurity, and systems administration.";
-      }
-
-      if (message.includes("github")) {
-        return "My GitHub repository is linked in the Projects and GitHub sections, where you can review source code and project documentation.";
-      }
-
-      if (message.includes("contact") || message.includes("email")) {
-        return "You can use the Contact form on this site or reach me through the listed email, LinkedIn, and GitHub links.";
-      }
-
-      if (message.includes("hello") || message.includes("hi")) {
-        return "Hello! Feel free to ask about my skills, projects, resume, education, or GitHub portfolio.";
-      }
-
-      return "I’m not sure about that yet, but I can help with questions about skills, projects, resume details, education, GitHub, or contact information.";
-    }
-
-    /* =====================================
-       CHAT MESSAGE RENDERING
-       ===================================== */
-
-    // Helper function to add a message bubble to the chatbot.
-    function addMessage(text, sender) {
-      const messageDiv = document.createElement("div");
-      messageDiv.classList.add("message", sender);
-      messageDiv.textContent = text;
-      chatBody.appendChild(messageDiv);
-
-      // Automatically scroll to the most recent message.
-      chatBody.scrollTop = chatBody.scrollHeight;
-    }
-
-    // Send user message and receive chatbot response.
-    function handleChat() {
-      const userText = chatInput.value.trim();
-
-      if (userText === "") {
-        return;
-      }
-
-      addMessage(userText, "user");
-      const reply = getBotReply(userText);
-
-      // Small timeout creates a more natural chatbot feel.
-      setTimeout(function () {
-        addMessage(reply, "bot");
-      }, 400);
-
-      chatInput.value = "";
-    }
-
-    // Click handler for Send button.
-    sendBtn.addEventListener("click", handleChat);
-
-    // Allow the Enter key to submit chatbot messages.
-    chatInput.addEventListener("keydown", function (event) {
-      if (event.key === "Enter") {
-        handleChat();
+    musicBtn.addEventListener("click", function () {
+      if (!musicPlaying) {
+        lofiAudio.play();
+        musicBtn.textContent = "⏸ Pause Music";
+        musicPlaying = true;
+      } else {
+        lofiAudio.pause();
+        musicBtn.textContent = "🎧 Play Lo-Fi";
+        musicPlaying = false;
       }
     });
-  </script>
-</body>
-</html>
+
+    /* =====================================
+       LOFI MUSIC PLAYER
+       ===================================== */
+
+    const musicBtn = document.getElementById("musicToggle");
+    const lofiAudio = document.getElementById("lofiAudio");
+
+    let musicPlaying = false;
+
+    musicBtn.addEventListener("click", function () {
+      if (!musicPlaying) {
+        lofiAudio.play();
+        musicBtn.textContent = "⏸ Pause Music";
+        musicPlaying = true;
+      } else {
+        lofiAudio.pause();
+        musicBtn.textContent = "🎧 Play Lo-Fi";
+        musicPlaying = false;
+      }
+    });
+
+    /* =====================================
+       LOFI MUSIC PLAYER
+       ===================================== */
+
+    const musicBtn = document.getElementById("musicToggle");
+    const lofiAudio = document.getElementById("lofiAudio");
+
+    let musicPlaying = false;
+
+    musicBtn.addEventListener("click", function () {
+      if (!musicPlay
