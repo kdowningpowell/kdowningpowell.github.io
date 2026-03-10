@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Katie Downing Powell | Professional Portfolio</title>
-  <meta name="description" content="A responsive personal portfolio website with projects, resume, QR codes, chatbot, music, and interactive features." />
+  <meta name="description" content="Personal portfolio for Katie Downing Powell featuring projects, resume, QR codes, chatbot, music, and interactive features." />
   <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
 
   <style>
@@ -20,7 +20,7 @@
       --border: rgba(148, 163, 184, 0.18);
       --shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
       --radius: 18px;
-      --max-width: 1150px;
+      --max-width: 1180px;
       --panel: rgba(17, 24, 39, 0.72);
       --panel-solid: #111827;
       --input: #0b1220;
@@ -37,7 +37,7 @@
       --white: #0f172a;
       --border: rgba(15, 23, 42, 0.10);
       --shadow: 0 12px 28px rgba(15, 23, 42, 0.12);
-      --panel: rgba(255, 255, 255, 0.88);
+      --panel: rgba(255, 255, 255, 0.9);
       --panel-solid: #ffffff;
       --input: #ffffff;
     }
@@ -124,7 +124,7 @@
     }
 
     .container {
-      width: min(92%, var(--max-width));
+      width: min(94%, var(--max-width));
       margin: 0 auto;
       position: relative;
       z-index: 1;
@@ -144,7 +144,26 @@
       justify-content: space-between;
       align-items: center;
       gap: 1rem;
-      padding: 1rem 0;
+      padding: 1rem 0 0.55rem;
+    }
+
+    .header-controls {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      align-items: center;
+      padding-bottom: 0.9rem;
+    }
+
+    .header-controls .btn {
+      padding: 0.65rem 1rem;
+    }
+
+    .control-hint {
+      font-size: 11px;
+      color: var(--muted);
+      opacity: 0.8;
+      margin-left: -0.25rem;
     }
 
     .brand {
@@ -167,13 +186,13 @@
     }
 
     .hero {
-      padding: 3rem 0 0.5rem;
+      padding: 2.8rem 0 0.9rem;
     }
 
     .hero-grid {
       display: grid;
-      grid-template-columns: 300px 1fr;
-      gap: 1.2rem;
+      grid-template-columns: 320px 1fr;
+      gap: 1.5rem;
       align-items: start;
     }
 
@@ -196,7 +215,7 @@
     h1 {
       position: relative;
       font-size: clamp(2.4rem, 5vw, 4rem);
-      margin-bottom: 1rem;
+      margin-bottom: 0.9rem;
     }
 
     .hero-name::after {
@@ -218,21 +237,27 @@
       color: var(--accent);
       font-weight: 700;
       min-height: 1.5rem;
-      margin: -0.2rem 0 1rem;
+      margin: -0.15rem 0 0.9rem;
       letter-spacing: 0.2px;
     }
 
     .lead {
       color: var(--muted);
-      font-size: 1.08rem;
-      max-width: 720px;
-      margin-bottom: 1.25rem;
+      font-size: 1.05rem;
+      max-width: 760px;
+      margin-bottom: 1rem;
+      line-height: 1.75;
+    }
+
+    .hero-actions,
+    .resume-actions,
+    .project-links {
+      display: flex;
+      gap: 0.8rem;
+      flex-wrap: wrap;
     }
 
     .hero-actions {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
       margin-top: 1rem;
     }
 
@@ -316,16 +341,14 @@
       background: rgba(56, 189, 248, 0.25);
     }
 
-    .hero-card { height: fit-content; }
-
     .hero-card ul {
       list-style: none;
       display: grid;
-      gap: 0.7rem;
+      gap: 0.75rem;
     }
 
     .hero-card li {
-      padding-bottom: 0.7rem;
+      padding-bottom: 0.75rem;
       border-bottom: 1px solid rgba(148, 163, 184, 0.12);
       color: var(--muted);
       line-height: 1.45;
@@ -336,30 +359,45 @@
       padding-bottom: 0;
     }
 
-    section { padding: 0.8rem 0; }
+    section {
+      padding: 0.95rem 0;
+    }
 
     .section-title {
-      font-size: 2rem;
+      font-size: 1.95rem;
       margin-bottom: 0.35rem;
     }
 
     .section-subtitle {
       color: var(--muted);
       margin-bottom: 1rem;
+      max-width: 760px;
+      line-height: 1.65;
     }
 
-    .resume-grid,
-    .contact-grid,
-    .blog-grid,
-    .game-layout,
-    .enhance-grid {
+    .about-stack {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1.2rem;
+      gap: 1rem;
+    }
+
+    .about-dashboard {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 280px;
+      gap: 1rem;
+      align-items: start;
+    }
+
+    .right-stack {
+      display: grid;
+      gap: 1rem;
+      align-content: start;
+    }
+
+    .quick-access-box {
+      width: 100%;
     }
 
     .skill-bars {
-      margin-top: 0.8rem;
       display: grid;
       gap: 0.9rem;
     }
@@ -406,11 +444,122 @@
       to { width: var(--skill-width); }
     }
 
-    .projects-grid {
+    .radar-panel {
+      padding: 1rem;
+      width: 100%;
+      min-height: 310px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+    }
+
+    .radar-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      padding-top: 0.25rem;
+    }
+
+    #skillRadar {
+      width: 220px;
+      height: 220px;
+      display: block;
+    }
+
+    .qr-end {
+      border-top: 1px solid rgba(148, 163, 184, 0.12);
+      padding-top: 1rem;
+    }
+
+    .qr-blurb {
+      color: var(--muted);
+      font-size: 0.9rem;
+      text-align: center;
+      margin-bottom: 0.5rem;
+      line-height: 1.6;
+    }
+
+    .qr-row {
       display: grid;
-      grid-template-columns: 1fr;
-      gap: 1.2rem;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+      margin-top: 0.6rem;
+    }
+
+    .qr-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      text-align: center;
+    }
+
+    .compact-qr h4 {
+      color: var(--white);
+      font-size: 0.85rem;
+      margin-bottom: 0.1rem;
+    }
+
+    #qrcode,
+    #github-qrcode {
+      background: #ffffff;
+      padding: 0.35rem;
+      border-radius: 10px;
+      display: inline-block;
+      min-width: 88px;
+      min-height: 88px;
+    }
+
+    .resume-preview {
+      background: color-mix(in srgb, var(--panel-solid) 92%, white 8%);
+      color: var(--text);
+      border-radius: 14px;
+      padding: 1.25rem;
+      border: 1px solid var(--border);
+    }
+
+    .resume-preview h3,
+    .resume-preview h4 { color: var(--white); }
+
+    .resume-preview p,
+    .resume-preview li { color: var(--text); }
+
+    .resume-preview ul {
+      margin-left: 1.2rem;
       margin-top: 0.5rem;
+    }
+
+    .resume-actions {
+      margin: 0 0 1rem 0;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid rgba(148,163,184,0.18);
+      align-items: center;
+    }
+
+    .resume-actions .btn {
+      padding: 0.6rem 1rem;
+      font-size: 0.9rem;
+    }
+
+    .projects-grid,
+    .blog-grid,
+    .game-layout,
+    .contact-grid {
+      display: grid;
+      gap: 1.2rem;
+    }
+
+    .projects-grid {
+      grid-template-columns: 1fr;
+      margin-top: 0.5rem;
+    }
+
+    .blog-grid,
+    .game-layout {
+      grid-template-columns: repeat(2, 1fr);
     }
 
     .project-card {
@@ -420,21 +569,13 @@
       justify-content: space-between;
     }
 
-    .project-card h3 { margin-bottom: 0.4rem; }
-
     .project-card p,
     .blog-card p,
     .github-feed p,
     .contact-copy {
       color: var(--muted);
       margin-top: 0.7rem;
-    }
-
-    .project-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.8rem;
-      margin-top: auto;
+      line-height: 1.65;
     }
 
     .game-section { margin-top: 1.5rem; }
@@ -513,78 +654,6 @@
     .legend-dot.miss { background: rgba(148, 163, 184, 0.7); }
     .legend-dot.unknown { background: rgba(56, 189, 248, 0.5); }
 
-    .resume-preview {
-      background: color-mix(in srgb, var(--panel-solid) 92%, white 8%);
-      color: var(--text);
-      border-radius: 14px;
-      padding: 1.25rem;
-      min-height: 370px;
-      border: 1px solid var(--border);
-    }
-
-    .resume-preview h3,
-    .resume-preview h4 { color: var(--white); }
-
-    .resume-preview p,
-    .resume-preview li { color: var(--text); }
-
-    .resume-preview ul {
-      margin-left: 1.2rem;
-      margin-top: 0.5rem;
-    }
-
-    .resume-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      margin-top: 1rem;
-    }
-
-    .qr-divider {
-      border-top: 1px solid rgba(148, 163, 184, 0.12);
-      margin-top: 0.8rem;
-      padding-top: 0.7rem;
-    }
-
-    .qr-blurb {
-      color: var(--muted);
-      font-size: 0.9rem;
-      text-align: center;
-      margin-bottom: 0.5rem;
-    }
-
-    .qr-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0.75rem;
-      margin-top: 0.6rem;
-    }
-
-    .qr-box {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 0.4rem;
-      text-align: center;
-    }
-
-    .compact-qr h4 {
-      color: var(--white);
-      font-size: 0.85rem;
-      margin-bottom: 0.1rem;
-    }
-
-    #qrcode,
-    #github-qrcode {
-      background: #ffffff;
-      padding: 0.35rem;
-      border-radius: 10px;
-      display: inline-block;
-      min-width: 88px;
-      min-height: 88px;
-    }
-
     .github-feed-list {
       display: grid;
       gap: 0.75rem;
@@ -596,6 +665,7 @@
       border-radius: 12px;
       padding: 0.8rem;
       background: rgba(255,255,255,0.02);
+      line-height: 1.5;
     }
 
     .feed-item h4 {
@@ -604,19 +674,6 @@
     }
 
     .feed-item small { color: var(--muted); }
-
-    .radar-wrap {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 0.5rem 0;
-    }
-
-    #skillRadar {
-      max-width: 100%;
-      width: 360px;
-      height: 360px;
-    }
 
     form {
       display: grid;
@@ -736,55 +793,44 @@
 
     .chatbot-input input { flex: 1; }
 
-    .music-player,
-    .theme-player {
-      position: fixed;
-      bottom: 20px;
-      z-index: 999;
-      display: flex;
-      gap: 8px;
-      align-items: center;
-    }
-
-    .music-player { left: 20px; }
-    .theme-player { left: 220px; }
-
-    .music-hint,
-    .theme-hint {
-      font-size: 11px;
-      color: var(--muted);
-      opacity: 0.7;
-    }
-
     footer {
       padding: 2rem 0 3rem;
       text-align: center;
       color: var(--muted);
     }
 
-    @media (max-width: 960px) {
+    @media (max-width: 980px) {
       .hero-grid,
-      .resume-grid,
-      .contact-grid,
       .blog-grid,
       .game-layout,
-      .enhance-grid {
+      .about-dashboard {
         grid-template-columns: 1fr;
       }
 
-      .hero-grid { grid-template-columns: 1fr; }
-      .qr-row { grid-template-columns: 1fr 1fr; }
-      .theme-player { left: 20px; bottom: 68px; }
+      .quick-access-box,
+      .radar-panel {
+        width: 100%;
+      }
+
+      #skillRadar {
+        width: 240px;
+        height: 240px;
+      }
     }
 
-    @media (max-width: 640px) {
+    @media (max-width: 760px) {
       .nav {
         flex-direction: column;
         align-items: flex-start;
       }
 
-      .hero { padding-top: 3.5rem; }
-      .section-title { font-size: 1.7rem; }
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .header-controls {
+        justify-content: flex-start;
+      }
 
       .chatbot {
         right: 12px;
@@ -796,11 +842,14 @@
         bottom: 12px;
       }
 
-      .music-player { left: 12px; bottom: 12px; }
-      .theme-player { left: 12px; bottom: 60px; }
-      .qr-row { grid-template-columns: 1fr 1fr; }
-      #skillRadar { width: 280px; height: 280px; }
-      textarea { min-height: 200px; }
+      #skillRadar {
+        width: 220px;
+        height: 220px;
+      }
+
+      textarea {
+        min-height: 200px;
+      }
     }
   </style>
 </head>
@@ -812,12 +861,20 @@
       <div class="brand">Katie Downing Powell | Portfolio</div>
       <ul class="nav-links">
         <li><a href="#home">Home</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#projects">Projects</a></li>
         <li><a href="#resume">Resume</a></li>
+        <li><a href="#projects">Projects</a></li>
         <li><a href="#blog">Blog</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
+    </div>
+    <div class="container header-controls">
+      <button class="btn btn-secondary" id="musicToggle">🎧 Play Lo-Fi</button>
+      <span class="control-hint">Press M</span>
+      <button class="btn btn-secondary" id="themeToggle">🌓 Toggle Theme</button>
+      <span class="control-hint">Press T</span>
+      <audio id="lofiAudio" loop>
+        <source src="lofi.mp3" type="audio/mpeg" />
+      </audio>
     </div>
   </header>
 
@@ -835,84 +892,119 @@
           <h3>Quick Highlights</h3>
           <ul>
             <li><strong>Focus Areas:</strong> DevSecOps, Cloud Systems, Scrum Leadership, Configuration Management</li>
-            <li><strong>Languages & Tools:</strong> HTML, CSS, JavaScript, Python, Java, GitHub, Atlassian Suite, SharePoint, UrbanCode Deploy</li>
+            <li><strong>Languages &amp; Tools:</strong> HTML, CSS, JavaScript, Python, Java, GitHub, Atlassian Suite, SharePoint, UrbanCode Deploy</li>
             <li><strong>Education:</strong> B.S. in Computer Technology, Bowie State University (Expected 05/2026)</li>
             <li><strong>Academic Honors:</strong> 3.97 GPA, Alpha Chi National College Honor Society, Dean’s List (6 semesters)</li>
             <li><strong>Certifications:</strong> AWS Cloud Practitioner, SAFe, Scrum Master, CMMI Associate</li>
             <li><strong>Professional Strengths:</strong> Technical documentation, systems administration, troubleshooting, Agile collaboration</li>
           </ul>
-
-          <div class="qr-divider">
-            <div class="qr-blurb">Scan these codes to quickly open my portfolio website or GitHub profile on your mobile device.</div>
-            <div class="qr-row">
-              <div class="qr-box compact-qr">
-                <h4>Portfolio</h4>
-                <div id="qrcode"></div>
-              </div>
-              <div class="qr-box compact-qr">
-                <h4>GitHub</h4>
-                <div id="github-qrcode"></div>
-              </div>
-            </div>
-          </div>
         </aside>
 
-        <div>
-          <span class="badge">Professional Portfolio Website</span>
-          <h1 class="hero-name">Katie Downing Powell</h1>
-          <div class="typing-line" id="typingLine"></div>
-          <p class="lead">I am a DevSecOps professional and Computer Technology student who enjoys solving technical problems and building practical solutions that help teams work more efficiently. My experience supporting cloud-based enterprise applications and Agile development teams has strengthened my skills in troubleshooting, configuration management, and secure system support. I enjoy learning new technologies and turning that knowledge into useful tools, projects, and improvements.</p>
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="#projects">View My Projects</a>
-            <a class="btn btn-secondary" href="#resume">View Resume</a>
+        <div class="about-stack">
+          <div class="panel about-intro-panel">
+            <span class="badge">Professional Portfolio Website</span>
+            <h1 class="hero-name">Katie Downing Powell</h1>
+            <div class="typing-line" id="typingLine"></div>
+            <h2 class="section-title">About</h2>
+            <p class="lead">I am a DevSecOps professional and Computer Technology student who enjoys solving technical problems and building practical solutions that help teams work more efficiently. My experience supporting cloud-based enterprise applications and Agile development teams has strengthened my skills in troubleshooting, configuration management, secure system support, and clear technical communication. I enjoy learning new technologies and turning that knowledge into useful tools, projects, and improvements.</p>
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="#projects">View My Projects</a>
+              <a class="btn btn-secondary" href="#resume">View Resume</a>
+            </div>
+          </div>
+
+          <div class="about-dashboard">
+            <div class="panel">
+              <h3>Core Skills</h3>
+              <div class="skill-bars">
+                <div class="skill-bar">
+                  <div class="skill-bar-header"><span>Web Development</span><span>90%</span></div>
+                  <div class="skill-track"><div class="skill-fill" style="--skill-width:90%"></div></div>
+                </div>
+                <div class="skill-bar">
+                  <div class="skill-bar-header"><span>JavaScript</span><span>85%</span></div>
+                  <div class="skill-track"><div class="skill-fill delay-1" style="--skill-width:85%"></div></div>
+                </div>
+                <div class="skill-bar">
+                  <div class="skill-bar-header"><span>Python</span><span>80%</span></div>
+                  <div class="skill-track"><div class="skill-fill delay-2" style="--skill-width:80%"></div></div>
+                </div>
+                <div class="skill-bar">
+                  <div class="skill-bar-header"><span>Java</span><span>78%</span></div>
+                  <div class="skill-track"><div class="skill-fill delay-3" style="--skill-width:78%"></div></div>
+                </div>
+                <div class="skill-bar">
+                  <div class="skill-bar-header"><span>Cloud / DevSecOps</span><span>82%</span></div>
+                  <div class="skill-track"><div class="skill-fill delay-4" style="--skill-width:82%"></div></div>
+                </div>
+                <div class="skill-bar">
+                  <div class="skill-bar-header"><span>Technical Writing</span><span>88%</span></div>
+                  <div class="skill-track"><div class="skill-fill delay-5" style="--skill-width:88%"></div></div>
+                </div>
+                <div class="skill-bar">
+                  <div class="skill-bar-header"><span>Agile / Scrum</span><span>90%</span></div>
+                  <div class="skill-track"><div class="skill-fill delay-6" style="--skill-width:90%"></div></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="right-stack">
+              <div class="panel radar-panel">
+                <h3>Skill Radar</h3>
+                <p class="contact-copy" style="text-align:center; margin-top:0.5rem;">A visual summary of my strongest technical and professional capabilities.</p>
+                <div class="radar-wrap">
+                  <canvas id="skillRadar" width="220" height="220"></canvas>
+                </div>
+              </div>
+
+              <div class="panel qr-end quick-access-box">
+                <h3 style="margin-bottom:0.4rem;">Quick Access</h3>
+                <p class="qr-blurb">Scan these codes to quickly open my portfolio website or GitHub profile on your mobile device.</p>
+                <div class="qr-row">
+                  <div class="qr-box compact-qr">
+                    <h4>Portfolio</h4>
+                    <div id="qrcode"></div>
+                  </div>
+                  <div class="qr-box compact-qr">
+                    <h4>GitHub</h4>
+                    <div id="github-qrcode"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="about">
+    <section id="resume">
       <div class="container">
-        <h2 class="section-title">Core Skills</h2>
-        <p class="section-subtitle">Key technical strengths and professional capabilities.</p>
-
-        <div class="enhance-grid">
-          <div class="panel">
-            <h3>Core Skill Strength</h3>
-            <div class="skill-bars">
-              <div class="skill-bar">
-                <div class="skill-bar-header"><span>DevSecOps / Cloud Platforms</span><span>90%</span></div>
-                <div class="skill-track"><div class="skill-fill delay-1" style="--skill-width: 90%;"></div></div>
-              </div>
-              <div class="skill-bar">
-                <div class="skill-bar-header"><span>Scrum / Agile Leadership</span><span>92%</span></div>
-                <div class="skill-track"><div class="skill-fill delay-2" style="--skill-width: 92%;"></div></div>
-              </div>
-              <div class="skill-bar">
-                <div class="skill-bar-header"><span>Configuration Management</span><span>88%</span></div>
-                <div class="skill-track"><div class="skill-fill delay-3" style="--skill-width: 88%;"></div></div>
-              </div>
-              <div class="skill-bar">
-                <div class="skill-bar-header"><span>Python / Java</span><span>78%</span></div>
-                <div class="skill-track"><div class="skill-fill delay-4" style="--skill-width: 78%;"></div></div>
-              </div>
-              <div class="skill-bar">
-                <div class="skill-bar-header"><span>Front-End Development</span><span>80%</span></div>
-                <div class="skill-track"><div class="skill-fill delay-5" style="--skill-width: 80%;"></div></div>
-              </div>
-              <div class="skill-bar">
-                <div class="skill-bar-header"><span>Technical Documentation</span><span>94%</span></div>
-                <div class="skill-track"><div class="skill-fill delay-6" style="--skill-width: 94%;"></div></div>
-              </div>
-            </div>
-          </div>
-
-          <div class="panel">
-            <h3>Skill Radar</h3>
-            <p class="contact-copy">A quick visual summary of my strongest technical and professional capabilities.</p>
-            <div class="radar-wrap">
-              <canvas id="skillRadar" width="360" height="360"></canvas>
-            </div>
-          </div>
+        <h2 class="section-title">Resume</h2>
+        <p class="section-subtitle">View a web-friendly version of my resume below and download the PDF version.</p>
+        <div class="resume-actions">
+          <a class="btn btn-primary" href="resume.pdf" target="_blank">View Resume PDF</a>
+          <a class="btn btn-secondary" href="resume.pdf" download>Download Resume</a>
+        </div>
+        <div class="resume-preview">
+          <h3>Katie Downing Powell</h3>
+          <p>Email: downing_katie@yahoo.com | Phone: (301) 592-7200 | District Heights, MD</p>
+          <br />
+          <h4>Professional Summary</h4>
+          <p>Motivated technology professional with strengths in DevSecOps, cloud application support, configuration management, Scrum leadership, systems administration, and technical communication. Experienced in supporting multiple cloud-based applications, leading Agile teams, and creating organized, user-focused technical solutions.</p>
+          <br />
+          <h4>Technical Skills</h4>
+          <ul>
+            <li>DevSecOps, Scrum, and Agile delivery</li>
+            <li>AWS Cloud Practitioner</li>
+            <li>Configuration management and release support</li>
+            <li>Atlassian Suite, SharePoint, and UrbanCode Deploy</li>
+            <li>Technical troubleshooting, documentation, and systems administration</li>
+          </ul>
+          <br />
+          <h4>Education</h4>
+          <p>B.S. in Computer Technology — Bowie State University (Expected 05/2026)</p>
+          <p>GPA: 3.97 | Alpha Chi National College Honor Society | Dean’s List (6 semesters)</p>
+          <p>A.A.T. in Teacher Education (Spanish) — Prince George’s Community College (05/2016)</p>
         </div>
       </div>
     </section>
@@ -921,7 +1013,6 @@
       <div class="container">
         <h2 class="section-title">Projects</h2>
         <p class="section-subtitle">Selected projects and GitHub activity that reflect my technical background, creativity, and problem-solving approach.</p>
-
         <div class="projects-grid">
           <article class="panel project-card github-feed" style="min-height: auto;">
             <div>
@@ -958,7 +1049,6 @@
         <div class="game-section" id="battleship-game">
           <h3 class="section-title" style="font-size: 1.6rem; margin-top: 2rem;">Play Battleship</h3>
           <p class="section-subtitle">Click the opponent grid to hunt the fleet. Sink all ships to win, then use Reset Game to play again.</p>
-
           <div class="game-layout">
             <div class="panel">
               <h3>About This Game</h3>
@@ -973,7 +1063,6 @@
                 <span class="legend-pill"><span class="legend-dot miss"></span> Miss</span>
               </div>
             </div>
-
             <div class="panel battleship-board-wrap">
               <h3>Opponent Grid</h3>
               <div class="battleship-board" id="battleshipBoard"></div>
@@ -983,57 +1072,15 @@
       </div>
     </section>
 
-    <section id="resume">
-      <div class="container">
-        <h2 class="section-title">Resume</h2>
-        <p class="section-subtitle">View a web-friendly version of my resume below and download the PDF version.</p>
-
-        <div class="resume-grid">
-          <div class="resume-preview">
-            <h3>Katie Downing Powell</h3>
-            <p>Email: downing_katie@yahoo.com | Phone: (301) 592-7200 | District Heights, MD</p>
-            <br />
-            <h4>Professional Summary</h4>
-            <p>Motivated technology professional with strengths in DevSecOps, cloud application support, configuration management, Scrum leadership, systems administration, and technical communication. Experienced in supporting multiple cloud-based applications, leading Agile teams, and creating organized, user-focused technical solutions.</p>
-            <br />
-            <h4>Technical Skills</h4>
-            <ul>
-              <li>DevSecOps, Scrum, and Agile delivery</li>
-              <li>AWS Cloud Practitioner</li>
-              <li>Configuration management and release support</li>
-              <li>Atlassian Suite, SharePoint, and UrbanCode Deploy</li>
-              <li>Technical troubleshooting, documentation, and systems administration</li>
-            </ul>
-            <br />
-            <h4>Education</h4>
-            <p>B.S. in Computer Technology — Bowie State University (Expected 05/2026)</p>
-            <p>GPA: 3.97 | Alpha Chi National College Honor Society | Dean’s List (6 semesters)</p>
-            <p>A.A.T. in Teacher Education (Spanish) — Prince George’s Community College (05/2016)</p>
-          </div>
-
-          <div class="panel">
-            <h3>Resume Actions</h3>
-            <p class="contact-copy">My resume is available in PDF format for easy viewing, downloading, and printing.</p>
-            <div class="resume-actions">
-              <a class="btn btn-primary" href="resume.pdf" target="_blank">View Resume PDF</a>
-              <a class="btn btn-secondary" href="resume.pdf" download>Download Resume</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <section id="blog">
       <div class="container">
-        <h2 class="section-title">Blog / Insights</h2>
+        <h2 class="section-title">Blog</h2>
         <p class="section-subtitle">Reflections on technology, learning, and professional growth.</p>
-
         <div class="blog-grid">
           <article class="panel blog-card">
             <h3>What I’m Learning in Web Development</h3>
             <p>I continue strengthening my front-end development skills by building projects that combine clean structure, responsive design, and interactive features that improve the user experience.</p>
           </article>
-
           <article class="panel blog-card">
             <h3>Why Technical Communication Matters</h3>
             <p>Strong technical communication helps turn complex ideas into clear, usable solutions for teams, users, and stakeholders. It is just as important as technical ability.</p>
@@ -1044,13 +1091,12 @@
 
     <section id="contact">
       <div class="container">
-        <h2 class="section-title">Contact Me</h2>
-        <p class="section-subtitle">Use the form below so visitors can reach out for networking, collaboration, or job opportunities.</p>
-
+        <h2 class="section-title">Contact</h2>
+        <p class="section-subtitle">Use the form below to open an email draft addressed to me with your message details pre-filled.</p>
         <div class="contact-grid">
           <div class="panel" style="max-width: 900px; width: 100%;">
             <h3>Send a Message</h3>
-            <form id="contactForm">
+            <form id="contactForm" action="mailto:downing_katie@yahoo.com" method="post" enctype="text/plain">
               <div>
                 <label for="name">Name</label>
                 <input type="text" id="name" name="name" placeholder="Enter your name" required />
@@ -1087,19 +1133,6 @@
     </div>
   </div>
 
-  <div class="music-player">
-    <button class="btn btn-secondary" id="musicToggle">🎧 Play Lo-Fi</button>
-    <span class="music-hint">Press M to toggle</span>
-    <audio id="lofiAudio" loop>
-      <source src="lofi.mp3" type="audio/mpeg" />
-    </audio>
-  </div>
-
-  <div class="theme-player">
-    <button class="btn btn-secondary" id="themeToggle">🌓 Toggle Theme</button>
-    <span class="theme-hint">Press T to toggle</span>
-  </div>
-
   <footer>
     <div class="container">
       <p>© 2026 Katie Downing Powell. All rights reserved.</p>
@@ -1119,15 +1152,13 @@
     resizeStars();
     window.addEventListener("resize", resizeStars);
 
-    const stars = starCanvas
-      ? Array.from({ length: 80 }, () => ({
-          x: Math.random() * window.innerWidth,
-          y: Math.random() * window.innerHeight,
-          r: Math.random() * 1.5 + 0.2,
-          dx: (Math.random() - 0.5) * 0.3,
-          dy: (Math.random() - 0.5) * 0.3
-        }))
-      : [];
+    const stars = Array.from({ length: 80 }, () => ({
+      x: Math.random() * window.innerWidth,
+      y: Math.random() * window.innerHeight,
+      r: Math.random() * 1.5 + 0.2,
+      dx: (Math.random() - 0.5) * 0.3,
+      dy: (Math.random() - 0.5) * 0.3
+    }));
 
     function animateStars() {
       if (!starCanvas || !starCtx) return;
@@ -1286,15 +1317,6 @@
       startBattleshipGame();
     }
 
-    const contactForm = document.getElementById("contactForm");
-    if (contactForm) {
-      contactForm.addEventListener("submit", function (event) {
-        event.preventDefault();
-        alert("Thank you! Your message was submitted successfully.");
-        contactForm.reset();
-      });
-    }
-
     const musicBtn = document.getElementById("musicToggle");
     const lofiAudio = document.getElementById("lofiAudio");
     let musicPlaying = false;
@@ -1314,7 +1336,7 @@
 
     if (musicBtn && lofiAudio) {
       musicBtn.addEventListener("click", toggleMusic);
-      document.addEventListener("keydown", function(e){
+      document.addEventListener("keydown", function (e) {
         if (e.key.toLowerCase() === "m") toggleMusic();
       });
     }
@@ -1326,24 +1348,23 @@
       const radarCtx = radarCanvas ? radarCanvas.getContext("2d") : null;
       if (!radarCanvas || !radarCtx) return;
 
-      const w = radarCanvas.width;
-      const h = radarCanvas.height;
-      const cx = w / 2;
-      const cy = h / 2;
-      const radius = 120;
-      const labels = ["DevSecOps", "Agile", "Config Mgmt", "Python/Java", "Front-End", "Documentation"];
-      const values = [90, 92, 88, 78, 80, 94];
+      const size = radarCanvas.width;
+      const cx = size / 2;
+      const cy = size / 2;
+      const radius = 78;
+      const labels = ["Web", "JS", "Python", "Java", "DevSecOps", "Writing", "Agile"];
+      const values = [90, 85, 80, 78, 82, 88, 90];
       const levels = 5;
 
-      radarCtx.clearRect(0, 0, w, h);
-      radarCtx.strokeStyle = "rgba(148, 163, 184, 0.25)";
+      radarCtx.clearRect(0, 0, radarCanvas.width, radarCanvas.height);
+      radarCtx.strokeStyle = "rgba(148, 163, 184, 0.28)";
       radarCtx.lineWidth = 1;
 
       for (let level = 1; level <= levels; level++) {
+        const r = (radius / levels) * level;
         radarCtx.beginPath();
         for (let i = 0; i < labels.length; i++) {
           const angle = (Math.PI * 2 / labels.length) * i - Math.PI / 2;
-          const r = (radius / levels) * level;
           const x = cx + Math.cos(angle) * r;
           const y = cy + Math.sin(angle) * r;
           if (i === 0) radarCtx.moveTo(x, y);
@@ -1361,10 +1382,11 @@
         radarCtx.moveTo(cx, cy);
         radarCtx.lineTo(x, y);
         radarCtx.stroke();
-        radarCtx.fillStyle = getComputedStyle(document.body).getPropertyValue("--muted");
-        radarCtx.font = "12px Arial";
+        radarCtx.fillStyle = getComputedStyle(document.body).getPropertyValue("--muted").trim();
+        radarCtx.font = "11px Arial";
         radarCtx.textAlign = x >= cx ? "left" : "right";
-        radarCtx.fillText(labels[i], cx + Math.cos(angle) * (radius + 18), cy + Math.sin(angle) * (radius + 18));
+        radarCtx.textBaseline = "middle";
+        radarCtx.fillText(labels[i], cx + Math.cos(angle) * (radius + 16), cy + Math.sin(angle) * (radius + 16));
       }
 
       radarCtx.beginPath();
@@ -1378,15 +1400,26 @@
       });
       radarCtx.closePath();
       radarCtx.fillStyle = "rgba(56, 189, 248, 0.22)";
-      radarCtx.strokeStyle = "rgba(56, 189, 248, 0.9)";
+      radarCtx.strokeStyle = "rgba(56, 189, 248, 0.95)";
       radarCtx.lineWidth = 2;
       radarCtx.fill();
       radarCtx.stroke();
+
+      values.forEach((value, i) => {
+        const angle = (Math.PI * 2 / labels.length) * i - Math.PI / 2;
+        const r = (value / 100) * radius;
+        const x = cx + Math.cos(angle) * r;
+        const y = cy + Math.sin(angle) * r;
+        radarCtx.beginPath();
+        radarCtx.arc(x, y, 3, 0, Math.PI * 2);
+        radarCtx.fillStyle = "rgba(56, 189, 248, 1)";
+        radarCtx.fill();
+      });
     }
 
     function toggleTheme() {
       document.body.classList.toggle("light-mode");
-      setTimeout(drawRadarChart, 50);
+      setTimeout(drawRadarChart, 60);
     }
 
     if (themeToggle) {
@@ -1429,13 +1462,13 @@
 
     function getBotReply(userMessage) {
       const message = userMessage.toLowerCase();
-      if (message.includes("skill")) return "My core skills include HTML, CSS, JavaScript, Python, Java, AWS Cloud, DevSecOps, Scrum/Agile, Atlassian tools, and configuration management.";
+      if (message.includes("skill")) return "My core skills include web development, JavaScript, Python, Java, cloud and DevSecOps work, technical writing, and Agile collaboration.";
       if (message.includes("project")) return "Featured work includes my playable Battleship game, original Java Battleship repository, this portfolio site, and my broader DevSecOps and cloud-focused work.";
       if (message.includes("resume")) return "You can view or download my resume from the Resume section.";
       if (message.includes("education") || message.includes("school") || message.includes("degree")) return "I’m completing a B.S. in Computer Technology at Bowie State University, expected in May 2026, with a 3.97 GPA.";
       if (message.includes("github")) return "My GitHub profile is linked in the site and includes my Battleship Java source code and portfolio repository.";
       if (message.includes("contact") || message.includes("email")) return "You can reach me through the contact form or email me directly at downing_katie@yahoo.com.";
-      if (message.includes("hello") || message.includes("hi")) return "Hello! Feel free to ask about my skills, projects, resume, education, or GitHub profile.";
+      if (message.includes("hello") || message.includes("hi")) return "Hello! Feel free to ask about my skills, projects, resume, education, GitHub profile.";
       return "I can help with questions about skills, projects, resume details, education, GitHub, or contact information.";
     }
 
