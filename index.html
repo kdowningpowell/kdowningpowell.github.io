@@ -156,7 +156,7 @@
     }
 
     .hero {
-      padding: 5rem 0 4rem;
+      padding: 4rem 0 1.5rem;
     }
 
     .hero-grid {
@@ -180,6 +180,26 @@
     h1, h2, h3, h4 {
       color: var(--white);
       line-height: 1.2;
+    }
+
+    h1 {
+      position: relative;
+    }
+
+    /* Subtle animated glow behind name */
+    .hero-name::after {
+      content: "";
+      position: absolute;
+      inset: -20px;
+      background: radial-gradient(circle, rgba(56,189,248,0.35), transparent 70%);
+      filter: blur(40px);
+      z-index: -1;
+      animation: nameGlow 6s ease-in-out infinite alternate;
+    }
+
+    @keyframes nameGlow {
+      0% { opacity: 0.35; transform: scale(0.95); }
+      100% { opacity: 0.65; transform: scale(1.05); }
     }
 
     h1 {
@@ -295,7 +315,7 @@
     }
 
     section {
-      padding: 2.6rem 0;
+      padding: 1.8rem 0;
     }
 
     .section-title {
@@ -664,30 +684,36 @@
     }
 
     @media (max-width: 960px) {
-  .hero-grid,
-  .about-grid,
-  .resume-grid,
-  .contact-grid,
-  .extras-grid,
-  .blog-grid,
-  .projects-grid,
-  .game-layout {
-    grid-template-columns: 1fr;
-  }
+      .hero-grid,
+      .about-grid,
+      .resume-grid,
+      .contact-grid,
+      .extras-grid,
+      .blog-grid,
+      .projects-grid,
+      .game-layout {
+        grid-template-columns: 1fr;
+      }
 
-  .hero-grid {
-    display: flex;
-    flex-direction: column;
-  }
+      .hero-grid {
+        display: flex;
+        flex-direction: column;
+      }
 
-  .hero-grid > aside {
-    order: 1;
-  }
+      .hero-grid > div {
+        order: 1;
+      }
 
-  .hero-grid > div {
-    order: 2;
-  }
-}
+      .hero-grid > aside {
+        order: 2;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .nav {
+        flex-direction: column;
+        align-items: flex-start;
+      }
 
       .hero { padding-top: 3.5rem; }
       .section-title { font-size: 1.7rem; }
@@ -728,99 +754,85 @@
 
   <main>
     <section class="hero" id="home">
-  <div class="container hero-grid">
-    <aside class="panel hero-card">
-      <img src="profile.jpg" alt="Professional headshot of Katie Downing Powell" class="profile-image" />
-      <div class="profile-icons">
-        <a href="https://www.linkedin.com/in/katie-d-01609054" target="_blank" title="LinkedIn">
-          <span class="icon">in</span>
-        </a>
-        <a href="https://github.com/kdowningpowell" target="_blank" title="GitHub">
-          <span class="icon">GH</span>
-        </a>
-        <a href="mailto:downing_katie@yahoo.com" title="Email">
-          <span class="icon">✉</span>
-        </a>
-      </div>
-
-      <h3>Quick Highlights</h3>
-      <ul>
-        <li><strong>Focus Areas:</strong> DevSecOps, Cloud Systems, Scrum Leadership, Configuration Management</li>
-        <li><strong>Languages & Tools:</strong> HTML, CSS, JavaScript, Python, Java, GitHub, Atlassian Suite, SharePoint, UrbanCode Deploy</li>
-        <li><strong>Education:</strong> B.S. in Computer Technology, Bowie State University (Expected 05/2026)</li>
-        <li><strong>Academic Honors:</strong> 3.97 GPA, Alpha Chi National College Honor Society, Dean’s List (6 semesters)</li>
-        <li><strong>Certifications:</strong> AWS Cloud Practitioner, SAFe, Scrum Master, CMMI Associate</li>
-        <li><strong>Professional Strengths:</strong> Technical documentation, systems administration, troubleshooting, Agile collaboration</li>
-      </ul>
-
-      <div class="skill-bars">
-        <div class="skill-bar">
-          <div class="skill-bar-header"><span>DevSecOps / Cloud Platforms</span><span>90%</span></div>
-          <div class="skill-track"><div class="skill-fill delay-1" style="--skill-width: 90%;"></div></div>
+      <div class="container hero-grid">
+        <div>
+          <span class="badge">Professional Portfolio Website</span>
+          <h1 class="hero-name">Katie Downing Powell</h1>
+          <p class="lead">I am a DevSecOps professional and Computer Technology student who enjoys solving technical problems and building practical solutions that help teams work more efficiently. My experience supporting cloud-based enterprise applications and Agile development teams has strengthened my skills in troubleshooting, configuration management, and secure system support. I enjoy learning new technologies and turning that knowledge into useful tools, projects, and improvements.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#projects">View My Projects</a>
+            <a class="btn btn-secondary" href="#resume">View Resume</a>
+          </div>
         </div>
 
-        <div class="skill-bar">
-          <div class="skill-bar-header"><span>Scrum / Agile Leadership</span><span>92%</span></div>
-          <div class="skill-track"><div class="skill-fill delay-2" style="--skill-width: 92%;"></div></div>
-        </div>
-
-        <div class="skill-bar">
-          <div class="skill-bar-header"><span>Configuration Management</span><span>88%</span></div>
-          <div class="skill-track"><div class="skill-fill delay-3" style="--skill-width: 88%;"></div></div>
-        </div>
-
-        <div class="skill-bar">
-          <div class="skill-bar-header"><span>Python / Java</span><span>78%</span></div>
-          <div class="skill-track"><div class="skill-fill delay-4" style="--skill-width: 78%;"></div></div>
-        </div>
-
-        <div class="skill-bar">
-          <div class="skill-bar-header"><span>Front-End Development</span><span>80%</span></div>
-          <div class="skill-track"><div class="skill-fill delay-5" style="--skill-width: 80%;"></div></div>
-        </div>
-
-        <div class="skill-bar">
-          <div class="skill-bar-header"><span>Technical Documentation</span><span>94%</span></div>
-          <div class="skill-track"><div class="skill-fill delay-6" style="--skill-width: 94%;"></div></div>
-        </div>
-      </div>
-    </aside>
-
-    <div>
-      <span class="badge">Professional Portfolio Website</span>
-      <h1>Katie Downing Powell</h1>
-      <p class="lead">
-        I am a Computer Technology student and DevSecOps professional who enjoys solving technical problems and building practical solutions that help teams work more efficiently. My professional experience supporting cloud-based enterprise applications and Agile development teams has strengthened my skills in troubleshooting, configuration management, and secure system support. I’m naturally curious about how systems work, and I enjoy learning new technologies and turning that knowledge into useful tools, projects, and improvements. This portfolio reflects both my professional experience and my passion for technology, featuring projects I’ve built, my resume, and interactive elements like a chatbot and a playable programming project.
-      </p>
-      <div class="hero-actions">
-        <a class="btn btn-primary" href="#projects">View My Projects</a>
-        <a class="btn btn-secondary" href="#resume">View Resume</a>
-      </div>
-    </div>
-  </div>
-</section>
-    <section id="about">
-      <div class="container">
-        <h2 class="section-title">About Me</h2>
-        <p class="section-subtitle">
-          A detailed overview of my education, technical background, and professional strengths.
-        </p>
-
-        <div class="about-grid">
-          <div class="panel">
-            <h3>Background</h3>
-            <p>
-              I am a technology professional and Computer Technology student who enjoys combining creativity with technical problem-solving. Through my work in DevSecOps and enterprise application support, I have developed experience with cloud systems, configuration management, Agile team collaboration, and troubleshooting complex technical issues. I value clear communication, continuous learning, and building solutions that are both reliable and user-focused. My goal is to continue growing as a technology professional while contributing to teams that build secure, efficient, and well-designed systems.
-            </p>
-            <br />
-            <p>
-              I enjoy building projects that combine creativity with technical skill, especially when those projects improve usability, security, and professional presentation.
-            </p>
+        <aside class="panel hero-card">
+          <img src="profile.jpg" alt="Professional headshot of Katie Downing Powell" class="profile-image" />
+          <div class="profile-icons">
+            <a href="https://www.linkedin.com/in/katie-d-01609054" target="_blank" title="LinkedIn">
+              <span class="icon">in</span>
+            </a>
+            <a href="https://github.com/kdowningpowell" target="_blank" title="GitHub">
+              <span class="icon">GH</span>
+            </a>
+            <a href="mailto:downing_katie@yahoo.com" title="Email">
+              <span class="icon">✉</span>
+            </a>
           </div>
 
-          </div>
+          <h3>Quick Highlights</h3>
+          <ul>
+            <li><strong>Focus Areas:</strong> DevSecOps, Cloud Systems, Scrum Leadership, Configuration Management</li>
+            <li><strong>Languages & Tools:</strong> HTML, CSS, JavaScript, Python, Java, GitHub, Atlassian Suite, SharePoint, UrbanCode Deploy</li>
+            <li><strong>Education:</strong> B.S. in Computer Technology, Bowie State University (Expected 05/2026)</li>
+            <li><strong>Academic Honors:</strong> 3.97 GPA, Alpha Chi National College Honor Society, Dean’s List (6 semesters)</li>
+            <li><strong>Certifications:</strong> AWS Cloud Practitioner, SAFe, Scrum Master, CMMI Associate</li>
+            <li><strong>Professional Strengths:</strong> Technical documentation, systems administration, troubleshooting, Agile collaboration</li>
+          </ul>
+
+          </aside>
       </div>
     </section>
+
+    <section id="about">
+      <div class="container">
+        <h2 class="section-title">Core Skills</h2>
+        <p class="section-subtitle">
+          Key technical strengths and professional capabilities.
+        </p>
+
+        <div class="panel" style="margin-top:0.5rem;">
+          <h3>Core Skill Strength</h3>
+
+          <div class="skill-bars">
+            <div class="skill-bar">
+              <div class="skill-bar-header"><span>DevSecOps / Cloud Platforms</span><span>90%</span></div>
+              <div class="skill-track"><div class="skill-fill delay-1" style="--skill-width: 90%;"></div></div>
+            </div>
+
+            <div class="skill-bar">
+              <div class="skill-bar-header"><span>Scrum / Agile Leadership</span><span>92%</span></div>
+              <div class="skill-track"><div class="skill-fill delay-2" style="--skill-width: 92%;"></div></div>
+            </div>
+
+            <div class="skill-bar">
+              <div class="skill-bar-header"><span>Configuration Management</span><span>88%</span></div>
+              <div class="skill-track"><div class="skill-fill delay-3" style="--skill-width: 88%;"></div></div>
+            </div>
+
+            <div class="skill-bar">
+              <div class="skill-bar-header"><span>Python / Java</span><span>78%</span></div>
+              <div class="skill-track"><div class="skill-fill delay-4" style="--skill-width: 78%;"></div></div>
+            </div>
+
+            <div class="skill-bar">
+              <div class="skill-bar-header"><span>Front-End Development</span><span>80%</span></div>
+              <div class="skill-track"><div class="skill-fill delay-5" style="--skill-width: 80%;"></div></div>
+            </div>
+
+            <div class="skill-bar">
+              <div class="skill-bar-header"><span>Technical Documentation</span><span>94%</span></div>
+              <div class="skill-track"><div class="skill-fill delay-6" style="--skill-width: 94%;"></div></div>
+            </div>
 
     <section id="projects">
       <div class="container">
@@ -1332,49 +1344,4 @@
       }
       if (message.includes("education") || message.includes("school") || message.includes("degree")) {
         return "I’m completing a B.S. in Computer Technology at Bowie State University, expected in May 2026, with a 3.97 GPA.";
-      }
-      if (message.includes("github")) {
-        return "My GitHub profile is linked in the site and includes my Battleship Java source code and portfolio repository.";
-      }
-      if (message.includes("contact") || message.includes("email")) {
-        return "You can reach me through the contact form or email me directly at downing_katie@yahoo.com.";
-      }
-      if (message.includes("hello") || message.includes("hi")) {
-        return "Hello! Feel free to ask about my skills, projects, resume, education, or GitHub profile.";
-      }
-      return "I can help with questions about skills, projects, resume details, education, GitHub, or contact information.";
-    }
-
-    function addMessage(text, sender) {
-      if (!chatBody) return;
-      const messageDiv = document.createElement("div");
-      messageDiv.classList.add("message", sender);
-      messageDiv.textContent = text;
-      chatBody.appendChild(messageDiv);
-      chatBody.scrollTop = chatBody.scrollHeight;
-    }
-
-    function handleChat() {
-      if (!chatInput) return;
-      const userText = chatInput.value.trim();
-      if (!userText) return;
-
-      addMessage(userText, "user");
-      const reply = getBotReply(userText);
-      setTimeout(function () {
-        addMessage(reply, "bot");
-      }, 400);
-      chatInput.value = "";
-    }
-
-    if (sendBtn) sendBtn.addEventListener("click", handleChat);
-    if (chatInput) {
-      chatInput.addEventListener("keydown", function (event) {
-        if (event.key === "Enter") {
-          handleChat();
-        }
-      });
-    }
-  </script>
-</body>
-</html>
+    
