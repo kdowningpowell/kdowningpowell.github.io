@@ -4,28 +4,42 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Katie Downing Powell | Professional Portfolio</title>
-  <meta
-    name="description"
-    content="A responsive personal portfolio website with projects, resume, QR codes, chatbot, music, and interactive features."
-  />
-
-  <!-- QR code library -->
+  <meta name="description" content="A responsive personal portfolio website with projects, resume, QR codes, chatbot, music, and interactive features." />
   <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
 
   <style>
     :root {
       --bg-dark: #0f172a;
       --bg-darker: #020617;
+      --bg-alt: #111827;
       --text: #e5e7eb;
       --muted: #94a3b8;
       --accent: #38bdf8;
-      --success: #22c55e;
+      --accent-2: #22c55e;
       --white: #ffffff;
       --border: rgba(148, 163, 184, 0.18);
       --shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
       --radius: 18px;
       --max-width: 1150px;
       --panel: rgba(17, 24, 39, 0.72);
+      --panel-solid: #111827;
+      --input: #0b1220;
+    }
+
+    body.light-mode {
+      --bg-dark: #eef4fb;
+      --bg-darker: #f8fbff;
+      --bg-alt: #dbe7f4;
+      --text: #0f172a;
+      --muted: #475569;
+      --accent: #0284c7;
+      --accent-2: #16a34a;
+      --white: #0f172a;
+      --border: rgba(15, 23, 42, 0.10);
+      --shadow: 0 12px 28px rgba(15, 23, 42, 0.12);
+      --panel: rgba(255, 255, 255, 0.88);
+      --panel-solid: #ffffff;
+      --input: #ffffff;
     }
 
     * {
@@ -39,18 +53,17 @@
       font-family: Arial, Helvetica, sans-serif;
       color: var(--text);
       background:
-        radial-gradient(circle at 15% 20%, rgba(56, 189, 248, 0.22), transparent 35%),
-        radial-gradient(circle at 85% 15%, rgba(168, 85, 247, 0.18), transparent 35%),
-        radial-gradient(circle at 10% 85%, rgba(34, 197, 94, 0.16), transparent 35%),
-        radial-gradient(circle at 90% 80%, rgba(59, 130, 246, 0.16), transparent 40%),
-        linear-gradient(140deg, #020617 0%, #0f172a 42%, #111827 75%, #1e293b 100%);
+        radial-gradient(circle at 15% 20%, rgba(56, 189, 248, 0.20), transparent 35%),
+        radial-gradient(circle at 85% 15%, rgba(168, 85, 247, 0.14), transparent 35%),
+        radial-gradient(circle at 10% 85%, rgba(34, 197, 94, 0.13), transparent 35%),
+        linear-gradient(140deg, var(--bg-darker) 0%, var(--bg-dark) 42%, var(--bg-alt) 100%);
       background-attachment: fixed;
       line-height: 1.6;
       position: relative;
       overflow-x: hidden;
+      transition: background 0.3s ease, color 0.3s ease;
     }
 
-    /* Soft moving glow accents */
     body::before,
     body::after {
       content: "";
@@ -65,7 +78,7 @@
       height: 500px;
       top: -120px;
       left: -120px;
-      background: radial-gradient(circle, rgba(56, 189, 248, 0.26), transparent 70%);
+      background: radial-gradient(circle, rgba(56, 189, 248, 0.20), transparent 70%);
       animation: floatGlow1 18s ease-in-out infinite;
     }
 
@@ -74,7 +87,7 @@
       height: 520px;
       bottom: -160px;
       right: -120px;
-      background: radial-gradient(circle, rgba(168, 85, 247, 0.24), transparent 70%);
+      background: radial-gradient(circle, rgba(168, 85, 247, 0.16), transparent 70%);
       animation: floatGlow2 22s ease-in-out infinite;
     }
 
@@ -103,9 +116,7 @@
       text-decoration: none;
     }
 
-    a:hover {
-      opacity: 0.9;
-    }
+    a:hover { opacity: 0.9; }
 
     img {
       max-width: 100%;
@@ -123,9 +134,9 @@
       position: sticky;
       top: 0;
       z-index: 999;
-      background: rgba(2, 6, 23, 0.8);
+      background: color-mix(in srgb, var(--bg-darker) 85%, transparent);
       backdrop-filter: blur(14px);
-      border-bottom: 1px solid rgba(148, 163, 184, 0.14);
+      border-bottom: 1px solid var(--border);
     }
 
     .nav {
@@ -156,13 +167,13 @@
     }
 
     .hero {
-      padding: 4rem 0 1.5rem;
+      padding: 3rem 0 0.5rem;
     }
 
     .hero-grid {
       display: grid;
-      grid-template-columns: 1.3fr 0.7fr;
-      gap: 2rem;
+      grid-template-columns: 300px 1fr;
+      gap: 1.2rem;
       align-items: start;
     }
 
@@ -184,14 +195,15 @@
 
     h1 {
       position: relative;
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      margin-bottom: 1rem;
     }
 
-    /* Subtle animated glow behind name */
     .hero-name::after {
       content: "";
       position: absolute;
       inset: -20px;
-      background: radial-gradient(circle, rgba(56,189,248,0.35), transparent 70%);
+      background: radial-gradient(circle, rgba(56, 189, 248, 0.30), transparent 70%);
       filter: blur(40px);
       z-index: -1;
       animation: nameGlow 6s ease-in-out infinite alternate;
@@ -202,16 +214,19 @@
       100% { opacity: 0.65; transform: scale(1.05); }
     }
 
-    h1 {
-      font-size: clamp(2.4rem, 5vw, 4rem);
-      margin-bottom: 1rem;
+    .typing-line {
+      color: var(--accent);
+      font-weight: 700;
+      min-height: 1.5rem;
+      margin: -0.2rem 0 1rem;
+      letter-spacing: 0.2px;
     }
 
     .lead {
       color: var(--muted);
       font-size: 1.08rem;
       max-width: 720px;
-      margin-bottom: 1.4rem;
+      margin-bottom: 1.25rem;
     }
 
     .hero-actions {
@@ -231,12 +246,10 @@
       font-weight: 700;
       border: none;
       cursor: pointer;
-      transition: transform 0.2s ease, opacity 0.2s ease;
+      transition: transform 0.2s ease, opacity 0.2s ease, background 0.2s ease;
     }
 
-    .btn:hover {
-      transform: translateY(-2px);
-    }
+    .btn:hover { transform: translateY(-2px); }
 
     .btn-primary {
       background: var(--accent);
@@ -254,20 +267,26 @@
       border: 1px solid rgba(148, 163, 184, 0.16);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
-      padding: 1.4rem;
+      padding: 1.25rem;
       backdrop-filter: blur(12px);
+      transition: transform .25s ease, box-shadow .25s ease;
+    }
+
+    .panel:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 18px 40px rgba(0,0,0,.28);
     }
 
     .profile-image {
-      width: 260px;
-      height: 260px;
+      width: 240px;
+      height: 240px;
       object-fit: cover;
       object-position: center top;
       border-radius: 50%;
       border: 4px solid rgba(56, 189, 248, 0.35);
       box-shadow: var(--shadow);
       margin: 0 auto 1rem;
-      background: #0b1220;
+      background: var(--input);
     }
 
     .profile-icons {
@@ -297,16 +316,19 @@
       background: rgba(56, 189, 248, 0.25);
     }
 
+    .hero-card { height: fit-content; }
+
     .hero-card ul {
       list-style: none;
       display: grid;
-      gap: 0.8rem;
+      gap: 0.7rem;
     }
 
     .hero-card li {
-      padding-bottom: 0.8rem;
+      padding-bottom: 0.7rem;
       border-bottom: 1px solid rgba(148, 163, 184, 0.12);
       color: var(--muted);
+      line-height: 1.45;
     }
 
     .hero-card li:last-child {
@@ -314,49 +336,30 @@
       padding-bottom: 0;
     }
 
-    section {
-      padding: 1.8rem 0;
-    }
+    section { padding: 0.8rem 0; }
 
     .section-title {
       font-size: 2rem;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.35rem;
     }
 
     .section-subtitle {
       color: var(--muted);
-      margin-bottom: 1.5rem;
+      margin-bottom: 1rem;
     }
 
-    .about-grid,
     .resume-grid,
     .contact-grid,
-    .extras-grid,
     .blog-grid,
-    .game-layout {
+    .game-layout,
+    .enhance-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 1.5rem;
-    }
-
-    .skills-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.7rem;
-      margin-top: 1rem;
-    }
-
-    .chip {
-      padding: 0.55rem 0.85rem;
-      border-radius: 999px;
-      background: rgba(34, 197, 94, 0.12);
-      border: 1px solid rgba(34, 197, 94, 0.25);
-      color: #bbf7d0;
-      font-size: 0.95rem;
+      gap: 1.2rem;
     }
 
     .skill-bars {
-      margin-top: 1.25rem;
+      margin-top: 0.8rem;
       display: grid;
       gap: 0.9rem;
     }
@@ -405,8 +408,9 @@
 
     .projects-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
+      grid-template-columns: 1fr;
+      gap: 1.2rem;
+      margin-top: 0.5rem;
     }
 
     .project-card {
@@ -416,8 +420,12 @@
       justify-content: space-between;
     }
 
+    .project-card h3 { margin-bottom: 0.4rem; }
+
     .project-card p,
-    .blog-card p {
+    .blog-card p,
+    .github-feed p,
+    .contact-copy {
       color: var(--muted);
       margin-top: 0.7rem;
     }
@@ -429,9 +437,7 @@
       margin-top: auto;
     }
 
-    .game-section {
-      margin-top: 1.5rem;
-    }
+    .game-section { margin-top: 1.5rem; }
 
     .game-status {
       margin: 1rem 0;
@@ -443,9 +449,7 @@
       min-height: 52px;
     }
 
-    .battleship-board-wrap {
-      overflow-x: auto;
-    }
+    .battleship-board-wrap { overflow-x: auto; }
 
     .battleship-board {
       display: grid;
@@ -459,7 +463,7 @@
       height: 42px;
       border-radius: 10px;
       border: 1px solid rgba(148, 163, 184, 0.2);
-      background: #0b1220;
+      background: var(--input);
       color: var(--text);
       font-weight: bold;
       cursor: pointer;
@@ -510,18 +514,19 @@
     .legend-dot.unknown { background: rgba(56, 189, 248, 0.5); }
 
     .resume-preview {
-      background: #f8fafc;
-      color: #0f172a;
+      background: color-mix(in srgb, var(--panel-solid) 92%, white 8%);
+      color: var(--text);
       border-radius: 14px;
       padding: 1.25rem;
       min-height: 370px;
+      border: 1px solid var(--border);
     }
 
     .resume-preview h3,
-    .resume-preview h4 { color: #0f172a; }
+    .resume-preview h4 { color: var(--white); }
 
     .resume-preview p,
-    .resume-preview li { color: #334155; }
+    .resume-preview li { color: var(--text); }
 
     .resume-preview ul {
       margin-left: 1.2rem;
@@ -535,23 +540,82 @@
       margin-top: 1rem;
     }
 
+    .qr-divider {
+      border-top: 1px solid rgba(148, 163, 184, 0.12);
+      margin-top: 0.8rem;
+      padding-top: 0.7rem;
+    }
+
+    .qr-blurb {
+      color: var(--muted);
+      font-size: 0.9rem;
+      text-align: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .qr-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+      margin-top: 0.6rem;
+    }
+
     .qr-box {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 1rem;
+      gap: 0.4rem;
       text-align: center;
+    }
+
+    .compact-qr h4 {
+      color: var(--white);
+      font-size: 0.85rem;
+      margin-bottom: 0.1rem;
     }
 
     #qrcode,
     #github-qrcode {
       background: #ffffff;
-      padding: 1rem;
-      border-radius: 14px;
+      padding: 0.35rem;
+      border-radius: 10px;
       display: inline-block;
-      min-width: 212px;
-      min-height: 212px;
+      min-width: 88px;
+      min-height: 88px;
+    }
+
+    .github-feed-list {
+      display: grid;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+
+    .feed-item {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 0.8rem;
+      background: rgba(255,255,255,0.02);
+    }
+
+    .feed-item h4 {
+      font-size: 0.95rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .feed-item small { color: var(--muted); }
+
+    .radar-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0.5rem 0;
+    }
+
+    #skillRadar {
+      max-width: 100%;
+      width: 360px;
+      height: 360px;
     }
 
     form {
@@ -571,13 +635,13 @@
       padding: 0.9rem 1rem;
       border-radius: 12px;
       border: 1px solid var(--border);
-      background: #0b1220;
+      background: var(--input);
       color: var(--text);
       font-size: 1rem;
     }
 
     textarea {
-      min-height: 150px;
+      min-height: 220px;
       resize: vertical;
     }
 
@@ -609,7 +673,7 @@
       right: 20px;
       width: 350px;
       max-width: calc(100% - 32px);
-      background: #0b1220;
+      background: var(--input);
       border: 1px solid var(--border);
       border-radius: 18px;
       box-shadow: var(--shadow);
@@ -622,7 +686,7 @@
 
     .chatbot-header {
       padding: 1rem;
-      background: #111827;
+      background: var(--panel-solid);
       border-bottom: 1px solid var(--border);
     }
 
@@ -647,7 +711,12 @@
     .bot {
       align-self: flex-start;
       background: #1e293b;
-      color: var(--text);
+      color: #e5e7eb;
+    }
+
+    body.light-mode .bot {
+      background: #dbeafe;
+      color: #0f172a;
     }
 
     .user {
@@ -662,19 +731,29 @@
       gap: 0.5rem;
       padding: 1rem;
       border-top: 1px solid var(--border);
-      background: #111827;
+      background: var(--panel-solid);
     }
 
-    .chatbot-input input {
-      flex: 1;
-      background: #020617;
-    }
+    .chatbot-input input { flex: 1; }
 
-    .music-player {
+    .music-player,
+    .theme-player {
       position: fixed;
       bottom: 20px;
-      left: 20px;
       z-index: 999;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .music-player { left: 20px; }
+    .theme-player { left: 220px; }
+
+    .music-hint,
+    .theme-hint {
+      font-size: 11px;
+      color: var(--muted);
+      opacity: 0.7;
     }
 
     footer {
@@ -685,28 +764,17 @@
 
     @media (max-width: 960px) {
       .hero-grid,
-      .about-grid,
       .resume-grid,
       .contact-grid,
-      .extras-grid,
       .blog-grid,
-      .projects-grid,
-      .game-layout {
+      .game-layout,
+      .enhance-grid {
         grid-template-columns: 1fr;
       }
 
-      .hero-grid {
-        display: flex;
-        flex-direction: column;
-      }
-
-      .hero-grid > div {
-        order: 1;
-      }
-
-      .hero-grid > aside {
-        order: 2;
-      }
+      .hero-grid { grid-template-columns: 1fr; }
+      .qr-row { grid-template-columns: 1fr 1fr; }
+      .theme-player { left: 20px; bottom: 68px; }
     }
 
     @media (max-width: 640px) {
@@ -728,10 +796,11 @@
         bottom: 12px;
       }
 
-      .music-player {
-        left: 12px;
-        bottom: 12px;
-      }
+      .music-player { left: 12px; bottom: 12px; }
+      .theme-player { left: 12px; bottom: 60px; }
+      .qr-row { grid-template-columns: 1fr 1fr; }
+      #skillRadar { width: 280px; height: 280px; }
+      textarea { min-height: 200px; }
     }
   </style>
 </head>
@@ -755,28 +824,12 @@
   <main>
     <section class="hero" id="home">
       <div class="container hero-grid">
-        <div>
-          <span class="badge">Professional Portfolio Website</span>
-          <h1 class="hero-name">Katie Downing Powell</h1>
-          <p class="lead">I am a DevSecOps professional and Computer Technology student who enjoys solving technical problems and building practical solutions that help teams work more efficiently. My experience supporting cloud-based enterprise applications and Agile development teams has strengthened my skills in troubleshooting, configuration management, and secure system support. I enjoy learning new technologies and turning that knowledge into useful tools, projects, and improvements.</p>
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="#projects">View My Projects</a>
-            <a class="btn btn-secondary" href="#resume">View Resume</a>
-          </div>
-        </div>
-
         <aside class="panel hero-card">
           <img src="profile.jpg" alt="Professional headshot of Katie Downing Powell" class="profile-image" />
           <div class="profile-icons">
-            <a href="https://www.linkedin.com/in/katie-d-01609054" target="_blank" title="LinkedIn">
-              <span class="icon">in</span>
-            </a>
-            <a href="https://github.com/kdowningpowell" target="_blank" title="GitHub">
-              <span class="icon">GH</span>
-            </a>
-            <a href="mailto:downing_katie@yahoo.com" title="Email">
-              <span class="icon">✉</span>
-            </a>
+            <a href="https://www.linkedin.com/in/katie-d-01609054" target="_blank" title="LinkedIn"><span class="icon">in</span></a>
+            <a href="https://github.com/kdowningpowell" target="_blank" title="GitHub"><span class="icon">GH</span></a>
+            <a href="mailto:downing_katie@yahoo.com" title="Email"><span class="icon">✉</span></a>
           </div>
 
           <h3>Quick Highlights</h3>
@@ -789,111 +842,127 @@
             <li><strong>Professional Strengths:</strong> Technical documentation, systems administration, troubleshooting, Agile collaboration</li>
           </ul>
 
-          </aside>
+          <div class="qr-divider">
+            <div class="qr-blurb">Scan these codes to quickly open my portfolio website or GitHub profile on your mobile device.</div>
+            <div class="qr-row">
+              <div class="qr-box compact-qr">
+                <h4>Portfolio</h4>
+                <div id="qrcode"></div>
+              </div>
+              <div class="qr-box compact-qr">
+                <h4>GitHub</h4>
+                <div id="github-qrcode"></div>
+              </div>
+            </div>
+          </div>
+        </aside>
+
+        <div>
+          <span class="badge">Professional Portfolio Website</span>
+          <h1 class="hero-name">Katie Downing Powell</h1>
+          <div class="typing-line" id="typingLine"></div>
+          <p class="lead">I am a DevSecOps professional and Computer Technology student who enjoys solving technical problems and building practical solutions that help teams work more efficiently. My experience supporting cloud-based enterprise applications and Agile development teams has strengthened my skills in troubleshooting, configuration management, and secure system support. I enjoy learning new technologies and turning that knowledge into useful tools, projects, and improvements.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#projects">View My Projects</a>
+            <a class="btn btn-secondary" href="#resume">View Resume</a>
+          </div>
+        </div>
       </div>
     </section>
 
     <section id="about">
       <div class="container">
         <h2 class="section-title">Core Skills</h2>
-        <p class="section-subtitle">
-          Key technical strengths and professional capabilities.
-        </p>
+        <p class="section-subtitle">Key technical strengths and professional capabilities.</p>
 
-        <div class="panel" style="margin-top:0.5rem;">
-          <h3>Core Skill Strength</h3>
-
-          <div class="skill-bars">
-            <div class="skill-bar">
-              <div class="skill-bar-header"><span>DevSecOps / Cloud Platforms</span><span>90%</span></div>
-              <div class="skill-track"><div class="skill-fill delay-1" style="--skill-width: 90%;"></div></div>
+        <div class="enhance-grid">
+          <div class="panel">
+            <h3>Core Skill Strength</h3>
+            <div class="skill-bars">
+              <div class="skill-bar">
+                <div class="skill-bar-header"><span>DevSecOps / Cloud Platforms</span><span>90%</span></div>
+                <div class="skill-track"><div class="skill-fill delay-1" style="--skill-width: 90%;"></div></div>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-bar-header"><span>Scrum / Agile Leadership</span><span>92%</span></div>
+                <div class="skill-track"><div class="skill-fill delay-2" style="--skill-width: 92%;"></div></div>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-bar-header"><span>Configuration Management</span><span>88%</span></div>
+                <div class="skill-track"><div class="skill-fill delay-3" style="--skill-width: 88%;"></div></div>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-bar-header"><span>Python / Java</span><span>78%</span></div>
+                <div class="skill-track"><div class="skill-fill delay-4" style="--skill-width: 78%;"></div></div>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-bar-header"><span>Front-End Development</span><span>80%</span></div>
+                <div class="skill-track"><div class="skill-fill delay-5" style="--skill-width: 80%;"></div></div>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-bar-header"><span>Technical Documentation</span><span>94%</span></div>
+                <div class="skill-track"><div class="skill-fill delay-6" style="--skill-width: 94%;"></div></div>
+              </div>
             </div>
+          </div>
 
-            <div class="skill-bar">
-              <div class="skill-bar-header"><span>Scrum / Agile Leadership</span><span>92%</span></div>
-              <div class="skill-track"><div class="skill-fill delay-2" style="--skill-width: 92%;"></div></div>
+          <div class="panel">
+            <h3>Skill Radar</h3>
+            <p class="contact-copy">A quick visual summary of my strongest technical and professional capabilities.</p>
+            <div class="radar-wrap">
+              <canvas id="skillRadar" width="360" height="360"></canvas>
             </div>
-
-            <div class="skill-bar">
-              <div class="skill-bar-header"><span>Configuration Management</span><span>88%</span></div>
-              <div class="skill-track"><div class="skill-fill delay-3" style="--skill-width: 88%;"></div></div>
-            </div>
-
-            <div class="skill-bar">
-              <div class="skill-bar-header"><span>Python / Java</span><span>78%</span></div>
-              <div class="skill-track"><div class="skill-fill delay-4" style="--skill-width: 78%;"></div></div>
-            </div>
-
-            <div class="skill-bar">
-              <div class="skill-bar-header"><span>Front-End Development</span><span>80%</span></div>
-              <div class="skill-track"><div class="skill-fill delay-5" style="--skill-width: 80%;"></div></div>
-            </div>
-
-            <div class="skill-bar">
-              <div class="skill-bar-header"><span>Technical Documentation</span><span>94%</span></div>
-              <div class="skill-track"><div class="skill-fill delay-6" style="--skill-width: 94%;"></div></div>
-            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <section id="projects">
       <div class="container">
         <h2 class="section-title">Projects</h2>
-        <p class="section-subtitle">
-          Selected projects that reflect my technical background, creativity, and problem-solving approach.
-        </p>
+        <p class="section-subtitle">Selected projects and GitHub activity that reflect my technical background, creativity, and problem-solving approach.</p>
 
         <div class="projects-grid">
-          <article class="panel project-card">
+          <article class="panel project-card github-feed" style="min-height: auto;">
             <div>
-              <h3>Playable Battleship Game</h3>
-              <p>
-                This project began as a fully functional Java Battleship program with player grids, ship placement logic, hit detection, and win-condition checking. The complete Java source code is available on GitHub, and I also created a browser-based version so visitors can play the game directly from this portfolio.
-              </p>
+              <h3>GitHub Activity</h3>
+              <p>This section brings together my featured portfolio work, original Battleship Java source code, and my broader GitHub focus areas in one place.</p>
+              <div class="github-feed-list" id="githubFeedList">
+                <div class="feed-item">
+                  <h4>Playable Battleship Game</h4>
+                  <small>A browser-playable adaptation of my original Java Battleship project, available to try directly on this site.</small>
+                </div>
+                <div class="feed-item">
+                  <h4>Battleship Java Repository</h4>
+                  <small>Source code for my original Java Battleship game with ship placement, hit detection, and win-condition logic.</small>
+                </div>
+                <div class="feed-item">
+                  <h4>Portfolio Repository</h4>
+                  <small>Source code and ongoing updates for this live portfolio website, including chatbot, QR codes, music, and UI enhancements.</small>
+                </div>
+                <div class="feed-item">
+                  <h4>Cloud / DevSecOps Focus</h4>
+                  <small>Highlights my interest in secure systems, configuration management, Agile delivery, and enterprise application support.</small>
+                </div>
+              </div>
             </div>
             <div class="project-links">
-              <a href="#battleship-game">Play Now</a>
-              <a href="https://github.com/kdowningpowell/battleship-java" target="_blank">View Java Source Code</a>
-            </div>
-          </article>
-
-          <article class="panel project-card">
-            <div>
-              <h3>Personal Portfolio Website</h3>
-              <p>
-                A responsive portfolio built with HTML, CSS, and JavaScript that includes a chatbot, downloadable resume, QR codes, music, and polished contact and branding features.
-              </p>
-            </div>
-            <div class="project-links">
-              <a href="https://github.com/kdowningpowell/kdowningpowell.github.io" target="_blank">GitHub Repo</a>
-              <a href="https://kdowningpowell.github.io" target="_blank">Live Demo</a>
-            </div>
-          </article>
-
-          <article class="panel project-card">
-            <div>
-              <h3>DevSecOps & Cloud Work</h3>
-              <p>
-                My professional experience includes DevSecOps support, cloud application administration, configuration management, Agile team collaboration, and release support across enterprise systems.
-              </p>
-            </div>
-            <div class="project-links">
-              <a href="#about">Learn More</a>
-              <a href="#resume">View Resume</a>
+              <a href="#battleship-game">Play Battleship</a>
+              <a href="https://github.com/kdowningpowell/battleship-java" target="_blank">View Battleship Code</a>
+              <a href="https://github.com/kdowningpowell/kdowningpowell.github.io" target="_blank">View Portfolio Code</a>
+              <a href="https://github.com/kdowningpowell" target="_blank">Open GitHub Profile</a>
             </div>
           </article>
         </div>
 
         <div class="game-section" id="battleship-game">
           <h3 class="section-title" style="font-size: 1.6rem; margin-top: 2rem;">Play Battleship</h3>
-          <p class="section-subtitle">
-            Click the opponent grid to hunt the fleet. Sink all ships to win, then use Reset Game to play again.
-          </p>
+          <p class="section-subtitle">Click the opponent grid to hunt the fleet. Sink all ships to win, then use Reset Game to play again.</p>
 
           <div class="game-layout">
             <div class="panel">
               <h3>About This Game</h3>
-              <p>
-                This web version is inspired by my original Java Battleship program. It keeps the same core ideas: a hidden fleet, hit or miss tracking, and a victory check when all ships are sunk.
-              </p>
+              <p>This web version is inspired by my original Java Battleship program. It keeps the same core ideas: a hidden fleet, hit or miss tracking, and a victory check when all ships are sunk.</p>
               <div class="game-status" id="gameStatus">Game loaded. Start by clicking any square on the board.</div>
               <div class="hero-actions">
                 <button class="btn btn-primary" id="resetBattleshipBtn" type="button">Reset Game</button>
@@ -917,22 +986,16 @@
     <section id="resume">
       <div class="container">
         <h2 class="section-title">Resume</h2>
-        <p class="section-subtitle">
-          View a web-friendly version of my resume below and download the PDF version.
-        </p>
+        <p class="section-subtitle">View a web-friendly version of my resume below and download the PDF version.</p>
 
         <div class="resume-grid">
           <div class="resume-preview">
             <h3>Katie Downing Powell</h3>
             <p>Email: downing_katie@yahoo.com | Phone: (301) 592-7200 | District Heights, MD</p>
             <br />
-
             <h4>Professional Summary</h4>
-            <p>
-              Motivated technology professional with strengths in DevSecOps, cloud application support, configuration management, Scrum leadership, systems administration, and technical communication. Experienced in supporting multiple cloud-based applications, leading Agile teams, and creating organized, user-focused technical solutions.
-            </p>
+            <p>Motivated technology professional with strengths in DevSecOps, cloud application support, configuration management, Scrum leadership, systems administration, and technical communication. Experienced in supporting multiple cloud-based applications, leading Agile teams, and creating organized, user-focused technical solutions.</p>
             <br />
-
             <h4>Technical Skills</h4>
             <ul>
               <li>DevSecOps, Scrum, and Agile delivery</li>
@@ -942,7 +1005,6 @@
               <li>Technical troubleshooting, documentation, and systems administration</li>
             </ul>
             <br />
-
             <h4>Education</h4>
             <p>B.S. in Computer Technology — Bowie State University (Expected 05/2026)</p>
             <p>GPA: 3.97 | Alpha Chi National College Honor Society | Dean’s List (6 semesters)</p>
@@ -951,9 +1013,7 @@
 
           <div class="panel">
             <h3>Resume Actions</h3>
-            <p>
-              My resume is available in PDF format for easy viewing, downloading, and printing.
-            </p>
+            <p class="contact-copy">My resume is available in PDF format for easy viewing, downloading, and printing.</p>
             <div class="resume-actions">
               <a class="btn btn-primary" href="resume.pdf" target="_blank">View Resume PDF</a>
               <a class="btn btn-secondary" href="resume.pdf" download>Download Resume</a>
@@ -963,48 +1023,20 @@
       </div>
     </section>
 
-    <section id="extras">
-      <div class="container">
-        <h2 class="section-title">Portfolio Access & GitHub</h2>
-        <p class="section-subtitle">
-          Scan the QR codes below to open my portfolio website or GitHub profile on your mobile device.
-        </p>
-
-        <div class="extras-grid">
-          <div class="panel qr-box">
-            <h3>Portfolio QR Code</h3>
-            <div id="qrcode"></div>
-          </div>
-
-          <div class="panel qr-box">
-            <h3>GitHub QR Code</h3>
-            <a href="https://github.com/kdowningpowell" target="_blank">github.com/kdowningpowell</a>
-            <div id="github-qrcode"></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <section id="blog">
       <div class="container">
         <h2 class="section-title">Blog / Insights</h2>
-        <p class="section-subtitle">
-          Reflections on technology, learning, and professional growth.
-        </p>
+        <p class="section-subtitle">Reflections on technology, learning, and professional growth.</p>
 
         <div class="blog-grid">
           <article class="panel blog-card">
             <h3>What I’m Learning in Web Development</h3>
-            <p>
-              I continue strengthening my front-end development skills by building projects that combine clean structure, responsive design, and interactive features that improve the user experience.
-            </p>
+            <p>I continue strengthening my front-end development skills by building projects that combine clean structure, responsive design, and interactive features that improve the user experience.</p>
           </article>
 
           <article class="panel blog-card">
             <h3>Why Technical Communication Matters</h3>
-            <p>
-              Strong technical communication helps turn complex ideas into clear, usable solutions for teams, users, and stakeholders. It is just as important as technical ability.
-            </p>
+            <p>Strong technical communication helps turn complex ideas into clear, usable solutions for teams, users, and stakeholders. It is just as important as technical ability.</p>
           </article>
         </div>
       </div>
@@ -1013,12 +1045,10 @@
     <section id="contact">
       <div class="container">
         <h2 class="section-title">Contact Me</h2>
-        <p class="section-subtitle">
-          Use the form below so visitors can reach out for networking, collaboration, or job opportunities.
-        </p>
+        <p class="section-subtitle">Use the form below so visitors can reach out for networking, collaboration, or job opportunities.</p>
 
         <div class="contact-grid">
-          <div class="panel">
+          <div class="panel" style="max-width: 900px; width: 100%;">
             <h3>Send a Message</h3>
             <form id="contactForm">
               <div>
@@ -1036,13 +1066,6 @@
               <button class="btn btn-primary" type="submit">Submit Message</button>
             </form>
           </div>
-
-          <div class="panel">
-            <h3>Contact Details</h3>
-            <p>Email: <a href="mailto:downing_katie@yahoo.com">downing_katie@yahoo.com</a></p>
-            <p>LinkedIn: <a href="https://www.linkedin.com/in/katie-d-01609054" target="_blank">linkedin.com/in/katie-d-01609054</a></p>
-            <p>GitHub: <a href="https://github.com/kdowningpowell" target="_blank">github.com/kdowningpowell</a></p>
-          </div>
         </div>
       </div>
     </section>
@@ -1055,13 +1078,9 @@
       <h3>Portfolio Assistant</h3>
       <p class="contact-note">Ask about skills, projects, education, GitHub, or resume details.</p>
     </div>
-
     <div class="chatbot-body" id="chatBody">
-      <div class="message bot">
-        Hi! I’m the portfolio assistant. Ask me about skills, projects, education, GitHub, or resume details.
-      </div>
+      <div class="message bot">Hi! I’m the portfolio assistant. Ask me about skills, projects, education, GitHub, or resume details.</div>
     </div>
-
     <div class="chatbot-input">
       <input type="text" id="chatInput" placeholder="Type your question..." />
       <button class="btn btn-primary" id="sendBtn">Send</button>
@@ -1070,9 +1089,15 @@
 
   <div class="music-player">
     <button class="btn btn-secondary" id="musicToggle">🎧 Play Lo-Fi</button>
+    <span class="music-hint">Press M to toggle</span>
     <audio id="lofiAudio" loop>
       <source src="lofi.mp3" type="audio/mpeg" />
     </audio>
+  </div>
+
+  <div class="theme-player">
+    <button class="btn btn-secondary" id="themeToggle">🌓 Toggle Theme</button>
+    <span class="theme-hint">Press T to toggle</span>
   </div>
 
   <footer>
@@ -1082,7 +1107,6 @@
   </footer>
 
   <script>
-    /* Constellation background */
     const starCanvas = document.getElementById("stars");
     const starCtx = starCanvas ? starCanvas.getContext("2d") : null;
 
@@ -1107,7 +1131,6 @@
 
     function animateStars() {
       if (!starCanvas || !starCtx) return;
-
       starCtx.clearRect(0, 0, starCanvas.width, starCanvas.height);
       starCtx.fillStyle = "rgba(148, 163, 184, 0.8)";
 
@@ -1115,10 +1138,8 @@
         starCtx.beginPath();
         starCtx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
         starCtx.fill();
-
         s.x += s.dx;
         s.y += s.dy;
-
         if (s.x < 0 || s.x > starCanvas.width) s.dx *= -1;
         if (s.y < 0 || s.y > starCanvas.height) s.dy *= -1;
       });
@@ -1128,7 +1149,6 @@
           const dx = stars[i].x - stars[j].x;
           const dy = stars[i].y - stars[j].y;
           const dist = Math.sqrt(dx * dx + dy * dy);
-
           if (dist < 120) {
             starCtx.strokeStyle = "rgba(56, 189, 248, 0.15)";
             starCtx.lineWidth = 1;
@@ -1139,21 +1159,15 @@
           }
         }
       }
-
       requestAnimationFrame(animateStars);
     }
-
     animateStars();
 
-    /* QR codes */
     const portfolioURL = "https://kdowningpowell.github.io";
     const githubURL = "https://github.com/kdowningpowell";
 
-    QRCode.toCanvas(portfolioURL, { width: 180 }, function (error, qrCanvas) {
-      if (error) {
-        console.error("Portfolio QR code generation failed:", error);
-        return;
-      }
+    QRCode.toCanvas(portfolioURL, { width: 74 }, function (error, qrCanvas) {
+      if (error) return;
       const qrContainer = document.getElementById("qrcode");
       if (qrContainer) {
         qrContainer.innerHTML = "";
@@ -1161,11 +1175,8 @@
       }
     });
 
-    QRCode.toCanvas(githubURL, { width: 180 }, function (error, qrCanvas) {
-      if (error) {
-        console.error("GitHub QR code generation failed:", error);
-        return;
-      }
+    QRCode.toCanvas(githubURL, { width: 74 }, function (error, qrCanvas) {
+      if (error) return;
       const githubQrContainer = document.getElementById("github-qrcode");
       if (githubQrContainer) {
         githubQrContainer.innerHTML = "";
@@ -1173,11 +1184,9 @@
       }
     });
 
-    /* Battleship game */
     const battleshipBoard = document.getElementById("battleshipBoard");
     const gameStatus = document.getElementById("gameStatus");
     const resetBattleshipBtn = document.getElementById("resetBattleshipBtn");
-
     const BOARD_SIZE = 8;
     const SHIPS = [5, 4, 3, 3, 2];
     let shipGrid = [];
@@ -1192,7 +1201,6 @@
     function canPlaceShip(length, row, col, horizontal) {
       if (horizontal && col + length > BOARD_SIZE) return false;
       if (!horizontal && row + length > BOARD_SIZE) return false;
-
       for (let i = 0; i < length; i++) {
         const targetRow = horizontal ? row : row + i;
         const targetCol = horizontal ? col + i : col;
@@ -1206,7 +1214,6 @@
       guessedCells = makeEmptyBoard();
       remainingHits = SHIPS.reduce((sum, len) => sum + len, 0);
       gameFinished = false;
-
       SHIPS.forEach((length) => {
         let placed = false;
         while (!placed) {
@@ -1228,14 +1235,12 @@
     function renderBattleshipBoard() {
       if (!battleshipBoard) return;
       battleshipBoard.innerHTML = "";
-
       for (let row = 0; row < BOARD_SIZE; row++) {
         for (let col = 0; col < BOARD_SIZE; col++) {
           const cell = document.createElement("button");
           cell.type = "button";
           cell.className = "battleship-cell";
           cell.setAttribute("aria-label", `Row ${row + 1}, Column ${col + 1}`);
-
           if (guessedCells[row][col] === 1) {
             cell.classList.add("hit");
             cell.textContent = "X";
@@ -1247,11 +1252,7 @@
           } else if (gameFinished) {
             cell.disabled = true;
           }
-
-          cell.addEventListener("click", function () {
-            handleGuess(row, col);
-          });
-
+          cell.addEventListener("click", function () { handleGuess(row, col); });
           battleshipBoard.appendChild(cell);
         }
       }
@@ -1259,7 +1260,6 @@
 
     function handleGuess(row, col) {
       if (gameFinished || guessedCells[row][col] !== 0) return;
-
       if (shipGrid[row][col] === 1) {
         guessedCells[row][col] = 1;
         remainingHits--;
@@ -1268,12 +1268,10 @@
         guessedCells[row][col] = 2;
         gameStatus.textContent = "Miss! Keep searching the grid.";
       }
-
       if (remainingHits === 0) {
         gameFinished = true;
         gameStatus.textContent = "Congratulations! You sank the full fleet in Battleship.";
       }
-
       renderBattleshipBoard();
     }
 
@@ -1288,7 +1286,6 @@
       startBattleshipGame();
     }
 
-    /* Contact form */
     const contactForm = document.getElementById("contactForm");
     if (contactForm) {
       contactForm.addEventListener("submit", function (event) {
@@ -1298,26 +1295,126 @@
       });
     }
 
-    /* Lo-fi music */
     const musicBtn = document.getElementById("musicToggle");
     const lofiAudio = document.getElementById("lofiAudio");
     let musicPlaying = false;
 
+    function toggleMusic() {
+      if (!musicBtn || !lofiAudio) return;
+      if (!musicPlaying) {
+        lofiAudio.play();
+        musicBtn.textContent = "⏸ Pause Music";
+        musicPlaying = true;
+      } else {
+        lofiAudio.pause();
+        musicBtn.textContent = "🎧 Play Lo-Fi";
+        musicPlaying = false;
+      }
+    }
+
     if (musicBtn && lofiAudio) {
-      musicBtn.addEventListener("click", function () {
-        if (!musicPlaying) {
-          lofiAudio.play();
-          musicBtn.textContent = "⏸ Pause Music";
-          musicPlaying = true;
-        } else {
-          lofiAudio.pause();
-          musicBtn.textContent = "🎧 Play Lo-Fi";
-          musicPlaying = false;
-        }
+      musicBtn.addEventListener("click", toggleMusic);
+      document.addEventListener("keydown", function(e){
+        if (e.key.toLowerCase() === "m") toggleMusic();
       });
     }
 
-    /* Chatbot */
+    const themeToggle = document.getElementById("themeToggle");
+
+    function drawRadarChart() {
+      const radarCanvas = document.getElementById("skillRadar");
+      const radarCtx = radarCanvas ? radarCanvas.getContext("2d") : null;
+      if (!radarCanvas || !radarCtx) return;
+
+      const w = radarCanvas.width;
+      const h = radarCanvas.height;
+      const cx = w / 2;
+      const cy = h / 2;
+      const radius = 120;
+      const labels = ["DevSecOps", "Agile", "Config Mgmt", "Python/Java", "Front-End", "Documentation"];
+      const values = [90, 92, 88, 78, 80, 94];
+      const levels = 5;
+
+      radarCtx.clearRect(0, 0, w, h);
+      radarCtx.strokeStyle = "rgba(148, 163, 184, 0.25)";
+      radarCtx.lineWidth = 1;
+
+      for (let level = 1; level <= levels; level++) {
+        radarCtx.beginPath();
+        for (let i = 0; i < labels.length; i++) {
+          const angle = (Math.PI * 2 / labels.length) * i - Math.PI / 2;
+          const r = (radius / levels) * level;
+          const x = cx + Math.cos(angle) * r;
+          const y = cy + Math.sin(angle) * r;
+          if (i === 0) radarCtx.moveTo(x, y);
+          else radarCtx.lineTo(x, y);
+        }
+        radarCtx.closePath();
+        radarCtx.stroke();
+      }
+
+      for (let i = 0; i < labels.length; i++) {
+        const angle = (Math.PI * 2 / labels.length) * i - Math.PI / 2;
+        const x = cx + Math.cos(angle) * radius;
+        const y = cy + Math.sin(angle) * radius;
+        radarCtx.beginPath();
+        radarCtx.moveTo(cx, cy);
+        radarCtx.lineTo(x, y);
+        radarCtx.stroke();
+        radarCtx.fillStyle = getComputedStyle(document.body).getPropertyValue("--muted");
+        radarCtx.font = "12px Arial";
+        radarCtx.textAlign = x >= cx ? "left" : "right";
+        radarCtx.fillText(labels[i], cx + Math.cos(angle) * (radius + 18), cy + Math.sin(angle) * (radius + 18));
+      }
+
+      radarCtx.beginPath();
+      values.forEach((value, i) => {
+        const angle = (Math.PI * 2 / labels.length) * i - Math.PI / 2;
+        const r = (value / 100) * radius;
+        const x = cx + Math.cos(angle) * r;
+        const y = cy + Math.sin(angle) * r;
+        if (i === 0) radarCtx.moveTo(x, y);
+        else radarCtx.lineTo(x, y);
+      });
+      radarCtx.closePath();
+      radarCtx.fillStyle = "rgba(56, 189, 248, 0.22)";
+      radarCtx.strokeStyle = "rgba(56, 189, 248, 0.9)";
+      radarCtx.lineWidth = 2;
+      radarCtx.fill();
+      radarCtx.stroke();
+    }
+
+    function toggleTheme() {
+      document.body.classList.toggle("light-mode");
+      setTimeout(drawRadarChart, 50);
+    }
+
+    if (themeToggle) {
+      themeToggle.addEventListener("click", toggleTheme);
+      document.addEventListener("keydown", function (e) {
+        if (e.key.toLowerCase() === "t") toggleTheme();
+      });
+    }
+
+    drawRadarChart();
+
+    const typingLine = document.getElementById("typingLine");
+    const typingPhrases = [
+      "DevSecOps Professional",
+      "Cloud Systems Specialist",
+      "Agile Team Collaborator",
+      "Computer Technology Student"
+    ];
+    let phraseIndex = 0;
+
+    function cycleTyping() {
+      if (!typingLine) return;
+      typingLine.textContent = typingPhrases[phraseIndex];
+      phraseIndex = (phraseIndex + 1) % typingPhrases.length;
+    }
+    cycleTyping();
+    setInterval(cycleTyping, 2400);
+
     const chatToggle = document.getElementById("chatToggle");
     const chatbot = document.getElementById("chatbot");
     const chatBody = document.getElementById("chatBody");
@@ -1332,16 +1429,41 @@
 
     function getBotReply(userMessage) {
       const message = userMessage.toLowerCase();
+      if (message.includes("skill")) return "My core skills include HTML, CSS, JavaScript, Python, Java, AWS Cloud, DevSecOps, Scrum/Agile, Atlassian tools, and configuration management.";
+      if (message.includes("project")) return "Featured work includes my playable Battleship game, original Java Battleship repository, this portfolio site, and my broader DevSecOps and cloud-focused work.";
+      if (message.includes("resume")) return "You can view or download my resume from the Resume section.";
+      if (message.includes("education") || message.includes("school") || message.includes("degree")) return "I’m completing a B.S. in Computer Technology at Bowie State University, expected in May 2026, with a 3.97 GPA.";
+      if (message.includes("github")) return "My GitHub profile is linked in the site and includes my Battleship Java source code and portfolio repository.";
+      if (message.includes("contact") || message.includes("email")) return "You can reach me through the contact form or email me directly at downing_katie@yahoo.com.";
+      if (message.includes("hello") || message.includes("hi")) return "Hello! Feel free to ask about my skills, projects, resume, education, or GitHub profile.";
+      return "I can help with questions about skills, projects, resume details, education, GitHub, or contact information.";
+    }
 
-      if (message.includes("skill")) {
-        return "My core skills include HTML, CSS, JavaScript, Python, Java, AWS Cloud, DevSecOps, Scrum/Agile, Atlassian tools, and configuration management.";
-      }
-      if (message.includes("project")) {
-        return "Featured projects include my playable Battleship game, this responsive portfolio website, and my DevSecOps and cloud-focused work.";
-      }
-      if (message.includes("resume")) {
-        return "You can view or download my resume from the Resume section.";
-      }
-      if (message.includes("education") || message.includes("school") || message.includes("degree")) {
-        return "I’m completing a B.S. in Computer Technology at Bowie State University, expected in May 2026, with a 3.97 GPA.";
-    
+    function addMessage(text, sender) {
+      if (!chatBody) return;
+      const messageDiv = document.createElement("div");
+      messageDiv.classList.add("message", sender);
+      messageDiv.textContent = text;
+      chatBody.appendChild(messageDiv);
+      chatBody.scrollTop = chatBody.scrollHeight;
+    }
+
+    function handleChat() {
+      if (!chatInput) return;
+      const userText = chatInput.value.trim();
+      if (!userText) return;
+      addMessage(userText, "user");
+      const reply = getBotReply(userText);
+      setTimeout(function () { addMessage(reply, "bot"); }, 350);
+      chatInput.value = "";
+    }
+
+    if (sendBtn) sendBtn.addEventListener("click", handleChat);
+    if (chatInput) {
+      chatInput.addEventListener("keydown", function (event) {
+        if (event.key === "Enter") handleChat();
+      });
+    }
+  </script>
+</body>
+</html>
