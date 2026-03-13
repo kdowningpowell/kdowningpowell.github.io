@@ -1,1518 +1,1654 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2685.4">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Katie Downing Powell | Professional Portfolio</title>
+  <meta name="description" content="Personal portfolio for Katie Downing Powell featuring projects, resume, QR codes, chatbot, music, and interactive features." />
+  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+
+  <style>
+    :root {
+      --bg-dark: #0f172a;
+      --bg-darker: #020617;
+      --bg-alt: #111827;
+      --text: #e5e7eb;
+      --muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-2: #22c55e;
+      --white: #ffffff;
+      --border: rgba(148, 163, 184, 0.18);
+      --shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+      --radius: 18px;
+      --max-width: 1180px;
+      --panel: rgba(17, 24, 39, 0.72);
+      --panel-solid: #111827;
+      --input: #0b1220;
+    }
+
+    body.light-mode {
+      --bg-dark: #eef4fb;
+      --bg-darker: #f8fbff;
+      --bg-alt: #dbe7f4;
+      --text: #0f172a;
+      --muted: #475569;
+      --accent: #0284c7;
+      --accent-2: #16a34a;
+      --white: #0f172a;
+      --border: rgba(15, 23, 42, 0.10);
+      --shadow: 0 12px 28px rgba(15, 23, 42, 0.12);
+      --panel: rgba(255, 255, 255, 0.9);
+      --panel-solid: #ffffff;
+      --input: #ffffff;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 15% 20%, rgba(56, 189, 248, 0.20), transparent 35%),
+        radial-gradient(circle at 85% 15%, rgba(168, 85, 247, 0.14), transparent 35%),
+        radial-gradient(circle at 10% 85%, rgba(34, 197, 94, 0.13), transparent 35%),
+        linear-gradient(140deg, var(--bg-darker) 0%, var(--bg-dark) 42%, var(--bg-alt) 100%);
+      background-attachment: fixed;
+      line-height: 1.6;
+      position: relative;
+      overflow-x: hidden;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      pointer-events: none;
+      z-index: 0;
+      filter: blur(90px);
+    }
+
+    body::before {
+      width: 500px;
+      height: 500px;
+      top: -120px;
+      left: -120px;
+      background: radial-gradient(circle, rgba(56, 189, 248, 0.20), transparent 70%);
+      animation: floatGlow1 18s ease-in-out infinite;
+    }
+
+    body::after {
+      width: 520px;
+      height: 520px;
+      bottom: -160px;
+      right: -120px;
+      background: radial-gradient(circle, rgba(168, 85, 247, 0.16), transparent 70%);
+      animation: floatGlow2 22s ease-in-out infinite;
+    }
+
+    @keyframes floatGlow1 {
+      0% { transform: translate(0, 0); }
+      50% { transform: translate(60px, 40px); }
+      100% { transform: translate(0, 0); }
+    }
+
+    @keyframes floatGlow2 {
+      0% { transform: translate(0, 0); }
+      50% { transform: translate(-70px, -50px); }
+      100% { transform: translate(0, 0); }
+    }
+
+    #stars {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover { opacity: 0.9; }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .container {
+      width: min(94%, var(--max-width));
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      background: color-mix(in srgb, var(--bg-darker) 85%, transparent);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 0 0.55rem;
+    }
+
+    .header-controls {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      align-items: center;
+      padding-bottom: 0.9rem;
+    }
+
+    .header-controls .btn {
+      padding: 0.65rem 1rem;
+    }
+
+    .control-hint {
+      font-size: 11px;
+      color: var(--muted);
+      opacity: 0.8;
+      margin-left: -0.25rem;
+    }
+
+    .brand {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: var(--white);
+      letter-spacing: 0.4px;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .nav-links a {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .hero {
+      padding: 2.8rem 0 0.9rem;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 1.5rem;
+      align-items: start;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 0.45rem 0.9rem;
+      margin-bottom: 1rem;
+      border-radius: 999px;
+      background: rgba(56, 189, 248, 0.15);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      color: var(--accent);
+      font-size: 0.9rem;
+    }
+
+    h1, h2, h3, h4 {
+      color: var(--white);
+      line-height: 1.2;
+    }
+
+    h1 {
+      position: relative;
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      margin-bottom: 0.9rem;
+    }
+
+    .hero-name::after {
+      content: "";
+      position: absolute;
+      inset: -20px;
+      background: radial-gradient(circle, rgba(56, 189, 248, 0.30), transparent 70%);
+      filter: blur(40px);
+      z-index: -1;
+      animation: nameGlow 6s ease-in-out infinite alternate;
+    }
+
+    @keyframes nameGlow {
+      0% { opacity: 0.35; transform: scale(0.95); }
+      100% { opacity: 0.65; transform: scale(1.05); }
+    }
+
+    .typing-line {
+      color: var(--accent);
+      font-weight: 700;
+      min-height: 1.5rem;
+      margin: -0.15rem 0 0.9rem;
+      letter-spacing: 0.2px;
+    }
+
+    .lead {
+      color: var(--muted);
+      font-size: 1.05rem;
+      max-width: 760px;
+      margin-bottom: 1rem;
+      line-height: 1.75;
+    }
+
+    .hero-actions,
+    .resume-actions,
+    .project-links {
+      display: flex;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+    }
+
+    .hero-actions {
+      margin-top: 1rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.85rem 1.2rem;
+      border-radius: 12px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s ease, opacity 0.2s ease, background 0.2s ease;
+    }
+
+    .btn:hover { transform: translateY(-2px); }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #082f49;
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid rgba(148, 163, 184, 0.16);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.25rem;
+      backdrop-filter: blur(12px);
+      transition: transform .25s ease, box-shadow .25s ease;
+    }
+
+    .panel:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 18px 40px rgba(0,0,0,.28);
+    }
+
+    .profile-image {
+      width: 240px;
+      height: 240px;
+      object-fit: cover;
+      object-position: center top;
+      border-radius: 50%;
+      border: 4px solid rgba(56, 189, 248, 0.35);
+      box-shadow: var(--shadow);
+      margin: 0 auto 1rem;
+      background: var(--input);
+    }
+
+    .profile-icons {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 1rem;
+    }
+
+    .icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(56, 189, 248, 0.15);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      color: var(--accent);
+      font-size: 14px;
+      font-weight: bold;
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .icon:hover {
+      transform: translateY(-3px);
+      background: rgba(56, 189, 248, 0.25);
+    }
+
+    .hero-card ul {
+      list-style: none;
+      display: grid;
+      gap: 0.75rem;
+    }
+
+    .hero-card li {
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    .hero-card li:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    section {
+      padding: 0.95rem 0;
+    }
+
+    .section-title {
+      font-size: 1.95rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .section-subtitle {
+      color: var(--muted);
+      margin-bottom: 1rem;
+      max-width: 760px;
+      line-height: 1.65;
+    }
+
+    .about-stack {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .about-dashboard {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 280px;
+      gap: 1rem;
+      align-items: start;
+    }
+
+    .right-stack {
+      display: grid;
+      gap: 1rem;
+      align-content: start;
+    }
+
+    .quick-access-box {
+      width: 100%;
+    }
+
+    .skill-bars {
+      display: grid;
+      gap: 0.9rem;
+    }
+
+    .skill-bar {
+      display: grid;
+      gap: 0.35rem;
+    }
+
+    .skill-bar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.92rem;
+      color: var(--text);
+    }
+
+    .skill-track {
+      width: 100%;
+      height: 10px;
+      background: rgba(148, 163, 184, 0.16);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .skill-fill {
+      height: 100%;
+      width: 0;
+      border-radius: 999px;
+      background: linear-gradient(90deg, rgba(56, 189, 248, 0.95), rgba(34, 197, 94, 0.9));
+      box-shadow: 0 0 12px rgba(56, 189, 248, 0.25);
+      animation: fillSkill 1.8s ease forwards;
+    }
+
+    .skill-fill.delay-1 { animation-delay: 0.15s; }
+    .skill-fill.delay-2 { animation-delay: 0.3s; }
+    .skill-fill.delay-3 { animation-delay: 0.45s; }
+    .skill-fill.delay-4 { animation-delay: 0.6s; }
+    .skill-fill.delay-5 { animation-delay: 0.75s; }
+    .skill-fill.delay-6 { animation-delay: 0.9s; }
+
+    @keyframes fillSkill {
+      from { width: 0; }
+      to { width: var(--skill-width); }
+    }
+
+    .radar-panel {
+      padding: 1rem;
+      width: 100%;
+      min-height: 310px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+    }
+
+    .radar-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      padding-top: 0.25rem;
+    }
+
+    #skillRadar {
+      width: 220px;
+      height: 220px;
+      display: block;
+    }
+
+    .qr-end {
+      border-top: 1px solid rgba(148, 163, 184, 0.12);
+      padding-top: 1rem;
+    }
+
+    .qr-blurb {
+      color: var(--muted);
+      font-size: 0.9rem;
+      text-align: center;
+      margin-bottom: 0.5rem;
+      line-height: 1.6;
+    }
+
+    .qr-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+      margin-top: 0.6rem;
+    }
+
+    .qr-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      text-align: center;
+    }
+
+    .compact-qr h4 {
+      color: var(--white);
+      font-size: 0.85rem;
+      margin-bottom: 0.1rem;
+    }
+
+    #qrcode,
+    #github-qrcode {
+      background: #ffffff;
+      padding: 0.35rem;
+      border-radius: 10px;
+      display: inline-block;
+      min-width: 88px;
+      min-height: 88px;
+    }
+
+    .resume-preview {
+      background: color-mix(in srgb, var(--panel-solid) 92%, white 8%);
+      color: var(--text);
+      border-radius: 14px;
+      padding: 1.25rem;
+      border: 1px solid var(--border);
+    }
+
+    .resume-preview h3,
+    .resume-preview h4 { color: var(--white); }
+
+    .resume-preview p,
+    .resume-preview li { color: var(--text); }
+
+    .resume-preview ul {
+      margin-left: 1.2rem;
+      margin-top: 0.5rem;
+    }
+
+    .resume-actions {
+      margin: 0 0 1rem 0;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid rgba(148,163,184,0.18);
+      align-items: center;
+    }
+
+    .resume-actions .btn {
+      padding: 0.6rem 1rem;
+      font-size: 0.9rem;
+    }
+
+    .projects-grid,
+    .blog-grid,
+    .game-layout,
+    .contact-grid {
+      display: grid;
+      gap: 1.2rem;
+    }
+
+    .projects-grid {
+      grid-template-columns: 1fr;
+      margin-top: 0.5rem;
+    }
+
+    .blog-grid,
+    .game-layout {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .project-card {
+      min-height: 285px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .project-card p,
+    .blog-card p,
+    .github-feed p,
+    .contact-copy {
+      color: var(--muted);
+      margin-top: 0.7rem;
+      line-height: 1.65;
+    }
+
+    .game-section { margin-top: 1.5rem; }
+
+    .game-status {
+      margin: 1rem 0;
+      padding: 0.9rem 1rem;
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      border-radius: 12px;
+      color: var(--white);
+      min-height: 52px;
+    }
+
+    .battleship-board-wrap { overflow-x: auto; }
+
+    .battleship-board {
+      display: grid;
+      grid-template-columns: repeat(8, 42px);
+      gap: 6px;
+      margin-top: 0.75rem;
+    }
+
+    .battleship-cell {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      background: var(--input);
+      color: var(--text);
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.15s ease, background 0.2s ease;
+    }
+
+    .battleship-cell:hover:not(:disabled) {
+      transform: translateY(-2px);
+      background: rgba(56, 189, 248, 0.15);
+    }
+
+    .battleship-cell.hit {
+      background: rgba(34, 197, 94, 0.2);
+      border-color: rgba(34, 197, 94, 0.4);
+      color: #bbf7d0;
+    }
+
+    .battleship-cell.miss {
+      background: rgba(148, 163, 184, 0.14);
+      border-color: rgba(148, 163, 184, 0.25);
+      color: #cbd5e1;
+    }
+
+    .board-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 1rem;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .legend-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .legend-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .legend-dot.hit { background: rgba(34, 197, 94, 0.7); }
+    .legend-dot.miss { background: rgba(148, 163, 184, 0.7); }
+    .legend-dot.unknown { background: rgba(56, 189, 248, 0.5); }
+
+    .github-feed-list {
+      display: grid;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+
+    .feed-item {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 0.8rem;
+      background: rgba(255,255,255,0.02);
+      line-height: 1.5;
+    }
+
+    .feed-item h4 {
+      font-size: 0.95rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .feed-item small { color: var(--muted); }
+
+    form {
+      display: grid;
+      gap: 1rem;
+    }
+
+    label {
+      font-weight: 700;
+      color: var(--white);
+      font-size: 0.95rem;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 0.9rem 1rem;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--input);
+      color: var(--text);
+      font-size: 1rem;
+    }
+
+    textarea {
+      min-height: 220px;
+      resize: vertical;
+    }
+
+    .contact-note {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .chatbot-toggle {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 74px;
+  height: 74px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #67e8f9, #38bdf8);
+  color: #082f49;
+  border: none;
+  box-shadow: 0 14px 30px rgba(56, 189, 248, 0.35);
+  cursor: pointer;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.chatbot-toggle:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 18px 36px rgba(56, 189, 248, 0.42);
+}
+
+.robot-face {
+  position: relative;
+  width: 42px;
+  height: 34px;
+  border-radius: 12px;
+  background: #e0f2fe;
+  border: 2px solid rgba(8, 47, 73, 0.22);
+  display: block;
+}
+
+.robot-eye {
+  position: absolute;
+  top: 10px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #0f172a;
+}
+
+.left-eye {
+  left: 10px;
+}
+
+.right-eye {
+  right: 10px;
+}
+
+.robot-mouth {
+  position: absolute;
+  left: 50%;
+  bottom: 7px;
+  transform: translateX(-50%);
+  width: 16px;
+  height: 6px;
+  border-bottom: 3px solid #0f172a;
+  border-radius: 0 0 12px 12px;
+}
+
+.robot-antenna {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 3px;
+  height: 11px;
+  background: #0f172a;
+  border-radius: 999px;
+}
+
+.robot-antenna::after {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 10px rgba(34, 197, 94, 0.7);
+}
+
+.chatbot {
+  position: fixed;
+  bottom: 98px;
+  right: 20px;
+  width: 360px;
+  max-width: calc(100% - 32px);
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.98), rgba(11, 18, 32, 0.98));
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  border-radius: 24px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
+  overflow: hidden;
+  display: none;
+  z-index: 1000;
+}
+
+.chatbot.open {
+  display: block;
+}
+
+.chatbot-header {
+  padding: 1rem 1rem 0.95rem;
+  background: linear-gradient(135deg, rgba(56, 189, 248, 0.18), rgba(34, 197, 94, 0.12));
+  border-bottom: 1px solid var(--border);
+}
+
+.chatbot-bot-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.chatbot-bot-avatar {
+  position: relative;
+  width: 52px;
+  height: 44px;
+  min-width: 52px;
+  border-radius: 16px;
+  background: #e0f2fe;
+  border: 2px solid rgba(8, 47, 73, 0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.bot-eye {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #0f172a;
+}
+
+.bot-mouth {
+  position: absolute;
+  bottom: 7px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 18px;
+  height: 6px;
+  border-bottom: 3px solid #0f172a;
+  border-radius: 0 0 12px 12px;
+}
+
+.bot-antenna {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 3px;
+  height: 12px;
+  background: #0f172a;
+  border-radius: 999px;
+}
+
+.bot-antenna::after {
+  content: "";
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 10px rgba(34, 197, 94, 0.65);
+}
+
+.chatbot-header h3 {
+  margin-bottom: 0.2rem;
+}
+
+.chatbot-body {
+  height: 320px;
+  overflow-y: auto;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  background:
+    radial-gradient(circle at top right, rgba(56, 189, 248, 0.08), transparent 30%),
+    transparent;
+}
+
+.message {
+  padding: 0.8rem 0.95rem;
+  border-radius: 16px;
+  max-width: 88%;
+  font-size: 0.95rem;
+}
+
+.bot {
+  align-self: flex-start;
+  background: rgba(30, 41, 59, 0.95);
+  color: #e5e7eb;
+  border-top-left-radius: 6px;
+}
+
+.user {
+  align-self: flex-end;
+  background: linear-gradient(135deg, #67e8f9, #38bdf8);
+  color: #082f49;
+  font-weight: 600;
+  border-top-right-radius: 6px;
+}
+
+.chatbot-input {
+  display: flex;
+  gap: 0.5rem;
+  padding: 1rem;
+  border-top: 1px solid var(--border);
+  background: rgba(15, 23, 42, 0.95);
+}
+
+.chatbot-input input {
+  flex: 1;
+  border-radius: 999px;
+}
+
+.chatbot-input .btn {
+  border-radius: 999px;
+}
+    @media (max-width: 980px) {
+      .hero-grid,
+      .blog-grid,
+      .game-layout,
+      .about-dashboard {
+        grid-template-columns: 1fr;
+      }
+
+      .quick-access-box,
+      .radar-panel {
+        width: 100%;
+      }
+
+      #skillRadar {
+        width: 240px;
+        height: 240px;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .nav {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .header-controls {
+        justify-content: flex-start;
+      }
+
+      .chatbot {
+        right: 12px;
+        bottom: 88px;
+      }
+
+      .chatbot-toggle {
+        right: 12px;
+        bottom: 12px;
+      }
+
+      #skillRadar {
+        width: 220px;
+        height: 220px;
+      }
+
+      textarea {
+        min-height: 200px;
+      }
+    }
   </style>
 </head>
 <body>
-<p class="p1">&lt;!DOCTYPE html&gt;</p>
-<p class="p1">&lt;html lang="en"&gt;</p>
-<p class="p1">&lt;head&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;meta charset="UTF-8" /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0" /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;title&gt;Katie Downing Powell | Professional Portfolio&lt;/title&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;meta name="description" content="Personal portfolio for Katie Downing Powell featuring projects, resume, QR codes, chatbot, music, and interactive features." /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"&gt;&lt;/script&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;style&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>:root {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--bg-dark: #0f172a;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--bg-darker: #020617;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--bg-alt: #111827;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--text: #e5e7eb;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--muted: #94a3b8;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--accent: #38bdf8;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--accent-2: #22c55e;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--white: #ffffff;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--border: rgba(148, 163, 184, 0.18);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--shadow: 0 12px 32px rgba(0, 0, 0, 0.25);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--radius: 18px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--max-width: 1180px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--panel: rgba(17, 24, 39, 0.72);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--panel-solid: #111827;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--input: #0b1220;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>body.light-mode {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--bg-dark: #eef4fb;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--bg-darker: #f8fbff;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--bg-alt: #dbe7f4;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--text: #0f172a;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--muted: #475569;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--accent: #0284c7;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--accent-2: #16a34a;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--white: #0f172a;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--border: rgba(15, 23, 42, 0.10);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--shadow: 0 12px 28px rgba(15, 23, 42, 0.12);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--panel: rgba(255, 255, 255, 0.9);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--panel-solid: #ffffff;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--input: #ffffff;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>* {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin: 0;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 0;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>box-sizing: border-box;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>scroll-behavior: smooth;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>body {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-family: Arial, Helvetica, sans-serif;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: var(--text);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background:</p>
-<p class="p1"><span class="Apple-converted-space">        </span>radial-gradient(circle at 15% 20%, rgba(56, 189, 248, 0.20), transparent 35%),</p>
-<p class="p1"><span class="Apple-converted-space">        </span>radial-gradient(circle at 85% 15%, rgba(168, 85, 247, 0.14), transparent 35%),</p>
-<p class="p1"><span class="Apple-converted-space">        </span>radial-gradient(circle at 10% 85%, rgba(34, 197, 94, 0.13), transparent 35%),</p>
-<p class="p1"><span class="Apple-converted-space">        </span>linear-gradient(140deg, var(--bg-darker) 0%, var(--bg-dark) 42%, var(--bg-alt) 100%);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background-attachment: fixed;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>line-height: 1.6;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>position: relative;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>overflow-x: hidden;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>transition: background 0.3s ease, color 0.3s ease;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>body::before,</p>
-<p class="p1"><span class="Apple-converted-space">    </span>body::after {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>content: "";</p>
-<p class="p1"><span class="Apple-converted-space">      </span>position: fixed;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>pointer-events: none;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>z-index: 0;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>filter: blur(90px);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>body::before {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>width: 500px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>height: 500px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>top: -120px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>left: -120px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: radial-gradient(circle, rgba(56, 189, 248, 0.20), transparent 70%);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>animation: floatGlow1 18s ease-in-out infinite;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>body::after {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>width: 520px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>height: 520px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>bottom: -160px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>right: -120px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: radial-gradient(circle, rgba(168, 85, 247, 0.16), transparent 70%);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>animation: floatGlow2 22s ease-in-out infinite;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>@keyframes floatGlow1 {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>0% { transform: translate(0, 0); }</p>
-<p class="p1"><span class="Apple-converted-space">      </span>50% { transform: translate(60px, 40px); }</p>
-<p class="p1"><span class="Apple-converted-space">      </span>100% { transform: translate(0, 0); }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>@keyframes floatGlow2 {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>0% { transform: translate(0, 0); }</p>
-<p class="p1"><span class="Apple-converted-space">      </span>50% { transform: translate(-70px, -50px); }</p>
-<p class="p1"><span class="Apple-converted-space">      </span>100% { transform: translate(0, 0); }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>#stars {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>position: fixed;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>inset: 0;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>width: 100%;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>height: 100%;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>z-index: -2;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>a {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: var(--accent);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>text-decoration: none;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>a:hover { opacity: 0.9; }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>img {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>max-width: 100%;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: block;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.container {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>width: min(94%, var(--max-width));</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin: 0 auto;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>position: relative;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>z-index: 1;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>header {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>position: sticky;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>top: 0;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>z-index: 999;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: color-mix(in srgb, var(--bg-darker) 85%, transparent);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>backdrop-filter: blur(14px);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-bottom: 1px solid var(--border);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.nav {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>justify-content: space-between;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>align-items: center;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>gap: 1rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 1rem 0 0.55rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.header-controls {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>gap: 0.75rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>flex-wrap: wrap;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>align-items: center;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding-bottom: 0.9rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.header-controls .btn {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 0.65rem 1rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.control-hint {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 11px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: var(--muted);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>opacity: 0.8;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin-left: -0.25rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.brand {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 1.2rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-weight: bold;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: var(--white);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>letter-spacing: 0.4px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.nav-links {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>list-style: none;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>flex-wrap: wrap;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>gap: 1rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.nav-links a {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: var(--text);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-weight: 600;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.hero {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 2.8rem 0 0.9rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.hero-grid {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: grid;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>grid-template-columns: 320px 1fr;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>gap: 1.5rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>align-items: start;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.badge {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: inline-block;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 0.45rem 0.9rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin-bottom: 1rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-radius: 999px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: rgba(56, 189, 248, 0.15);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border: 1px solid rgba(56, 189, 248, 0.25);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: var(--accent);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 0.9rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>h1, h2, h3, h4 {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: var(--white);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>line-height: 1.2;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>h1 {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>position: relative;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: clamp(2.4rem, 5vw, 4rem);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin-bottom: 0.9rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.hero-name::after {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>content: "";</p>
-<p class="p1"><span class="Apple-converted-space">      </span>position: absolute;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>inset: -20px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: radial-gradient(circle, rgba(56, 189, 248, 0.30), transparent 70%);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>filter: blur(40px);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>z-index: -1;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>animation: nameGlow 6s ease-in-out infinite alternate;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>@keyframes nameGlow {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>0% { opacity: 0.35; transform: scale(0.95); }</p>
-<p class="p1"><span class="Apple-converted-space">      </span>100% { opacity: 0.65; transform: scale(1.05); }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.typing-line {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: var(--accent);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-weight: 700;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>min-height: 1.5rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin: -0.15rem 0 0.9rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>letter-spacing: 0.2px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.lead {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: var(--muted);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 1.05rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>max-width: 760px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin-bottom: 1rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>line-height: 1.75;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.hero-actions,</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.resume-actions,</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.project-links {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>gap: 0.8rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>flex-wrap: wrap;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.hero-actions {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin-top: 1rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.btn {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: inline-flex;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>align-items: center;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>justify-content: center;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>gap: 0.5rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 0.85rem 1.2rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-radius: 12px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-weight: 700;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border: none;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>cursor: pointer;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>transition: transform 0.2s ease, opacity 0.2s ease, background 0.2s ease;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.btn:hover { transform: translateY(-2px); }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.btn-primary {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: var(--accent);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: #082f49;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.btn-secondary {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: transparent;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: var(--text);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border: 1px solid var(--border);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.panel {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: var(--panel);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border: 1px solid rgba(148, 163, 184, 0.16);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-radius: var(--radius);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>box-shadow: var(--shadow);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 1.25rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>backdrop-filter: blur(12px);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>transition: transform .25s ease, box-shadow .25s ease;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.panel:hover {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>transform: translateY(-4px);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>box-shadow: 0 18px 40px rgba(0,0,0,.28);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.profile-image {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>width: 240px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>height: 240px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>object-fit: cover;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>object-position: center top;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-radius: 50%;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border: 4px solid rgba(56, 189, 248, 0.35);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>box-shadow: var(--shadow);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin: 0 auto 1rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: var(--input);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.profile-icons {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>justify-content: center;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>gap: 12px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin-bottom: 1rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.icon {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: inline-flex;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>align-items: center;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>justify-content: center;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>width: 36px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>height: 36px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-radius: 50%;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: rgba(56, 189, 248, 0.15);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border: 1px solid rgba(56, 189, 248, 0.35);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: var(--accent);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 14px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-weight: bold;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>transition: transform 0.2s ease, background 0.2s ease;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.icon:hover {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>transform: translateY(-3px);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: rgba(56, 189, 248, 0.25);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.hero-card ul {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>list-style: none;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: grid;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>gap: 0.75rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.hero-card li {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding-bottom: 0.75rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-bottom: 1px solid rgba(148, 163, 184, 0.12);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: var(--muted);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>line-height: 1.45;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.hero-card li:last-child {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-bottom: none;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding-bottom: 0;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>section {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 0.95rem 0;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.section-title {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 1.95rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin-bottom: 0.35rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.section-subtitle {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: var(--muted);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin-bottom: 1rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>max-width: 760px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>line-height: 1.65;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.about-stack {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: grid;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>gap: 1rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.about-dashboard {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: grid;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>grid-template-columns: minmax(0, 1fr) 280px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>gap: 1rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>align-items: start;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.right-stack {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: grid;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>gap: 1rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>align-content: start;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.quick-access-box {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>width: 100%;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.skill-bars {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: grid;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>gap: 0.9rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.skill-bar {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: grid;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>gap: 0.35rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.skill-bar-header {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>justify-content: space-between;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>align-items: center;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 0.92rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: var(--text);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.skill-track {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>width: 100%;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>height: 10px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: rgba(148, 163, 184, 0.16);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-radius: 999px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>overflow: hidden;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.skill-fill {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>height: 100%;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>width: 0;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-radius: 999px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: linear-gradient(90deg, rgba(56, 189, 248, 0.95), rgba(34, 197, 94, 0.9));</p>
-<p class="p1"><span class="Apple-converted-space">      </span>box-shadow: 0 0 12px rgba(56, 189, 248, 0.25);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>animation: fillSkill 1.8s ease forwards;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.skill-fill.delay-1 { animation-delay: 0.15s; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.skill-fill.delay-2 { animation-delay: 0.3s; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.skill-fill.delay-3 { animation-delay: 0.45s; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.skill-fill.delay-4 { animation-delay: 0.6s; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.skill-fill.delay-5 { animation-delay: 0.75s; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.skill-fill.delay-6 { animation-delay: 0.9s; }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>@keyframes fillSkill {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>from { width: 0; }</p>
-<p class="p1"><span class="Apple-converted-space">      </span>to { width: var(--skill-width); }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.radar-panel {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 1rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>width: 100%;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>min-height: 310px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>flex-direction: column;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>justify-content: flex-start;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>align-items: center;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.radar-wrap {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>justify-content: center;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>align-items: center;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>width: 100%;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding-top: 0.25rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>#skillRadar {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>width: 220px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>height: 220px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: block;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.qr-end {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-top: 1px solid rgba(148, 163, 184, 0.12);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding-top: 1rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.qr-blurb {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: var(--muted);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 0.9rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>text-align: center;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin-bottom: 0.5rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>line-height: 1.6;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.qr-row {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: grid;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>grid-template-columns: 1fr 1fr;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>gap: 0.75rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin-top: 0.6rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.qr-box {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>flex-direction: column;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>align-items: center;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>justify-content: center;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>gap: 0.4rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>text-align: center;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.compact-qr h4 {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: var(--white);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 0.85rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin-bottom: 0.1rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>#qrcode,</p>
-<p class="p1"><span class="Apple-converted-space">    </span>#github-qrcode {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: #ffffff;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 0.35rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-radius: 10px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: inline-block;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>min-width: 88px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>min-height: 88px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.resume-preview {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: color-mix(in srgb, var(--panel-solid) 92%, white 8%);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: var(--text);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-radius: 14px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 1.25rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border: 1px solid var(--border);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.resume-preview h3,</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.resume-preview h4 { color: var(--white); }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.resume-preview p,</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.resume-preview li { color: var(--text); }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.resume-preview ul {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin-left: 1.2rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin-top: 0.5rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.resume-actions {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin: 0 0 1rem 0;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding-bottom: 0.75rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-bottom: 1px solid rgba(148,163,184,0.18);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>align-items: center;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.resume-actions .btn {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 0.6rem 1rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 0.9rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.projects-grid,</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.blog-grid,</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.game-layout,</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.contact-grid {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: grid;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>gap: 1.2rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.projects-grid {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>grid-template-columns: 1fr;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin-top: 0.5rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.blog-grid,</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.game-layout {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>grid-template-columns: repeat(2, 1fr);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.project-card {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>min-height: 285px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>flex-direction: column;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>justify-content: space-between;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.project-card p,</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.blog-card p,</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.github-feed p,</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.contact-copy {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: var(--muted);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin-top: 0.7rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>line-height: 1.65;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.game-section { margin-top: 1.5rem; }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.game-status {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin: 1rem 0;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 0.9rem 1rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: rgba(56, 189, 248, 0.12);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border: 1px solid rgba(56, 189, 248, 0.25);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-radius: 12px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: var(--white);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>min-height: 52px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.battleship-board-wrap { overflow-x: auto; }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.battleship-board {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: grid;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>grid-template-columns: repeat(8, 42px);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>gap: 6px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin-top: 0.75rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.battleship-cell {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>width: 42px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>height: 42px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-radius: 10px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border: 1px solid rgba(148, 163, 184, 0.2);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: var(--input);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: var(--text);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-weight: bold;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>cursor: pointer;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>transition: transform 0.15s ease, background 0.2s ease;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.battleship-cell:hover:not(:disabled) {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>transform: translateY(-2px);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: rgba(56, 189, 248, 0.15);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.battleship-cell.hit {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: rgba(34, 197, 94, 0.2);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-color: rgba(34, 197, 94, 0.4);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: #bbf7d0;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.battleship-cell.miss {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: rgba(148, 163, 184, 0.14);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-color: rgba(148, 163, 184, 0.25);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: #cbd5e1;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.board-legend {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>flex-wrap: wrap;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>gap: 1rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin-top: 1rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: var(--muted);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 0.95rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.legend-pill {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: inline-flex;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>align-items: center;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>gap: 0.45rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.legend-dot {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>width: 14px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>height: 14px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-radius: 50%;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: inline-block;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.legend-dot.hit { background: rgba(34, 197, 94, 0.7); }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.legend-dot.miss { background: rgba(148, 163, 184, 0.7); }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.legend-dot.unknown { background: rgba(56, 189, 248, 0.5); }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.github-feed-list {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: grid;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>gap: 0.75rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin-top: 1rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.feed-item {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border: 1px solid var(--border);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-radius: 12px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 0.8rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: rgba(255,255,255,0.02);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>line-height: 1.5;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.feed-item h4 {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 0.95rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin-bottom: 0.25rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.feed-item small { color: var(--muted); }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>form {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: grid;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>gap: 1rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>label {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-weight: 700;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: var(--white);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 0.95rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>input,</p>
-<p class="p1"><span class="Apple-converted-space">    </span>textarea {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>width: 100%;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 0.9rem 1rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-radius: 12px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border: 1px solid var(--border);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: var(--input);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: var(--text);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 1rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>textarea {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>min-height: 220px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>resize: vertical;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.contact-note {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: var(--muted);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 0.95rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.chatbot-toggle {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>position: fixed;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>bottom: 20px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>right: 20px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>width: 62px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>height: 62px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-radius: 50%;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: var(--accent);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: #082f49;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border: none;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 1.4rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-weight: bold;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>box-shadow: var(--shadow);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>cursor: pointer;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>z-index: 1000;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.chatbot {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>position: fixed;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>bottom: 95px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>right: 20px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>width: 350px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>max-width: calc(100% - 32px);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: var(--input);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border: 1px solid var(--border);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-radius: 18px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>box-shadow: var(--shadow);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>overflow: hidden;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: none;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>z-index: 1000;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.chatbot.open { display: block; }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.chatbot-header {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 1rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: var(--panel-solid);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-bottom: 1px solid var(--border);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.chatbot-header h3 { font-size: 1rem; }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.chatbot-body {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>height: 320px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>overflow-y: auto;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 1rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>flex-direction: column;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>gap: 0.75rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.message {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 0.8rem 0.95rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-radius: 14px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>max-width: 88%;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 0.95rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.bot {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>align-self: flex-start;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: #1e293b;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: #e5e7eb;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>body.light-mode .bot {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: #dbeafe;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: #0f172a;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.user {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>align-self: flex-end;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: var(--accent);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: #082f49;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-weight: 600;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.chatbot-input {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>gap: 0.5rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 1rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-top: 1px solid var(--border);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: var(--panel-solid);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.chatbot-input input { flex: 1; }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>footer {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 2rem 0 3rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>text-align: center;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: var(--muted);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>@media (max-width: 980px) {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>.hero-grid,</p>
-<p class="p1"><span class="Apple-converted-space">      </span>.blog-grid,</p>
-<p class="p1"><span class="Apple-converted-space">      </span>.game-layout,</p>
-<p class="p1"><span class="Apple-converted-space">      </span>.about-dashboard {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>grid-template-columns: 1fr;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>.quick-access-box,</p>
-<p class="p1"><span class="Apple-converted-space">      </span>.radar-panel {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>width: 100%;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>#skillRadar {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>width: 240px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>height: 240px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>@media (max-width: 760px) {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>.nav {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>flex-direction: column;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>align-items: flex-start;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>.hero-grid {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>grid-template-columns: 1fr;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>.header-controls {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>justify-content: flex-start;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>.chatbot {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>right: 12px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>bottom: 88px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>.chatbot-toggle {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>right: 12px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>bottom: 12px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>#skillRadar {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>width: 220px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>height: 220px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>textarea {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>min-height: 200px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/style&gt;</p>
-<p class="p1">&lt;/head&gt;</p>
-<p class="p1">&lt;body&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;canvas id="stars"&gt;&lt;/canvas&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;header&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="container nav"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="brand"&gt;Katie Downing Powell | Portfolio&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;ul class="nav-links"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;li&gt;&lt;a href="#home"&gt;Home&lt;/a&gt;&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;li&gt;&lt;a href="#resume"&gt;Resume&lt;/a&gt;&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;li&gt;&lt;a href="#projects"&gt;Projects&lt;/a&gt;&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;li&gt;&lt;a href="#blog"&gt;Blog&lt;/a&gt;&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;li&gt;&lt;a href="#contact"&gt;Contact&lt;/a&gt;&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/ul&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="container header-controls"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;button class="btn btn-secondary" id="musicToggle"&gt;🎧 Play Lo-Fi&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;span class="control-hint"&gt;Press M&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;button class="btn btn-secondary" id="themeToggle"&gt;🌓 Toggle Theme&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;span class="control-hint"&gt;Press T&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;audio id="lofiAudio" loop&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;source src="lofi.mp3" type="audio/mpeg" /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/audio&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/header&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;main&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;section class="hero" id="home"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="container hero-grid"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;aside class="panel hero-card"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;img src="profile.jpg" alt="Professional headshot of Katie Downing Powell" class="profile-image" /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="profile-icons"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;a href="https://www.linkedin.com/in/katie-d-01609054" target="_blank" title="LinkedIn"&gt;&lt;span class="icon"&gt;in&lt;/span&gt;&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;a href="https://github.com/kdowningpowell" target="_blank" title="GitHub"&gt;&lt;span class="icon"&gt;GH&lt;/span&gt;&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;a href="mailto:downing_katie@yahoo.com" title="Email"&gt;&lt;span class="icon"&gt;✉&lt;/span&gt;&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;h3&gt;Quick Highlights&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;ul&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;li&gt;&lt;strong&gt;Focus Areas:&lt;/strong&gt; DevSecOps, Cloud Systems, Scrum Leadership, Configuration Management&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;li&gt;&lt;strong&gt;Languages &amp;amp; Tools:&lt;/strong&gt; HTML, CSS, JavaScript, Python, Java, GitHub, Atlassian Suite, SharePoint, UrbanCode Deploy&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;li&gt;&lt;strong&gt;Education:&lt;/strong&gt; B.S. in Computer Technology, Bowie State University (Expected 05/2026)&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;li&gt;&lt;strong&gt;Academic Honors:&lt;/strong&gt; 3.97 GPA, Alpha Chi National College Honor Society, Dean’s List (6 semesters)&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;li&gt;&lt;strong&gt;Certifications:&lt;/strong&gt; AWS Cloud Practitioner, SAFe, Scrum Master, CMMI Associate&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;li&gt;&lt;strong&gt;Professional Strengths:&lt;/strong&gt; Technical documentation, systems administration, troubleshooting, Agile collaboration&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;/ul&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/aside&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="about-stack"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="panel about-intro-panel"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;span class="badge"&gt;Professional Portfolio Website&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;h1 class="hero-name"&gt;Katie Downing Powell&lt;/h1&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="typing-line" id="typingLine"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;h2 class="section-title"&gt;About&lt;/h2&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;p class="lead"&gt;I am a DevSecOps professional and Computer Technology student who enjoys solving technical problems and building practical solutions that help teams work more efficiently. My experience supporting cloud-based enterprise applications and Agile development teams has strengthened my skills in troubleshooting, configuration management, secure system support, and clear technical communication. I enjoy learning new technologies and turning that knowledge into useful tools, projects, and improvements.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="hero-actions"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;a class="btn btn-primary" href="#projects"&gt;View My Projects&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;a class="btn btn-secondary" href="#resume"&gt;View Resume&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="about-dashboard"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="panel"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;h3&gt;Core Skills&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="skill-bars"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="skill-bar"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                  </span>&lt;div class="skill-bar-header"&gt;&lt;span&gt;Web Development&lt;/span&gt;&lt;span&gt;90%&lt;/span&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                  </span>&lt;div class="skill-track"&gt;&lt;div class="skill-fill" style="--skill-width:90%"&gt;&lt;/div&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="skill-bar"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                  </span>&lt;div class="skill-bar-header"&gt;&lt;span&gt;JavaScript&lt;/span&gt;&lt;span&gt;85%&lt;/span&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                  </span>&lt;div class="skill-track"&gt;&lt;div class="skill-fill delay-1" style="--skill-width:85%"&gt;&lt;/div&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="skill-bar"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                  </span>&lt;div class="skill-bar-header"&gt;&lt;span&gt;Python&lt;/span&gt;&lt;span&gt;80%&lt;/span&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                  </span>&lt;div class="skill-track"&gt;&lt;div class="skill-fill delay-2" style="--skill-width:80%"&gt;&lt;/div&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="skill-bar"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                  </span>&lt;div class="skill-bar-header"&gt;&lt;span&gt;Java&lt;/span&gt;&lt;span&gt;78%&lt;/span&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                  </span>&lt;div class="skill-track"&gt;&lt;div class="skill-fill delay-3" style="--skill-width:78%"&gt;&lt;/div&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="skill-bar"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                  </span>&lt;div class="skill-bar-header"&gt;&lt;span&gt;Cloud / DevSecOps&lt;/span&gt;&lt;span&gt;82%&lt;/span&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                  </span>&lt;div class="skill-track"&gt;&lt;div class="skill-fill delay-4" style="--skill-width:82%"&gt;&lt;/div&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="skill-bar"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                  </span>&lt;div class="skill-bar-header"&gt;&lt;span&gt;Technical Writing&lt;/span&gt;&lt;span&gt;88%&lt;/span&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                  </span>&lt;div class="skill-track"&gt;&lt;div class="skill-fill delay-5" style="--skill-width:88%"&gt;&lt;/div&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="skill-bar"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                  </span>&lt;div class="skill-bar-header"&gt;&lt;span&gt;Agile / Scrum&lt;/span&gt;&lt;span&gt;90%&lt;/span&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                  </span>&lt;div class="skill-track"&gt;&lt;div class="skill-fill delay-6" style="--skill-width:90%"&gt;&lt;/div&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="right-stack"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="panel radar-panel"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;h3&gt;Skill Radar&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p class="contact-copy" style="text-align:center; margin-top:0.5rem;"&gt;A visual summary of my strongest technical and professional capabilities.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="radar-wrap"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                  </span>&lt;canvas id="skillRadar" width="220" height="220"&gt;&lt;/canvas&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="panel qr-end quick-access-box"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;h3 style="margin-bottom:0.4rem;"&gt;Quick Access&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p class="qr-blurb"&gt;Scan these codes to quickly open my portfolio website or GitHub profile on your mobile device.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="qr-row"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                  </span>&lt;div class="qr-box compact-qr"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;h4&gt;Portfolio&lt;/h4&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div id="qrcode"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                  </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                  </span>&lt;div class="qr-box compact-qr"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;h4&gt;GitHub&lt;/h4&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div id="github-qrcode"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                  </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/section&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;section id="resume"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="container"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;h2 class="section-title"&gt;Resume&lt;/h2&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;p class="section-subtitle"&gt;View a web-friendly version of my resume below and download the PDF version.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="resume-actions"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;a class="btn btn-primary" href="resume.pdf" target="_blank"&gt;View Resume PDF&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;a class="btn btn-secondary" href="resume.pdf" download&gt;Download Resume&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="resume-preview"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;h3&gt;Katie Downing Powell&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;p&gt;Email: downing_katie@yahoo.com | Phone: (301) 592-7200 | District Heights, MD&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;br /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;h4&gt;Professional Summary&lt;/h4&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;p&gt;Motivated technology professional with strengths in DevSecOps, cloud application support, configuration management, Scrum leadership, systems administration, and technical communication. Experienced in supporting multiple cloud-based applications, leading Agile teams, and creating organized, user-focused technical solutions.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;br /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;h4&gt;Technical Skills&lt;/h4&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;ul&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;li&gt;DevSecOps, Scrum, and Agile delivery&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;li&gt;AWS Cloud Practitioner&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;li&gt;Configuration management and release support&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;li&gt;Atlassian Suite, SharePoint, and UrbanCode Deploy&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;li&gt;Technical troubleshooting, documentation, and systems administration&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;/ul&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;br /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;h4&gt;Education&lt;/h4&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;p&gt;B.S. in Computer Technology — Bowie State University (Expected 05/2026)&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;p&gt;GPA: 3.97 | Alpha Chi National College Honor Society | Dean’s List (6 semesters)&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;p&gt;A.A.T. in Teacher Education (Spanish) — Prince George’s Community College (05/2016)&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/section&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;section id="projects"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="container"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;h2 class="section-title"&gt;Projects&lt;/h2&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;p class="section-subtitle"&gt;Selected projects and GitHub activity that reflect my technical background, creativity, and problem-solving approach.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="projects-grid"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;article class="panel project-card github-feed" style="min-height: auto;"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;h3&gt;GitHub Activity&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;p&gt;This section brings together my featured portfolio work, original Battleship Java source code, and my broader GitHub focus areas in one place.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="github-feed-list" id="githubFeedList"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="feed-item"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                  </span>&lt;h4&gt;Playable Battleship Game&lt;/h4&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                  </span>&lt;small&gt;A browser-playable adaptation of my original Java Battleship project, available to try directly on this site.&lt;/small&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="feed-item"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                  </span>&lt;h4&gt;Battleship Java Repository&lt;/h4&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                  </span>&lt;small&gt;Source code for my original Java Battleship game with ship placement, hit detection, and win-condition logic.&lt;/small&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="feed-item"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                  </span>&lt;h4&gt;Portfolio Repository&lt;/h4&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                  </span>&lt;small&gt;Source code and ongoing updates for this live portfolio website, including chatbot, QR codes, music, and UI enhancements.&lt;/small&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="feed-item"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                  </span>&lt;h4&gt;Cloud / DevSecOps Focus&lt;/h4&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                  </span>&lt;small&gt;Highlights my interest in secure systems, configuration management, Agile delivery, and enterprise application support.&lt;/small&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="project-links"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;a href="#battleship-game"&gt;Play Battleship&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;a href="https://github.com/kdowningpowell/battleship-java" target="_blank"&gt;View Battleship Code&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;a href="https://github.com/kdowningpowell/kdowningpowell.github.io" target="_blank"&gt;View Portfolio Code&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;a href="https://github.com/kdowningpowell" target="_blank"&gt;Open GitHub Profile&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;/article&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="game-section" id="battleship-game"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;h3 class="section-title" style="font-size: 1.6rem; margin-top: 2rem;"&gt;Play Battleship&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;p class="section-subtitle"&gt;Click the opponent grid to hunt the fleet. Sink all ships to win, then use Reset Game to play again.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="game-layout"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="panel"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;h3&gt;About This Game&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;p&gt;This web version is inspired by my original Java Battleship program. It keeps the same core ideas: a hidden fleet, hit or miss tracking, and a victory check when all ships are sunk.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="game-status" id="gameStatus"&gt;Game loaded. Start by clicking any square on the board.&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="hero-actions"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;button class="btn btn-primary" id="resetBattleshipBtn" type="button"&gt;Reset Game&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="board-legend"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;span class="legend-pill"&gt;&lt;span class="legend-dot unknown"&gt;&lt;/span&gt; Unknown&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;span class="legend-pill"&gt;&lt;span class="legend-dot hit"&gt;&lt;/span&gt; Hit&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;span class="legend-pill"&gt;&lt;span class="legend-dot miss"&gt;&lt;/span&gt; Miss&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="panel battleship-board-wrap"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;h3&gt;Opponent Grid&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="battleship-board" id="battleshipBoard"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/section&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;section id="blog"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="container"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;h2 class="section-title"&gt;Blog&lt;/h2&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;p class="section-subtitle"&gt;Reflections on technology, learning, and professional growth.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="blog-grid"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;article class="panel blog-card"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;h3&gt;What I’m Learning in Web Development&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;p&gt;I continue strengthening my front-end development skills by building projects that combine clean structure, responsive design, and interactive features that improve the user experience.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;/article&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;article class="panel blog-card"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;h3&gt;Why Technical Communication Matters&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;p&gt;Strong technical communication helps turn complex ideas into clear, usable solutions for teams, users, and stakeholders. It is just as important as technical ability.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;/article&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/section&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;section id="contact"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="container"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;h2 class="section-title"&gt;Contact&lt;/h2&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;p class="section-subtitle"&gt;Use the form below to open an email draft addressed to me with your message details pre-filled.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="contact-grid"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="panel" style="max-width: 900px; width: 100%;"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;h3&gt;Send a Message&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;form id="contactForm" action="mailto:downing_katie@yahoo.com" method="post" enctype="text/plain"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;label for="name"&gt;Name&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;input type="text" id="name" name="name" placeholder="Enter your name" required /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;label for="email"&gt;Email&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;input type="email" id="email" name="email" placeholder="Enter your email" required /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;label for="message"&gt;Message&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;textarea id="message" name="message" placeholder="Write your message here" required&gt;&lt;/textarea&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;button class="btn btn-primary" type="submit"&gt;Submit Message&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/form&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/section&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/main&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;button class="chatbot-toggle" id="chatToggle" aria-label="Open chatbot"&gt;💬&lt;/button&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="chatbot" id="chatbot"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="chatbot-header"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;h3&gt;Portfolio Assistant&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;p class="contact-note"&gt;Ask about skills, projects, education, GitHub, or resume details.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="chatbot-body" id="chatBody"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="message bot"&gt;Hi! I’m the portfolio assistant. Ask me about skills, projects, education, GitHub, or resume details.&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="chatbot-input"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;input type="text" id="chatInput" placeholder="Type your question..." /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;button class="btn btn-primary" id="sendBtn"&gt;Send&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;footer&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="container"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;p&gt;© 2026 Katie Downing Powell. All rights reserved.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/footer&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;script&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const starCanvas = document.getElementById("stars");</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const starCtx = starCanvas ? starCanvas.getContext("2d") : null;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>function resizeStars() {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>if (!starCanvas) return;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>starCanvas.width = window.innerWidth;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>starCanvas.height = window.innerHeight;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>resizeStars();</p>
-<p class="p1"><span class="Apple-converted-space">    </span>window.addEventListener("resize", resizeStars);</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>const stars = Array.from({ length: 80 }, () =&gt; ({</p>
-<p class="p1"><span class="Apple-converted-space">      </span>x: Math.random() * window.innerWidth,</p>
-<p class="p1"><span class="Apple-converted-space">      </span>y: Math.random() * window.innerHeight,</p>
-<p class="p1"><span class="Apple-converted-space">      </span>r: Math.random() * 1.5 + 0.2,</p>
-<p class="p1"><span class="Apple-converted-space">      </span>dx: (Math.random() - 0.5) * 0.3,</p>
-<p class="p1"><span class="Apple-converted-space">      </span>dy: (Math.random() - 0.5) * 0.3</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}));</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>function animateStars() {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>if (!starCanvas || !starCtx) return;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>starCtx.clearRect(0, 0, starCanvas.width, starCanvas.height);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>starCtx.fillStyle = "rgba(148, 163, 184, 0.8)";</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>stars.forEach((s) =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>starCtx.beginPath();</p>
-<p class="p1"><span class="Apple-converted-space">        </span>starCtx.arc(s.x, s.y, s.r, 0, Math.PI * 2);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>starCtx.fill();</p>
-<p class="p1"><span class="Apple-converted-space">        </span>s.x += s.dx;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>s.y += s.dy;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>if (s.x &lt; 0 || s.x &gt; starCanvas.width) s.dx *= -1;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>if (s.y &lt; 0 || s.y &gt; starCanvas.height) s.dy *= -1;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>});</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>for (let i = 0; i &lt; stars.length; i++) {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>for (let j = i + 1; j &lt; stars.length; j++) {</p>
-<p class="p1"><span class="Apple-converted-space">          </span>const dx = stars[i].x - stars[j].x;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>const dy = stars[i].y - stars[j].y;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>const dist = Math.sqrt(dx * dx + dy * dy);</p>
-<p class="p1"><span class="Apple-converted-space">          </span>if (dist &lt; 120) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>starCtx.strokeStyle = "rgba(56, 189, 248, 0.15)";</p>
-<p class="p1"><span class="Apple-converted-space">            </span>starCtx.lineWidth = 1;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>starCtx.beginPath();</p>
-<p class="p1"><span class="Apple-converted-space">            </span>starCtx.moveTo(stars[i].x, stars[i].y);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>starCtx.lineTo(stars[j].x, stars[j].y);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>starCtx.stroke();</p>
-<p class="p1"><span class="Apple-converted-space">          </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">      </span>}</p>
-<p class="p1"><span class="Apple-converted-space">      </span>requestAnimationFrame(animateStars);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>animateStars();</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>const portfolioURL = "https://kdowningpowell.github.io";</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const githubURL = "https://github.com/kdowningpowell";</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>QRCode.toCanvas(portfolioURL, { width: 74 }, function (error, qrCanvas) {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>if (error) return;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>const qrContainer = document.getElementById("qrcode");</p>
-<p class="p1"><span class="Apple-converted-space">      </span>if (qrContainer) {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>qrContainer.innerHTML = "";</p>
-<p class="p1"><span class="Apple-converted-space">        </span>qrContainer.appendChild(qrCanvas);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>});</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>QRCode.toCanvas(githubURL, { width: 74 }, function (error, qrCanvas) {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>if (error) return;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>const githubQrContainer = document.getElementById("github-qrcode");</p>
-<p class="p1"><span class="Apple-converted-space">      </span>if (githubQrContainer) {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>githubQrContainer.innerHTML = "";</p>
-<p class="p1"><span class="Apple-converted-space">        </span>githubQrContainer.appendChild(qrCanvas);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>});</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>const battleshipBoard = document.getElementById("battleshipBoard");</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const gameStatus = document.getElementById("gameStatus");</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const resetBattleshipBtn = document.getElementById("resetBattleshipBtn");</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const BOARD_SIZE = 8;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const SHIPS = [5, 4, 3, 3, 2];</p>
-<p class="p1"><span class="Apple-converted-space">    </span>let shipGrid = [];</p>
-<p class="p1"><span class="Apple-converted-space">    </span>let guessedCells = [];</p>
-<p class="p1"><span class="Apple-converted-space">    </span>let remainingHits = 0;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>let gameFinished = false;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>function makeEmptyBoard() {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>return Array.from({ length: BOARD_SIZE }, () =&gt; Array(BOARD_SIZE).fill(0));</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>function canPlaceShip(length, row, col, horizontal) {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>if (horizontal &amp;&amp; col + length &gt; BOARD_SIZE) return false;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>if (!horizontal &amp;&amp; row + length &gt; BOARD_SIZE) return false;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>for (let i = 0; i &lt; length; i++) {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const targetRow = horizontal ? row : row + i;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const targetCol = horizontal ? col + i : col;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>if (shipGrid[targetRow][targetCol] === 1) return false;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>}</p>
-<p class="p1"><span class="Apple-converted-space">      </span>return true;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>function placeShipsRandomly() {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>shipGrid = makeEmptyBoard();</p>
-<p class="p1"><span class="Apple-converted-space">      </span>guessedCells = makeEmptyBoard();</p>
-<p class="p1"><span class="Apple-converted-space">      </span>remainingHits = SHIPS.reduce((sum, len) =&gt; sum + len, 0);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>gameFinished = false;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>SHIPS.forEach((length) =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>let placed = false;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>while (!placed) {</p>
-<p class="p1"><span class="Apple-converted-space">          </span>const horizontal = Math.random() &lt; 0.5;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>const row = Math.floor(Math.random() * BOARD_SIZE);</p>
-<p class="p1"><span class="Apple-converted-space">          </span>const col = Math.floor(Math.random() * BOARD_SIZE);</p>
-<p class="p1"><span class="Apple-converted-space">          </span>if (canPlaceShip(length, row, col, horizontal)) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>for (let i = 0; i &lt; length; i++) {</p>
-<p class="p1"><span class="Apple-converted-space">              </span>const targetRow = horizontal ? row : row + i;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>const targetCol = horizontal ? col + i : col;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>shipGrid[targetRow][targetCol] = 1;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p1"><span class="Apple-converted-space">            </span>placed = true;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">      </span>});</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>function renderBattleshipBoard() {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>if (!battleshipBoard) return;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>battleshipBoard.innerHTML = "";</p>
-<p class="p1"><span class="Apple-converted-space">      </span>for (let row = 0; row &lt; BOARD_SIZE; row++) {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>for (let col = 0; col &lt; BOARD_SIZE; col++) {</p>
-<p class="p1"><span class="Apple-converted-space">          </span>const cell = document.createElement("button");</p>
-<p class="p1"><span class="Apple-converted-space">          </span>cell.type = "button";</p>
-<p class="p1"><span class="Apple-converted-space">          </span>cell.className = "battleship-cell";</p>
-<p class="p1"><span class="Apple-converted-space">          </span>cell.setAttribute("aria-label", `Row ${row + 1}, Column ${col + 1}`);</p>
-<p class="p1"><span class="Apple-converted-space">          </span>if (guessedCells[row][col] === 1) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>cell.classList.add("hit");</p>
-<p class="p1"><span class="Apple-converted-space">            </span>cell.textContent = "X";</p>
-<p class="p1"><span class="Apple-converted-space">            </span>cell.disabled = true;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>} else if (guessedCells[row][col] === 2) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>cell.classList.add("miss");</p>
-<p class="p1"><span class="Apple-converted-space">            </span>cell.textContent = "•";</p>
-<p class="p1"><span class="Apple-converted-space">            </span>cell.disabled = true;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>} else if (gameFinished) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>cell.disabled = true;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>}</p>
-<p class="p1"><span class="Apple-converted-space">          </span>cell.addEventListener("click", function () { handleGuess(row, col); });</p>
-<p class="p1"><span class="Apple-converted-space">          </span>battleshipBoard.appendChild(cell);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">      </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>function handleGuess(row, col) {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>if (gameFinished || guessedCells[row][col] !== 0) return;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>if (shipGrid[row][col] === 1) {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>guessedCells[row][col] = 1;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>remainingHits--;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>gameStatus.textContent = `Hit! ${remainingHits} ship spaces remaining.`;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>} else {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>guessedCells[row][col] = 2;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>gameStatus.textContent = "Miss! Keep searching the grid.";</p>
-<p class="p1"><span class="Apple-converted-space">      </span>}</p>
-<p class="p1"><span class="Apple-converted-space">      </span>if (remainingHits === 0) {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>gameFinished = true;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>gameStatus.textContent = "Congratulations! You sank the full fleet in Battleship.";</p>
-<p class="p1"><span class="Apple-converted-space">      </span>}</p>
-<p class="p1"><span class="Apple-converted-space">      </span>renderBattleshipBoard();</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>function startBattleshipGame() {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>placeShipsRandomly();</p>
-<p class="p1"><span class="Apple-converted-space">      </span>if (gameStatus) gameStatus.textContent = "Game loaded. Start by clicking any square on the board.";</p>
-<p class="p1"><span class="Apple-converted-space">      </span>renderBattleshipBoard();</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>if (resetBattleshipBtn) {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>resetBattleshipBtn.addEventListener("click", startBattleshipGame);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>startBattleshipGame();</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>const musicBtn = document.getElementById("musicToggle");</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const lofiAudio = document.getElementById("lofiAudio");</p>
-<p class="p1"><span class="Apple-converted-space">    </span>let musicPlaying = false;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>function toggleMusic() {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>if (!musicBtn || !lofiAudio) return;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>if (!musicPlaying) {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>lofiAudio.play();</p>
-<p class="p1"><span class="Apple-converted-space">        </span>musicBtn.textContent = "⏸ Pause Music";</p>
-<p class="p1"><span class="Apple-converted-space">        </span>musicPlaying = true;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>} else {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>lofiAudio.pause();</p>
-<p class="p1"><span class="Apple-converted-space">        </span>musicBtn.textContent = "🎧 Play Lo-Fi";</p>
-<p class="p1"><span class="Apple-converted-space">        </span>musicPlaying = false;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>if (musicBtn &amp;&amp; lofiAudio) {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>musicBtn.addEventListener("click", toggleMusic);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>document.addEventListener("keydown", function (e) {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>if (e.key.toLowerCase() === "m") toggleMusic();</p>
-<p class="p1"><span class="Apple-converted-space">      </span>});</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>const themeToggle = document.getElementById("themeToggle");</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>function drawRadarChart() {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>const radarCanvas = document.getElementById("skillRadar");</p>
-<p class="p1"><span class="Apple-converted-space">      </span>const radarCtx = radarCanvas ? radarCanvas.getContext("2d") : null;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>if (!radarCanvas || !radarCtx) return;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>const size = radarCanvas.width;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>const cx = size / 2;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>const cy = size / 2;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>const radius = 78;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>const labels = ["Web", "JS", "Python", "Java", "DevSecOps", "Writing", "Agile"];</p>
-<p class="p1"><span class="Apple-converted-space">      </span>const values = [90, 85, 80, 78, 82, 88, 90];</p>
-<p class="p1"><span class="Apple-converted-space">      </span>const levels = 5;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>radarCtx.clearRect(0, 0, radarCanvas.width, radarCanvas.height);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>radarCtx.strokeStyle = "rgba(148, 163, 184, 0.28)";</p>
-<p class="p1"><span class="Apple-converted-space">      </span>radarCtx.lineWidth = 1;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>for (let level = 1; level &lt;= levels; level++) {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const r = (radius / levels) * level;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>radarCtx.beginPath();</p>
-<p class="p1"><span class="Apple-converted-space">        </span>for (let i = 0; i &lt; labels.length; i++) {</p>
-<p class="p1"><span class="Apple-converted-space">          </span>const angle = (Math.PI * 2 / labels.length) * i - Math.PI / 2;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>const x = cx + Math.cos(angle) * r;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>const y = cy + Math.sin(angle) * r;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>if (i === 0) radarCtx.moveTo(x, y);</p>
-<p class="p1"><span class="Apple-converted-space">          </span>else radarCtx.lineTo(x, y);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>radarCtx.closePath();</p>
-<p class="p1"><span class="Apple-converted-space">        </span>radarCtx.stroke();</p>
-<p class="p1"><span class="Apple-converted-space">      </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>for (let i = 0; i &lt; labels.length; i++) {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const angle = (Math.PI * 2 / labels.length) * i - Math.PI / 2;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const x = cx + Math.cos(angle) * radius;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const y = cy + Math.sin(angle) * radius;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>radarCtx.beginPath();</p>
-<p class="p1"><span class="Apple-converted-space">        </span>radarCtx.moveTo(cx, cy);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>radarCtx.lineTo(x, y);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>radarCtx.stroke();</p>
-<p class="p1"><span class="Apple-converted-space">        </span>radarCtx.fillStyle = getComputedStyle(document.body).getPropertyValue("--muted").trim();</p>
-<p class="p1"><span class="Apple-converted-space">        </span>radarCtx.font = "11px Arial";</p>
-<p class="p1"><span class="Apple-converted-space">        </span>radarCtx.textAlign = x &gt;= cx ? "left" : "right";</p>
-<p class="p1"><span class="Apple-converted-space">        </span>radarCtx.textBaseline = "middle";</p>
-<p class="p1"><span class="Apple-converted-space">        </span>radarCtx.fillText(labels[i], cx + Math.cos(angle) * (radius + 16), cy + Math.sin(angle) * (radius + 16));</p>
-<p class="p1"><span class="Apple-converted-space">      </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>radarCtx.beginPath();</p>
-<p class="p1"><span class="Apple-converted-space">      </span>values.forEach((value, i) =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const angle = (Math.PI * 2 / labels.length) * i - Math.PI / 2;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const r = (value / 100) * radius;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const x = cx + Math.cos(angle) * r;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const y = cy + Math.sin(angle) * r;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>if (i === 0) radarCtx.moveTo(x, y);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>else radarCtx.lineTo(x, y);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>});</p>
-<p class="p1"><span class="Apple-converted-space">      </span>radarCtx.closePath();</p>
-<p class="p1"><span class="Apple-converted-space">      </span>radarCtx.fillStyle = "rgba(56, 189, 248, 0.22)";</p>
-<p class="p1"><span class="Apple-converted-space">      </span>radarCtx.strokeStyle = "rgba(56, 189, 248, 0.95)";</p>
-<p class="p1"><span class="Apple-converted-space">      </span>radarCtx.lineWidth = 2;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>radarCtx.fill();</p>
-<p class="p1"><span class="Apple-converted-space">      </span>radarCtx.stroke();</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>values.forEach((value, i) =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const angle = (Math.PI * 2 / labels.length) * i - Math.PI / 2;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const r = (value / 100) * radius;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const x = cx + Math.cos(angle) * r;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const y = cy + Math.sin(angle) * r;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>radarCtx.beginPath();</p>
-<p class="p1"><span class="Apple-converted-space">        </span>radarCtx.arc(x, y, 3, 0, Math.PI * 2);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>radarCtx.fillStyle = "rgba(56, 189, 248, 1)";</p>
-<p class="p1"><span class="Apple-converted-space">        </span>radarCtx.fill();</p>
-<p class="p1"><span class="Apple-converted-space">      </span>});</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>function toggleTheme() {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>document.body.classList.toggle("light-mode");</p>
-<p class="p1"><span class="Apple-converted-space">      </span>setTimeout(drawRadarChart, 60);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>if (themeToggle) {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>themeToggle.addEventListener("click", toggleTheme);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>document.addEventListener("keydown", function (e) {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>if (e.key.toLowerCase() === "t") toggleTheme();</p>
-<p class="p1"><span class="Apple-converted-space">      </span>});</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>drawRadarChart();</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>const typingLine = document.getElementById("typingLine");</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const typingPhrases = [</p>
-<p class="p1"><span class="Apple-converted-space">      </span>"DevSecOps Professional",</p>
-<p class="p1"><span class="Apple-converted-space">      </span>"Cloud Systems Specialist",</p>
-<p class="p1"><span class="Apple-converted-space">      </span>"Agile Team Collaborator",</p>
-<p class="p1"><span class="Apple-converted-space">      </span>"Computer Technology Student"</p>
-<p class="p1"><span class="Apple-converted-space">    </span>];</p>
-<p class="p1"><span class="Apple-converted-space">    </span>let phraseIndex = 0;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>function cycleTyping() {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>if (!typingLine) return;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>typingLine.textContent = typingPhrases[phraseIndex];</p>
-<p class="p1"><span class="Apple-converted-space">      </span>phraseIndex = (phraseIndex + 1) % typingPhrases.length;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>cycleTyping();</p>
-<p class="p1"><span class="Apple-converted-space">    </span>setInterval(cycleTyping, 2400);</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>const chatToggle = document.getElementById("chatToggle");</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const chatbot = document.getElementById("chatbot");</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const chatBody = document.getElementById("chatBody");</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const chatInput = document.getElementById("chatInput");</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const sendBtn = document.getElementById("sendBtn");</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>if (chatToggle &amp;&amp; chatbot) {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>chatToggle.addEventListener("click", function () {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>chatbot.classList.toggle("open");</p>
-<p class="p1"><span class="Apple-converted-space">      </span>});</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>function getBotReply(userMessage) {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>const message = userMessage.toLowerCase();</p>
-<p class="p1"><span class="Apple-converted-space">      </span>if (message.includes("skill")) return "My core skills include web development, JavaScript, Python, Java, cloud and DevSecOps work, technical writing, and Agile collaboration.";</p>
-<p class="p1"><span class="Apple-converted-space">      </span>if (message.includes("project")) return "Featured work includes my playable Battleship game, original Java Battleship repository, this portfolio site, and my broader DevSecOps and cloud-focused work.";</p>
-<p class="p1"><span class="Apple-converted-space">      </span>if (message.includes("resume")) return "You can view or download my resume from the Resume section.";</p>
-<p class="p1"><span class="Apple-converted-space">      </span>if (message.includes("education") || message.includes("school") || message.includes("degree")) return "I’m completing a B.S. in Computer Technology at Bowie State University, expected in May 2026, with a 3.97 GPA.";</p>
-<p class="p1"><span class="Apple-converted-space">      </span>if (message.includes("github")) return "My GitHub profile is linked in the site and includes my Battleship Java source code and portfolio repository.";</p>
-<p class="p1"><span class="Apple-converted-space">      </span>if (message.includes("contact") || message.includes("email")) return "You can reach me through the contact form or email me directly at downing_katie@yahoo.com.";</p>
-<p class="p1"><span class="Apple-converted-space">      </span>if (message.includes("hello") || message.includes("hi")) return "Hello! Feel free to ask about my skills, projects, resume, education, GitHub profile.";</p>
-<p class="p1"><span class="Apple-converted-space">      </span>return "I can help with questions about skills, projects, resume details, education, GitHub, or contact information.";</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>function addMessage(text, sender) {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>if (!chatBody) return;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>const messageDiv = document.createElement("div");</p>
-<p class="p1"><span class="Apple-converted-space">      </span>messageDiv.classList.add("message", sender);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>messageDiv.textContent = text;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>chatBody.appendChild(messageDiv);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>chatBody.scrollTop = chatBody.scrollHeight;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>function handleChat() {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>if (!chatInput) return;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>const userText = chatInput.value.trim();</p>
-<p class="p1"><span class="Apple-converted-space">      </span>if (!userText) return;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>addMessage(userText, "user");</p>
-<p class="p1"><span class="Apple-converted-space">      </span>const reply = getBotReply(userText);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>setTimeout(function () { addMessage(reply, "bot"); }, 350);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>chatInput.value = "";</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>if (sendBtn) sendBtn.addEventListener("click", handleChat);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>if (chatInput) {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>chatInput.addEventListener("keydown", function (event) {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>if (event.key === "Enter") handleChat();</p>
-<p class="p1"><span class="Apple-converted-space">      </span>});</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/script&gt;</p>
-<p class="p1">&lt;/body&gt;</p>
-<p class="p1">&lt;/html&gt;</p>
+  <canvas id="stars"></canvas>
+
+  <header>
+    <div class="container nav">
+      <div class="brand">Katie Downing Powell | Portfolio</div>
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#resume">Resume</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#blog">Blog</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="container header-controls">
+      <button class="btn btn-secondary" id="musicToggle">🎧 Play Lo-Fi</button>
+      <span class="control-hint">Press M</span>
+      <button class="btn btn-secondary" id="themeToggle">🌓 Toggle Theme</button>
+      <span class="control-hint">Press T</span>
+      <audio id="lofiAudio" loop>
+        <source src="lofi.mp3" type="audio/mpeg" />
+      </audio>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="container hero-grid">
+        <aside class="panel hero-card">
+          <img src="profile.jpg" alt="Professional headshot of Katie Downing Powell" class="profile-image" />
+          <div class="profile-icons">
+            <a href="https://www.linkedin.com/in/katie-d-01609054" target="_blank" title="LinkedIn"><span class="icon">in</span></a>
+            <a href="https://github.com/kdowningpowell" target="_blank" title="GitHub"><span class="icon">GH</span></a>
+            <a href="mailto:downing_katie@yahoo.com" title="Email"><span class="icon">✉</span></a>
+          </div>
+
+          <h3>Quick Highlights</h3>
+          <ul>
+            <li><strong>Focus Areas:</strong> DevSecOps, Cloud Systems, Scrum Leadership, Configuration Management</li>
+            <li><strong>Languages &amp; Tools:</strong> HTML, CSS, JavaScript, Python, Java, GitHub, Atlassian Suite, SharePoint, UrbanCode Deploy</li>
+            <li><strong>Education:</strong> B.S. in Computer Technology, Bowie State University (Expected 05/2026)</li>
+            <li><strong>Academic Honors:</strong> 3.97 GPA, Alpha Chi National College Honor Society, Dean’s List (6 semesters)</li>
+            <li><strong>Certifications:</strong> AWS Cloud Practitioner, SAFe, Scrum Master, CMMI Associate</li>
+            <li><strong>Professional Strengths:</strong> Technical documentation, systems administration, troubleshooting, Agile collaboration</li>
+          </ul>
+        </aside>
+
+        <div class="about-stack">
+          <div class="panel about-intro-panel">
+            <span class="badge">Professional Portfolio Website</span>
+            <h1 class="hero-name">Katie Downing Powell</h1>
+            <div class="typing-line" id="typingLine"></div>
+            <h2 class="section-title">About</h2>
+            <p class="lead">I am a DevSecOps professional and Computer Technology student who enjoys solving technical problems and building practical solutions that help teams work more efficiently. My experience supporting cloud-based enterprise applications and Agile development teams has strengthened my skills in troubleshooting, configuration management, secure system support, and clear technical communication. I enjoy learning new technologies and turning that knowledge into useful tools, projects, and improvements.</p>
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="#projects">View My Projects</a>
+              <a class="btn btn-secondary" href="#resume">View Resume</a>
+            </div>
+          </div>
+
+          <div class="about-dashboard">
+            <div class="panel">
+              <h3>Core Skills</h3>
+              <div class="skill-bars">
+                <div class="skill-bar">
+                  <div class="skill-bar-header"><span>Web Development</span><span>90%</span></div>
+                  <div class="skill-track"><div class="skill-fill" style="--skill-width:90%"></div></div>
+                </div>
+                <div class="skill-bar">
+                  <div class="skill-bar-header"><span>JavaScript</span><span>85%</span></div>
+                  <div class="skill-track"><div class="skill-fill delay-1" style="--skill-width:85%"></div></div>
+                </div>
+                <div class="skill-bar">
+                  <div class="skill-bar-header"><span>Python</span><span>80%</span></div>
+                  <div class="skill-track"><div class="skill-fill delay-2" style="--skill-width:80%"></div></div>
+                </div>
+                <div class="skill-bar">
+                  <div class="skill-bar-header"><span>Java</span><span>78%</span></div>
+                  <div class="skill-track"><div class="skill-fill delay-3" style="--skill-width:78%"></div></div>
+                </div>
+                <div class="skill-bar">
+                  <div class="skill-bar-header"><span>Cloud / DevSecOps</span><span>82%</span></div>
+                  <div class="skill-track"><div class="skill-fill delay-4" style="--skill-width:82%"></div></div>
+                </div>
+                <div class="skill-bar">
+                  <div class="skill-bar-header"><span>Technical Writing</span><span>88%</span></div>
+                  <div class="skill-track"><div class="skill-fill delay-5" style="--skill-width:88%"></div></div>
+                </div>
+                <div class="skill-bar">
+                  <div class="skill-bar-header"><span>Agile / Scrum</span><span>90%</span></div>
+                  <div class="skill-track"><div class="skill-fill delay-6" style="--skill-width:90%"></div></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="right-stack">
+              <div class="panel radar-panel">
+                <h3>Skill Radar</h3>
+                <p class="contact-copy" style="text-align:center; margin-top:0.5rem;">A visual summary of my strongest technical and professional capabilities.</p>
+                <div class="radar-wrap">
+                  <canvas id="skillRadar" width="220" height="220"></canvas>
+                </div>
+              </div>
+
+              <div class="panel qr-end quick-access-box">
+                <h3 style="margin-bottom:0.4rem;">Quick Access</h3>
+                <p class="qr-blurb">Scan these codes to quickly open my portfolio website or GitHub profile on your mobile device.</p>
+                <div class="qr-row">
+                  <div class="qr-box compact-qr">
+                    <h4>Portfolio</h4>
+                    <div id="qrcode"></div>
+                  </div>
+                  <div class="qr-box compact-qr">
+                    <h4>GitHub</h4>
+                    <div id="github-qrcode"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="resume">
+      <div class="container">
+        <h2 class="section-title">Resume</h2>
+        <p class="section-subtitle">View a web-friendly version of my resume below and download the PDF version.</p>
+        <div class="resume-actions">
+          <a class="btn btn-primary" href="resume.pdf" target="_blank">View Resume PDF</a>
+          <a class="btn btn-secondary" href="resume.pdf" download>Download Resume</a>
+        </div>
+        <div class="resume-preview">
+          <h3>Katie Downing Powell</h3>
+          <p>Email: downing_katie@yahoo.com | Phone: (301) 592-7200 | District Heights, MD</p>
+          <br />
+          <h4>Professional Summary</h4>
+          <p>Motivated technology professional with strengths in DevSecOps, cloud application support, configuration management, Scrum leadership, systems administration, and technical communication. Experienced in supporting multiple cloud-based applications, leading Agile teams, and creating organized, user-focused technical solutions.</p>
+          <br />
+          <h4>Technical Skills</h4>
+          <ul>
+            <li>DevSecOps, Scrum, and Agile delivery</li>
+            <li>AWS Cloud Practitioner</li>
+            <li>Configuration management and release support</li>
+            <li>Atlassian Suite, SharePoint, and UrbanCode Deploy</li>
+            <li>Technical troubleshooting, documentation, and systems administration</li>
+          </ul>
+          <br />
+          <h4>Education</h4>
+          <p>B.S. in Computer Technology — Bowie State University (Expected 05/2026)</p>
+          <p>GPA: 3.97 | Alpha Chi National College Honor Society | Dean’s List (6 semesters)</p>
+          <p>A.A.T. in Teacher Education (Spanish) — Prince George’s Community College (05/2016)</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="container">
+        <h2 class="section-title">Projects</h2>
+        <p class="section-subtitle">Selected projects and GitHub activity that reflect my technical background, creativity, and problem-solving approach.</p>
+        <div class="projects-grid">
+          <article class="panel project-card github-feed" style="min-height: auto;">
+            <div>
+              <h3>GitHub Activity</h3>
+              <p>This section brings together my featured portfolio work, original Battleship Java source code, and my broader GitHub focus areas in one place.</p>
+              <div class="github-feed-list" id="githubFeedList">
+                <div class="feed-item">
+                  <h4>Playable Battleship Game</h4>
+                  <small>A browser-playable adaptation of my original Java Battleship project, available to try directly on this site.</small>
+                </div>
+                <div class="feed-item">
+                  <h4>Battleship Java Repository</h4>
+                  <small>Source code for my original Java Battleship game with ship placement, hit detection, and win-condition logic.</small>
+                </div>
+                <div class="feed-item">
+                  <h4>Portfolio Repository</h4>
+                  <small>Source code and ongoing updates for this live portfolio website, including chatbot, QR codes, music, and UI enhancements.</small>
+                </div>
+                <div class="feed-item">
+                  <h4>Cloud / DevSecOps Focus</h4>
+                  <small>Highlights my interest in secure systems, configuration management, Agile delivery, and enterprise application support.</small>
+                </div>
+              </div>
+            </div>
+            <div class="project-links">
+              <a href="#battleship-game">Play Battleship</a>
+              <a href="https://github.com/kdowningpowell/battleship-java" target="_blank">View Battleship Code</a>
+              <a href="https://github.com/kdowningpowell/kdowningpowell.github.io" target="_blank">View Portfolio Code</a>
+              <a href="https://github.com/kdowningpowell" target="_blank">Open GitHub Profile</a>
+            </div>
+          </article>
+        </div>
+
+        <div class="game-section" id="battleship-game">
+          <h3 class="section-title" style="font-size: 1.6rem; margin-top: 2rem;">Play Battleship</h3>
+          <p class="section-subtitle">Click the opponent grid to hunt the fleet. Sink all ships to win, then use Reset Game to play again.</p>
+          <div class="game-layout">
+            <div class="panel">
+              <h3>About This Game</h3>
+              <p>This web version is inspired by my original Java Battleship program. It keeps the same core ideas: a hidden fleet, hit or miss tracking, and a victory check when all ships are sunk.</p>
+              <div class="game-status" id="gameStatus">Game loaded. Start by clicking any square on the board.</div>
+              <div class="hero-actions">
+                <button class="btn btn-primary" id="resetBattleshipBtn" type="button">Reset Game</button>
+              </div>
+              <div class="board-legend">
+                <span class="legend-pill"><span class="legend-dot unknown"></span> Unknown</span>
+                <span class="legend-pill"><span class="legend-dot hit"></span> Hit</span>
+                <span class="legend-pill"><span class="legend-dot miss"></span> Miss</span>
+              </div>
+            </div>
+            <div class="panel battleship-board-wrap">
+              <h3>Opponent Grid</h3>
+              <div class="battleship-board" id="battleshipBoard"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="blog">
+      <div class="container">
+        <h2 class="section-title">Blog</h2>
+        <p class="section-subtitle">Reflections on technology, learning, and professional growth.</p>
+        <div class="blog-grid">
+          <article class="panel blog-card">
+            <h3>What I’m Learning in Web Development</h3>
+            <p>I continue strengthening my front-end development skills by building projects that combine clean structure, responsive design, and interactive features that improve the user experience.</p>
+          </article>
+          <article class="panel blog-card">
+            <h3>Why Technical Communication Matters</h3>
+            <p>Strong technical communication helps turn complex ideas into clear, usable solutions for teams, users, and stakeholders. It is just as important as technical ability.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container">
+        <h2 class="section-title">Contact</h2>
+        <p class="section-subtitle">Use the form below to open an email draft addressed to me with your message details pre-filled.</p>
+        <div class="contact-grid">
+          <div class="panel" style="max-width: 900px; width: 100%;">
+            <h3>Send a Message</h3>
+            <form id="contactForm" action="mailto:downing_katie@yahoo.com" method="post" enctype="text/plain">
+              <div>
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" placeholder="Enter your name" required />
+              </div>
+              <div>
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required />
+              </div>
+              <div>
+                <label for="message">Message</label>
+                <textarea id="message" name="message" placeholder="Write your message here" required></textarea>
+              </div>
+              <button class="btn btn-primary" type="submit">Submit Message</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <button class="chatbot-toggle" id="chatToggle" aria-label="Open chatbot">
+  <span class="robot-face">
+    <span class="robot-eye left-eye"></span>
+    <span class="robot-eye right-eye"></span>
+    <span class="robot-mouth"></span>
+    <span class="robot-antenna"></span>
+  </span>
+</button>
+
+  <div class="chatbot" id="chatbot">
+    <div class="chatbot-header">
+  <div class="chatbot-bot-wrap">
+    <div class="chatbot-bot-avatar">
+      <span class="bot-antenna"></span>
+      <span class="bot-eye"></span>
+      <span class="bot-eye"></span>
+      <span class="bot-mouth"></span>
+    </div>
+    <div>
+      <h3>Portfolio Bot</h3>
+      <p class="contact-note">Ask about skills, projects, education, GitHub, resume details, or NSLS.</p>
+    </div>
+  </div>
+</div>
+    <div class="chatbot-body" id="chatBody">
+      <div class="message bot">Hi! I’m Katie's portfolio assistant bot 🤖. Ask me about her skills, projects, education, GitHub, or resume details.</div>
+    </div>
+    <div class="chatbot-input">
+      <input type="text" id="chatInput" placeholder="Type your question..." />
+      <button class="btn btn-primary" id="sendBtn">Send</button>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>© 2026 Katie Downing Powell. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    const starCanvas = document.getElementById("stars");
+    const starCtx = starCanvas ? starCanvas.getContext("2d") : null;
+
+    function resizeStars() {
+      if (!starCanvas) return;
+      starCanvas.width = window.innerWidth;
+      starCanvas.height = window.innerHeight;
+    }
+
+    resizeStars();
+    window.addEventListener("resize", resizeStars);
+
+    const stars = Array.from({ length: 80 }, () => ({
+      x: Math.random() * window.innerWidth,
+      y: Math.random() * window.innerHeight,
+      r: Math.random() * 1.5 + 0.2,
+      dx: (Math.random() - 0.5) * 0.3,
+      dy: (Math.random() - 0.5) * 0.3
+    }));
+
+    function animateStars() {
+      if (!starCanvas || !starCtx) return;
+      starCtx.clearRect(0, 0, starCanvas.width, starCanvas.height);
+      starCtx.fillStyle = "rgba(148, 163, 184, 0.8)";
+
+      stars.forEach((s) => {
+        starCtx.beginPath();
+        starCtx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        starCtx.fill();
+        s.x += s.dx;
+        s.y += s.dy;
+        if (s.x < 0 || s.x > starCanvas.width) s.dx *= -1;
+        if (s.y < 0 || s.y > starCanvas.height) s.dy *= -1;
+      });
+
+      for (let i = 0; i < stars.length; i++) {
+        for (let j = i + 1; j < stars.length; j++) {
+          const dx = stars[i].x - stars[j].x;
+          const dy = stars[i].y - stars[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 120) {
+            starCtx.strokeStyle = "rgba(56, 189, 248, 0.15)";
+            starCtx.lineWidth = 1;
+            starCtx.beginPath();
+            starCtx.moveTo(stars[i].x, stars[i].y);
+            starCtx.lineTo(stars[j].x, stars[j].y);
+            starCtx.stroke();
+          }
+        }
+      }
+      requestAnimationFrame(animateStars);
+    }
+    animateStars();
+
+    const portfolioURL = "https://kdowningpowell.github.io";
+    const githubURL = "https://github.com/kdowningpowell";
+
+    QRCode.toCanvas(portfolioURL, { width: 74 }, function (error, qrCanvas) {
+      if (error) return;
+      const qrContainer = document.getElementById("qrcode");
+      if (qrContainer) {
+        qrContainer.innerHTML = "";
+        qrContainer.appendChild(qrCanvas);
+      }
+    });
+
+    QRCode.toCanvas(githubURL, { width: 74 }, function (error, qrCanvas) {
+      if (error) return;
+      const githubQrContainer = document.getElementById("github-qrcode");
+      if (githubQrContainer) {
+        githubQrContainer.innerHTML = "";
+        githubQrContainer.appendChild(qrCanvas);
+      }
+    });
+
+    const battleshipBoard = document.getElementById("battleshipBoard");
+    const gameStatus = document.getElementById("gameStatus");
+    const resetBattleshipBtn = document.getElementById("resetBattleshipBtn");
+    const BOARD_SIZE = 8;
+    const SHIPS = [5, 4, 3, 3, 2];
+    let shipGrid = [];
+    let guessedCells = [];
+    let remainingHits = 0;
+    let gameFinished = false;
+
+    function makeEmptyBoard() {
+      return Array.from({ length: BOARD_SIZE }, () => Array(BOARD_SIZE).fill(0));
+    }
+
+    function canPlaceShip(length, row, col, horizontal) {
+      if (horizontal && col + length > BOARD_SIZE) return false;
+      if (!horizontal && row + length > BOARD_SIZE) return false;
+      for (let i = 0; i < length; i++) {
+        const targetRow = horizontal ? row : row + i;
+        const targetCol = horizontal ? col + i : col;
+        if (shipGrid[targetRow][targetCol] === 1) return false;
+      }
+      return true;
+    }
+
+    function placeShipsRandomly() {
+      shipGrid = makeEmptyBoard();
+      guessedCells = makeEmptyBoard();
+      remainingHits = SHIPS.reduce((sum, len) => sum + len, 0);
+      gameFinished = false;
+      SHIPS.forEach((length) => {
+        let placed = false;
+        while (!placed) {
+          const horizontal = Math.random() < 0.5;
+          const row = Math.floor(Math.random() * BOARD_SIZE);
+          const col = Math.floor(Math.random() * BOARD_SIZE);
+          if (canPlaceShip(length, row, col, horizontal)) {
+            for (let i = 0; i < length; i++) {
+              const targetRow = horizontal ? row : row + i;
+              const targetCol = horizontal ? col + i : col;
+              shipGrid[targetRow][targetCol] = 1;
+            }
+            placed = true;
+          }
+        }
+      });
+    }
+
+    function renderBattleshipBoard() {
+      if (!battleshipBoard) return;
+      battleshipBoard.innerHTML = "";
+      for (let row = 0; row < BOARD_SIZE; row++) {
+        for (let col = 0; col < BOARD_SIZE; col++) {
+          const cell = document.createElement("button");
+          cell.type = "button";
+          cell.className = "battleship-cell";
+          cell.setAttribute("aria-label", `Row ${row + 1}, Column ${col + 1}`);
+          if (guessedCells[row][col] === 1) {
+            cell.classList.add("hit");
+            cell.textContent = "X";
+            cell.disabled = true;
+          } else if (guessedCells[row][col] === 2) {
+            cell.classList.add("miss");
+            cell.textContent = "•";
+            cell.disabled = true;
+          } else if (gameFinished) {
+            cell.disabled = true;
+          }
+          cell.addEventListener("click", function () { handleGuess(row, col); });
+          battleshipBoard.appendChild(cell);
+        }
+      }
+    }
+
+    function handleGuess(row, col) {
+      if (gameFinished || guessedCells[row][col] !== 0) return;
+      if (shipGrid[row][col] === 1) {
+        guessedCells[row][col] = 1;
+        remainingHits--;
+        gameStatus.textContent = `Hit! ${remainingHits} ship spaces remaining.`;
+      } else {
+        guessedCells[row][col] = 2;
+        gameStatus.textContent = "Miss! Keep searching the grid.";
+      }
+      if (remainingHits === 0) {
+        gameFinished = true;
+        gameStatus.textContent = "Congratulations! You sank the full fleet in Battleship.";
+      }
+      renderBattleshipBoard();
+    }
+
+    function startBattleshipGame() {
+      placeShipsRandomly();
+      if (gameStatus) gameStatus.textContent = "Game loaded. Start by clicking any square on the board.";
+      renderBattleshipBoard();
+    }
+
+    if (resetBattleshipBtn) {
+      resetBattleshipBtn.addEventListener("click", startBattleshipGame);
+      startBattleshipGame();
+    }
+
+    const musicBtn = document.getElementById("musicToggle");
+    const lofiAudio = document.getElementById("lofiAudio");
+    let musicPlaying = false;
+
+    function toggleMusic() {
+      if (!musicBtn || !lofiAudio) return;
+      if (!musicPlaying) {
+        lofiAudio.play();
+        musicBtn.textContent = "⏸ Pause Music";
+        musicPlaying = true;
+      } else {
+        lofiAudio.pause();
+        musicBtn.textContent = "🎧 Play Lo-Fi";
+        musicPlaying = false;
+      }
+    }
+
+    if (musicBtn && lofiAudio) {
+      musicBtn.addEventListener("click", toggleMusic);
+      document.addEventListener("keydown", function (e) {
+        if (e.key.toLowerCase() === "m") toggleMusic();
+      });
+    }
+
+    const themeToggle = document.getElementById("themeToggle");
+
+    function drawRadarChart() {
+      const radarCanvas = document.getElementById("skillRadar");
+      const radarCtx = radarCanvas ? radarCanvas.getContext("2d") : null;
+      if (!radarCanvas || !radarCtx) return;
+
+      const size = radarCanvas.width;
+      const cx = size / 2;
+      const cy = size / 2;
+      const radius = 78;
+      const labels = ["Web", "JS", "Python", "Java", "DevSecOps", "Writing", "Agile"];
+      const values = [90, 85, 80, 78, 82, 88, 90];
+      const levels = 5;
+
+      radarCtx.clearRect(0, 0, radarCanvas.width, radarCanvas.height);
+      radarCtx.strokeStyle = "rgba(148, 163, 184, 0.28)";
+      radarCtx.lineWidth = 1;
+
+      for (let level = 1; level <= levels; level++) {
+        const r = (radius / levels) * level;
+        radarCtx.beginPath();
+        for (let i = 0; i < labels.length; i++) {
+          const angle = (Math.PI * 2 / labels.length) * i - Math.PI / 2;
+          const x = cx + Math.cos(angle) * r;
+          const y = cy + Math.sin(angle) * r;
+          if (i === 0) radarCtx.moveTo(x, y);
+          else radarCtx.lineTo(x, y);
+        }
+        radarCtx.closePath();
+        radarCtx.stroke();
+      }
+
+      for (let i = 0; i < labels.length; i++) {
+        const angle = (Math.PI * 2 / labels.length) * i - Math.PI / 2;
+        const x = cx + Math.cos(angle) * radius;
+        const y = cy + Math.sin(angle) * radius;
+        radarCtx.beginPath();
+        radarCtx.moveTo(cx, cy);
+        radarCtx.lineTo(x, y);
+        radarCtx.stroke();
+        radarCtx.fillStyle = getComputedStyle(document.body).getPropertyValue("--muted").trim();
+        radarCtx.font = "11px Arial";
+        radarCtx.textAlign = x >= cx ? "left" : "right";
+        radarCtx.textBaseline = "middle";
+        radarCtx.fillText(labels[i], cx + Math.cos(angle) * (radius + 16), cy + Math.sin(angle) * (radius + 16));
+      }
+
+      radarCtx.beginPath();
+      values.forEach((value, i) => {
+        const angle = (Math.PI * 2 / labels.length) * i - Math.PI / 2;
+        const r = (value / 100) * radius;
+        const x = cx + Math.cos(angle) * r;
+        const y = cy + Math.sin(angle) * r;
+        if (i === 0) radarCtx.moveTo(x, y);
+        else radarCtx.lineTo(x, y);
+      });
+      radarCtx.closePath();
+      radarCtx.fillStyle = "rgba(56, 189, 248, 0.22)";
+      radarCtx.strokeStyle = "rgba(56, 189, 248, 0.95)";
+      radarCtx.lineWidth = 2;
+      radarCtx.fill();
+      radarCtx.stroke();
+
+      values.forEach((value, i) => {
+        const angle = (Math.PI * 2 / labels.length) * i - Math.PI / 2;
+        const r = (value / 100) * radius;
+        const x = cx + Math.cos(angle) * r;
+        const y = cy + Math.sin(angle) * r;
+        radarCtx.beginPath();
+        radarCtx.arc(x, y, 3, 0, Math.PI * 2);
+        radarCtx.fillStyle = "rgba(56, 189, 248, 1)";
+        radarCtx.fill();
+      });
+    }
+
+    function toggleTheme() {
+      document.body.classList.toggle("light-mode");
+      setTimeout(drawRadarChart, 60);
+    }
+
+    if (themeToggle) {
+      themeToggle.addEventListener("click", toggleTheme);
+      document.addEventListener("keydown", function (e) {
+        if (e.key.toLowerCase() === "t") toggleTheme();
+      });
+    }
+
+    drawRadarChart();
+
+    const typingLine = document.getElementById("typingLine");
+    const typingPhrases = [
+      "DevSecOps Professional",
+      "Cloud Systems Specialist",
+      "Agile Team Collaborator",
+      "Computer Technology Student"
+    ];
+    let phraseIndex = 0;
+
+    function cycleTyping() {
+      if (!typingLine) return;
+      typingLine.textContent = typingPhrases[phraseIndex];
+      phraseIndex = (phraseIndex + 1) % typingPhrases.length;
+    }
+    cycleTyping();
+    setInterval(cycleTyping, 2400);
+
+    const chatToggle = document.getElementById("chatToggle");
+    const chatbot = document.getElementById("chatbot");
+    const chatBody = document.getElementById("chatBody");
+    const chatInput = document.getElementById("chatInput");
+    const sendBtn = document.getElementById("sendBtn");
+
+    if (chatToggle && chatbot) {
+      chatToggle.addEventListener("click", function () {
+        chatbot.classList.toggle("open");
+      });
+    }
+
+    function getBotReply(userMessage) {
+      const message = userMessage.toLowerCase();
+      if (message.includes("skill")) return "My core skills include web development, JavaScript, Python, Java, cloud and DevSecOps work, technical writing, and Agile collaboration.";
+      if (message.includes("project")) return "Featured work includes my playable Battleship game, original Java Battleship repository, this portfolio site, and my broader DevSecOps and cloud-focused work.";
+      if (message.includes("resume")) return "You can view or download my resume from the Resume section.";
+      if (message.includes("education") || message.includes("school") || message.includes("degree")) return "I’m completing a B.S. in Computer Technology at Bowie State University, expected in May 2026, with a 3.97 GPA.";
+      if (message.includes("github")) return "My GitHub profile is linked in the site and includes my Battleship Java source code and portfolio repository.";
+      if (message.includes("contact") || message.includes("email")) return "You can reach me through the contact form or email me directly at downing_katie@yahoo.com.";
+      if (message.includes("hello") || message.includes("hi")) return "Hello! Feel free to ask about my skills, projects, resume, education, GitHub profile.";
+      return "I can help with questions about skills, projects, resume details, education, GitHub, or contact information.";
+    }
+
+    function addMessage(text, sender) {
+      if (!chatBody) return;
+      const messageDiv = document.createElement("div");
+      messageDiv.classList.add("message", sender);
+      messageDiv.textContent = text;
+      chatBody.appendChild(messageDiv);
+      chatBody.scrollTop = chatBody.scrollHeight;
+    }
+
+    function handleChat() {
+      if (!chatInput) return;
+      const userText = chatInput.value.trim();
+      if (!userText) return;
+      addMessage(userText, "user");
+      const reply = getBotReply(userText);
+      setTimeout(function () { addMessage(reply, "bot"); }, 350);
+      chatInput.value = "";
+    }
+
+    if (sendBtn) sendBtn.addEventListener("click", handleChat);
+    if (chatInput) {
+      chatInput.addEventListener("keydown", function (event) {
+        if (event.key === "Enter") handleChat();
+      });
+    }
+  </script>
 </body>
 </html>
